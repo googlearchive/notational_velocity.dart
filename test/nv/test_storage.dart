@@ -1,5 +1,6 @@
 library test.nv.storage;
 
+import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 
@@ -8,12 +9,37 @@ void main([Storage storage]) {
     storage = new StringStorage.memory();
   }
 
+  setUp(() {
+    return storage.clear();
+  });
+
+  test('add many and clear', () {
+    return Future.forEach(_validValues.keys, (key) {
+      return storage.set(key, _validValues[key]);
+    })
+    .then((_) {
+      return Future.forEach(_validValues.keys, (key) {
+        return storage.get(key)
+            .then((value) {
+              expect(value, _validValues[key]);
+            });
+      });
+    })
+    .then((_) {
+      return storage.clear();
+    })
+    .then((_) {
+      return Future.forEach(_validValues.keys, (key) {
+        return storage.get(key)
+            .then((value) {
+              expect(value, null);
+            });
+      });
+    });
+  });
+
   group('store values', () {
     const key = 'test_key';
-
-    setUp(() {
-      return storage.clear();
-    });
 
     for(var description in _validValues.keys) {
       var testValue = _validValues[description];
