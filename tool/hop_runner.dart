@@ -23,6 +23,8 @@ void main() {
       rejectDeprecatedFeatures: true,
       allowUnsafeEval: false));
 
+  // TODO: add in a script to auto-update the packaged scripts to load
+
   runHop();
 }
 
