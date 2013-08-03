@@ -13,6 +13,16 @@ void main() {
 
   addTask('chrome', new Task.async(_launchChrome));
 
+  //
+  // app_dart2js
+  //
+  final paths = ['test/packaged/harness_packaged.dart'];
+
+  addTask('app_dart2js', createDartCompilerTask(paths,
+      liveTypeAnalysis: true,
+      rejectDeprecatedFeatures: true,
+      allowUnsafeEval: false));
+
   runHop();
 }
 

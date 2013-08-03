@@ -5,7 +5,7 @@
   "minimum_chrome_version": "28",
   "app": {
     "background": {
-      "scripts": ["packaged_app_script.js"]
+      "scripts": ["packaged/boot.js"]
     }
   },
   "permissions": [ "storage" ]
