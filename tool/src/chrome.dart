@@ -1,6 +1,7 @@
 library nv.tool.chrome;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:bot_io/bot_io.dart';
 
@@ -10,14 +11,21 @@ const _chromePath = '/Users/kevin/source/dev/Google Chrome.app/Contents/MacOS/Go
 Future launchChrome() {
   var testLaunch =
     {
-     'load-and-launch-app': '/Users/kevin/source/github/pop-pop-win/app_package',
-     'no-startup-window': null
+     'load-and-launch-app': 'test',
+     'no-startup-window': null,
+     'enable-logging': 'stderr'
     };
 
-  return TempDir.then((dir) => _launchChrome(dir, testLaunch));
+  return TempDir
+      .then((dir) => _launchChrome(dir, testLaunch))
+      .then((int exitCode) {
+        if(exitCode != 0) {
+          throw 'process failed';
+        }
+      });
 }
 
-Future _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
+Future<int> _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
 
   if(argsMap == null) {
     argsMap = {};
@@ -39,13 +47,25 @@ Future _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
 
   print(args);
 
-  return Process.run(_chromePath, args)
-      .then((ProcessResult pr) {
+  return Process.start(_chromePath, args)
+      .then((Process process) {
 
-        if(pr.exitCode != 0) {
-          print(pr.stdout);
-          print(pr.stderr);
-          throw new Exception('chrome did not exit happy');
+        _captureStd(false, process.stdout);
+        _captureStd(true, process.stderr);
+
+        return process.exitCode;
+      });
+}
+
+void _captureStd(bool process, Stream<List<int>> std) {
+
+  std.transform(UTF8.decoder)
+    .transform(new LineTransformer())
+    .listen((String line) {
+    if(process) {
+      print(line);
         }
+  }, onDone: () {
+    // done!
       });
 }

@@ -1,0 +1,12 @@
+{
+  "manifest_version": 2,
+  "name": "nv.dart",
+  "version": "0.0.1",
+  "minimum_chrome_version": "28",
+  "app": {
+    "background": {
+      "scripts": ["packaged_app_script.js"]
+    }
+  },
+  "permissions": [ "storage" ]
+}
