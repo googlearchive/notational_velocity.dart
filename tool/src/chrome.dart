@@ -64,8 +64,10 @@ void _captureStd(bool process, Stream<List<int>> std) {
     .listen((String line) {
     if(process) {
       print(line);
-        }
+    }
   }, onDone: () {
     // done!
-      });
+  });
 }
+
+//final _chromeLogRegexp = new RegExp('\[(\d+)\:(\d+)\:(\d+)/(\d+):(\w+):(.*)\]', multiLine: false);
