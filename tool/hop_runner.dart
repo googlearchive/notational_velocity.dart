@@ -16,7 +16,7 @@ void main() {
   //
   // app_dart2js
   //
-  final paths = ['test/packaged/harness_packaged.dart'];
+  final paths = ['test/app/harness_packaged.dart'];
 
   addTask('app_dart2js', createDartCompilerTask(paths,
       liveTypeAnalysis: true,
