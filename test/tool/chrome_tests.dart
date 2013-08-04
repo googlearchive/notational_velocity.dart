@@ -18,28 +18,35 @@ Future _test() {
   return file.openRead()
       .transform(new Utf8Decoder())
       .transform(new LineSplitter())
-      .forEach((String block) {
-        print('Line!');
-        print(block.length);
+      .forEach((ChromeLogRecord block) {
+        //print('Line!');
+        //print(block);
       });
 }
 
 //final _chromeLogRegexp = new RegExp('\[(\d+)\:(\d+)\:(\d+)/(\d+):(\w+):(.*)\]', multiLine: false);
 
+class ChromeLogRecord {
+  final int pid;
+  final String rest;
 
-class LineSplitter extends Converter<String, List<String>> {
-  List<String> convert(String data) {
-    var lines = new List<String>();
+  ChromeLogRecord(this.pid, this.rest);
+
+  static ChromeLogRecord parse(String foo) {
+
+  }
+}
+
+class LineSplitter extends Converter<String, List<ChromeLogRecord>> {
+  List<ChromeLogRecord> convert(String data) {
+    var lines = new List<ChromeLogRecord>();
 
     _LineSplitterSink._addSlice(data, 0, data.length, true, lines.add);
 
     return lines;
   }
 
-  ChunkedConversionSink startChunkedConversion(ChunkedConversionSink<String> sink) {
-    if (sink is! StringConversionSink) {
-      sink = new StringConversionSink.from(sink);
-    }
+  ChunkedConversionSink startChunkedConversion(ChunkedConversionSink<ChromeLogRecord> sink) {
     return new _LineSplitterSink(sink);
   }
 }
@@ -48,7 +55,7 @@ class _LineSplitterSink extends StringConversionSinkBase {
   static const int _LF = 10;
   static const int _CR = 13;
 
-  final StringConversionSink _sink;
+  final ChunkedConversionSink<ChromeLogRecord> _sink;
 
   String _carry;
 
@@ -69,7 +76,7 @@ class _LineSplitterSink extends StringConversionSinkBase {
     addSlice('', 0, 0, true);
   }
 
-  static String _addSlice(String chunk, int start, int end, bool isLast, void adder(String)) {
+  static String _addSlice(String chunk, int start, int end, bool isLast, void adder(ChromeLogRecord record)) {
     String carry = null;
     int startPos = start;
     int pos = start;
@@ -89,7 +96,9 @@ class _LineSplitterSink extends StringConversionSinkBase {
         }
       }
       if (skip > 0) {
-        adder(chunk.substring(startPos, pos));
+        var val = chunk.substring(startPos, pos);
+
+        adder(ChromeLogRecord.parse(val));
         startPos = pos = pos + skip;
       } else {
         pos++;
@@ -100,7 +109,7 @@ class _LineSplitterSink extends StringConversionSinkBase {
       carry = chunk.substring(startPos, pos);
     }
     if(isLast && carry != null) {
-      adder(carry);
+      adder(ChromeLogRecord.parse(carry));
       return null;
     }
     return carry;
