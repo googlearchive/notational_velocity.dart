@@ -4,11 +4,18 @@ import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 
-void main([Storage storage]) {
-  if(storage == null) {
-    storage = new StringStorage.memory();
-  }
+void testStorage(Map<String, Storage> stores) {
+  group('test storage', () {
+    stores.forEach((String storeName, Storage store) {
+      group(storeName, () {
+        main(store);
+      });
+    });
+  });
 
+}
+
+void main(Storage storage) {
   setUp(() {
     return storage.clear();
   });

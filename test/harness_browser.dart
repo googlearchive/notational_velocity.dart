@@ -11,20 +11,9 @@ main() {
   groupSep = ' - ';
   useHtmlEnhancedConfiguration();
 
-  group('storage', () {
-    group('memory', () {
-      storage.main();
-    });
-
-    group('localStorage', () {
-      var store = new StringStorage(window.localStorage);
-      storage.main(store);
-    });
-
-    group('sessionStorage', () {
-      var store = new StringStorage(window.sessionStorage);
-      storage.main(store);
-    });
+  storage.testStorage({
+    'memory': new StringStorage.memory(),
+    'localStorage': new StringStorage(window.localStorage),
+    'sessionStorage': new StringStorage(window.sessionStorage)
   });
-
 }

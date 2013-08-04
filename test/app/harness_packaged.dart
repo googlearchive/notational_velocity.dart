@@ -12,20 +12,9 @@ main() {
   groupSep = ' - ';
   useHtmlEnhancedConfiguration();
 
-  group('storage', () {
-    group('memory', () {
-      storage.main();
-    });
-
-    group('sessionStorage', () {
-      var store = new StringStorage(window.sessionStorage);
-      storage.main(store);
-    });
-
-    group('chrome Storage', () {
-      var store = new chrome.PackagedStorage();
-      storage.main(store);
-    });
+  storage.testStorage({
+    'memory': new StringStorage.memory(),
+    'sessionStorage': new StringStorage(window.sessionStorage),
+    'chrome Storage':new chrome.PackagedStorage()
   });
-
 }
