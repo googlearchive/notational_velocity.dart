@@ -1,0 +1,2380 @@
+[25429:25859:0803/134631:VERBOSE1:host_resolver_impl.cc(2045)] IPv6Probe forced AddressFamily setting to ADDRESS_FAMILY_IPV4
+[25429:1799:0803/134631:VERBOSE1:pref_proxy_config_tracker_impl.cc(145)] 0x78e370e0: set chrome proxy config service to 0x79c1e240
+[25429:1799:0803/134631:VERBOSE1:pref_proxy_config_tracker_impl.cc(270)] 0x78e370e0: Done pushing proxy to UpdateProxyConfig
+[25429:1799:0803/134631:VERBOSE1:plugin_service_impl.cc(250)] Watching for changes in: /Users/kevin/Library/Internet Plug-Ins
+[25429:1799:0803/134631:VERBOSE1:plugin_service_impl.cc(250)] Watching for changes in: /Library/Internet Plug-Ins
+[25429:1799:0803/134631:VERBOSE1:pref_proxy_config_tracker_impl.cc(145)] 0x78ebcb60: set chrome proxy config service to 0x78ebca80
+[25429:1799:0803/134631:VERBOSE1:pref_proxy_config_tracker_impl.cc(270)] 0x78ebcb60: Done pushing proxy to UpdateProxyConfig
+[25429:1799:0803/134631:VERBOSE1:extension_service.cc(2057)] Component extension Bookmark Manager (eemcgdkfndhakfknompkggombfjjjeno) installing/upgrading from '' to 0.1
+[25429:1799:0803/134631:VERBOSE1:extension_service.cc(2057)] Component extension Cloud Print (mfehgcgbbipciphmccgaenjidiccnmng) installing/upgrading from '' to 0.1
+[25429:1799:0803/134631:VERBOSE1:extension_service.cc(2057)] Component extension Store (ahfgeienlihckogmohjhadlkjgocpleb) installing/upgrading from '' to 0.2
+[25429:1799:0803/134631:VERBOSE1:extension_service.cc(2057)] Component extension Chrome (mgndgikekgjfcpckkfioiadnlibdjbkf) installing/upgrading from '' to 0.1
+[25429:1799:0803/134631:VERBOSE1:extension_service.cc(2057)] Component extension Settings (ennkphjdgehloodpbhlhldgbnhmacadg) installing/upgrading from '' to 0.2
+[25429:25859:0803/134631:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25429:24835:0803/134631:WARNING:external_pref_loader.cc(127)] You are using an old-style extension deployment method (external_extensions.json), which will soon be deprecated. (see http://code.google.com/chrome/extensions/external_extensions.html )
+[25433:17923:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25433:1799:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25433:1799:0803/134631:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134631:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/_generated_background_page.html
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/_generated_background_page.html" bytes_read = 63
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/_generated_background_page.html" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/_generated_background_page.html
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/_generated_background_page.html
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/_generated_background_page.html" bytes_read = 64
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/_generated_background_page.html" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/_generated_background_page.html
+[25434:1799:0803/134631:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id: ennkphjdgehloodpbhlhldgbnhmacadg
+  frame:        0x7318dc0
+  context type: BLESSED_EXTENSION
+[25434:1799:0803/134631:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id:
+  frame:        0
+  context type: UNSPECIFIED
+[25438:18435:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25438:1799:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25438:1799:0803/134631:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25435:1799:0803/134631:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id: ljlfghnhjpengjagppmmhblkflmehihl
+  frame:        0x740bdc0
+  context type: BLESSED_EXTENSION
+[25435:1799:0803/134631:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id:
+  frame:        0
+  context type: UNSPECIFIED
+[25436:1799:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25436:18435:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25439:18435:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25439:1799:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25436:1799:0803/134631:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25434:1799:0803/134631:VERBOSE1:dispatcher.cc(1147)] Num tracked contexts: 1
+[25439:1799:0803/134631:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25437:17923:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25437:1799:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25437:1799:0803/134631:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/settings_app.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/settings_app.js" bytes_read = 372
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/settings_app.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ennkphjdgehloodpbhlhldgbnhmacadg/settings_app.js
+[25435:1799:0803/134631:VERBOSE1:dispatcher.cc(1147)] Num tracked contexts: 1
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/boot.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/boot.js" bytes_read = 191
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/boot.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/boot.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.html
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.html" bytes_read = 440
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.html" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.html
+[25435:1799:0803/134631:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id: ljlfghnhjpengjagppmmhblkflmehihl
+  frame:        0x740b3c0
+  context type: BLESSED_EXTENSION
+[25435:1799:0803/134631:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id:
+  frame:        0
+  context type: UNSPECIFIED
+[25435:1799:0803/134631:VERBOSE1:dispatcher.cc(1147)] Num tracked contexts: 2
+[25431:1799:0803/134631:INFO:gpu_command_buffer_stub.cc(459)] Created virtual GL context.
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/test_controller.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/interop.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart_interop.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/test_controller.js" bytes_read = 5310
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/test_controller.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/test_controller.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart.js" bytes_read = 1576
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/interop.js" bytes_read = 17641
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/interop.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/interop.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart_interop.js" bytes_read = 19255
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart_interop.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/dart_interop.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart" bytes_read = 670
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 32768
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 26156
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js" bytes_read = 0
+[25429:25859:0803/134631:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://ljlfghnhjpengjagppmmhblkflmehihl/packaged/harness_packaged.dart.js
+[25429:25859:0803/134631:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25429:25859:0803/134631:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25429:25859:0803/134631:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25429:25859:0803/134631:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25441:17155:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25441:1799:0803/134631:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25441:1799:0803/134631:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25442:17667:0803/134632:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25442:1799:0803/134632:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25442:1799:0803/134632:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134632:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25429:25859:0803/134633:VERBOSE1:bandwidth_metrics.h(95)] Bandwidth: 8206.93Kbps (avg 8206.93Kbps)
+[25429:25859:0803/134633:VERBOSE1:bandwidth_metrics.h(95)] Bandwidth: 8694.54Kbps (avg 8450.74Kbps)
+[25429:25859:0803/134633:VERBOSE1:bandwidth_metrics.h(95)] Bandwidth: 9215.74Kbps (avg 8705.74Kbps)
+[25443:1799:0803/134633:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25443:17411:0803/134633:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25443:1799:0803/134633:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134633:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25444:17411:0803/134633:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25444:1799:0803/134633:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25444:1799:0803/134633:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/_generated_background_page.html
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/_generated_background_page.html" bytes_read = 61
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/_generated_background_page.html" bytes_read = 0
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/_generated_background_page.html
+[25445:1799:0803/134633:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id: nmmhkkegccagdldgiimedpiccmgmieda
+  frame:        0x7310dc0
+  context type: BLESSED_EXTENSION
+[25429:25859:0803/134633:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25445:1799:0803/134633:VERBOSE1:chrome_v8_context.cc(38)] Created context:
+  extension id:
+  frame:        0
+  context type: UNSPECIFIED
+[25445:1799:0803/134633:VERBOSE1:dispatcher.cc(1147)] Num tracked contexts: 1
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(341)] OnResponseStarted: chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/background.js
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/background.js" bytes_read = 1368
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(381)] OnReadCompleted: "chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/background.js" bytes_read = 0
+[25429:25859:0803/134633:VERBOSE1:resource_loader.cc(634)] ResponseCompleted: chrome-extension://nmmhkkegccagdldgiimedpiccmgmieda/background.js
+[25446:17411:0803/134633:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25446:1799:0803/134633:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25446:1799:0803/134633:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134633:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25447:17411:0803/134634:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25447:1799:0803/134634:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25447:1799:0803/134634:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134634:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25448:17667:0803/134634:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25448:1799:0803/134634:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25448:1799:0803/134634:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25429:25859:0803/134634:VERBOSE1:database_manager.cc(1035)] SafeBrowsingCheckDone
+[25449:17411:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25449:1799:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25449:1799:0803/134636:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+
+[25435:1799:0803/134636:VERBOSE1:dispatcher.cc(1183)] Num tracked contexts: 1
+[25435:1799:0803/134636:VERBOSE1:chrome_v8_context.cc(45)] Destroyed context for extension
+  extension id: ljlfghnhjpengjagppmmhblkflmehihl
+[25435:1799:0803/134636:VERBOSE1:chrome_v8_context.cc(45)] Destroyed context for extension
+  extension id:
+[25435:20231:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25445:19975:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25434:20743:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25429:1799:0803/134636:VERBOSE1:pref_proxy_config_tracker_impl.cc(145)] 0x78ebcb60: set chrome proxy config service to 0
+[25431:17679:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25431:1799:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25431:17679:0803/134636:VERBOSE1:ipc_sync_channel.cc(385)] Canceling pending sends
+[25429:1799:0803/134636:WARNING:pref_notifier_impl.cc(27)] pref observer found at shutdown plugins.always_authorize
+[25429:1799:0803/134636:WARNING:pref_notifier_impl.cc(27)] pref observer found at shutdown plugins.allow_outdated
+[25429:1799:0803/134636:VERBOSE1:pref_proxy_config_tracker_impl.cc(145)] 0x78e370e0: set chrome proxy config service to 0
+[25429:1799:0803/134636:VERBOSE1:statistics_recorder.cc(263)] Collections of all histograms
+Histogram: AsyncDNS.ConfigChange recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.ConfigParseDuration recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ConfigParsePosix recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ConfigParseResult recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.DnsClientEnabled recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.HaveDnsConfig recorded 8 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (8 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.HostParseResult recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.HostsChange recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.HostsParseDuration recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.HostsSize recorded 1 samples, average = 236.0 (flags = 0x1)
+0    ...
+196  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+258  ...
+
+Histogram: AsyncDNS.JobQueueTime recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.JobQueueTimeAfterChange recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.JobQueueTimeAfterChange_LOWEST recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.JobQueueTimeAfterChange_MEDIUM recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.JobQueueTime_LOWEST recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.JobQueueTime_MEDIUM recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ParseToAddressList recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ResolveStatus recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ResolveSuccess recorded 8 samples, average = 58.6 (flags = 0x1)
+0   ...
+50  ------------------------O                                                 (2 = 25.0%) {0.0%}
+58  ------------------------------------------------------------------------O (6 = 75.0%) {25.0%}
+67  ...
+
+Histogram: AsyncDNS.ResolveSuccess_FAMILY_IPV4 recorded 8 samples, average = 58.6 (flags = 0x1)
+0   ...
+50  ------------------------O                                                 (2 = 25.0%) {0.0%}
+58  ------------------------------------------------------------------------O (6 = 75.0%) {25.0%}
+67  ...
+
+Histogram: AsyncDNS.ServerCount recorded 1 samples, average = 2.0 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+3  ...
+
+Histogram: AsyncDNS.ServerFailuresAfterNetworkChange recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ServerFailuresBeforeSuccess recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.ServerIsGood recorded 16 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (16 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: AsyncDNS.SuffixSearchDone recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.SuffixSearchRemain recorded 8 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (8 = 100.0%) {0.0%}
+2  ...
+
+Histogram: AsyncDNS.SuffixSearchStart recorded 8 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (8 = 100.0%) {0.0%}
+2  ...
+
+Histogram: AsyncDNS.TTL recorded 23 samples, average = 210304.3 (flags = 0x1)
+0       ...
+146586  ------------------------------------------------------------------------O (10 = 43.5%) {0.0%}
+164613  O                                                                         (0 = 0.0%) {43.5%}
+184857  ----------------------O                                                   (3 = 13.0%) {43.5%}
+207590  --------------O                                                           (2 = 8.7%) {56.5%}
+233119  --------------O                                                           (2 = 8.7%) {65.2%}
+261788  ----------------------O                                                   (3 = 13.0%) {73.9%}
+293982  ----------------------O                                                   (3 = 13.0%) {87.0%}
+330135  ...
+
+Histogram: AsyncDNS.TimeoutErrorHistogram recorded 8 samples, average = 12.8 (flags = 0x1)
+0   ------------------------------------------------------------------------O (5 = 62.5%)
+1   ...
+6   --------------O                                                           (1 = 12.5%) {62.5%}
+7   ...
+40  ---O                                                                      (1 = 12.5%) {75.0%}
+48  ---O                                                                      (1 = 12.5%) {87.5%}
+57  ...
+
+Histogram: AsyncDNS.TimeoutErrorHistogramUnder recorded 8 samples, average = 2.4 (flags = 0x1)
+0  ------------------------------------------------------------------------O (3 = 37.5%)
+1  ...
+3  ------------------------------------------------O                         (2 = 25.0%) {37.5%}
+4  ------------------------------------------------O                         (2 = 25.0%) {62.5%}
+5  ------------------------O                                                 (1 = 12.5%) {87.5%}
+6  ...
+
+Histogram: AsyncDNS.TimeoutErrorJacobson recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: AsyncDNS.TimeoutErrorJacobsonUnder recorded 8 samples, average = 2171.2 (flags = 0x1)
+0     ...
+894   ------------------O                                                       (1 = 12.5%) {0.0%}
+1062  ...
+1500  ------------------O                                                       (1 = 12.5%) {12.5%}
+1782  O                                                                         (0 = 0.0%) {25.0%}
+2117  ------------------------------------------------------------------------O (4 = 50.0%) {25.0%}
+2516  ------------------------------------O                                     (2 = 25.0%) {75.0%}
+2990  ...
+
+Histogram: AsyncDNS.TotalTime recorded 8 samples, average = 58.5 (flags = 0x1)
+0   ...
+50  -------------------------------------------O                              (3 = 37.5%) {0.0%}
+58  ------------------------------------------------------------------------O (5 = 62.5%) {37.5%}
+67  ...
+
+Histogram: AsyncDNS.TotalTime_speculative recorded 1 samples, average = 57.0 (flags = 0x1)
+0   ...
+50  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+58  ...
+
+Histogram: AsyncDNS.TransactionSuccess recorded 8 samples, average = 58.5 (flags = 0x1)
+0   ...
+50  -------------------------------------------O                              (3 = 37.5%) {0.0%}
+58  ------------------------------------------------------------------------O (5 = 62.5%) {37.5%}
+67  ...
+
+Histogram: AsyncDNS.TransactionSuccess_A recorded 8 samples, average = 58.5 (flags = 0x1)
+0   ...
+50  -------------------------------------------O                              (3 = 37.5%) {0.0%}
+58  ------------------------------------------------------------------------O (5 = 62.5%) {37.5%}
+67  ...
+
+Histogram: AsyncDNS.UDPAttemptSuccess recorded 8 samples, average = 58.2 (flags = 0x1)
+0   ...
+50  ------------------------------------------------------------------------O (4 = 50.0%) {0.0%}
+58  ------------------------------------------------------------------------O (4 = 50.0%) {50.0%}
+67  ...
+
+Histogram: AsyncDNS.WatchStatus recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cache.MaxCacheSizeMB recorded 1 samples, average = 32.0 (flags = 0x1)
+0   ...
+29  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+33  ...
+
+Histogram: ChildProcess.Disconnected2 recorded 13 samples, average = 6.0 (flags = 0x1)
+0  ...
+6  ------------------------------------------------------------------------O (13 = 100.0%) {0.0%}
+7  ...
+
+Histogram: ChildProcess.DisconnectedAlive2 recorded 10 samples, average = 6.0 (flags = 0x1)
+0  ...
+6  ------------------------------------------------------------------------O (10 = 100.0%) {0.0%}
+7  ...
+
+Histogram: ChildProcessSecurityPolicy.PerChildFilePermissions recorded 3 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (3 = 100.0%)
+1  ...
+
+Histogram: Chrome.CommandLineDatDirCount recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Chrome.CommandLineFlagCount recorded 1 samples, average = 9.0 (flags = 0x1)
+0  ...
+9  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+10 ...
+
+Histogram: Chrome.CommandLineUncommonFlagCount recorded 1 samples, average = 8.0 (flags = 0x1)
+0  ...
+8  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+9  ...
+
+Histogram: ContentSettings.DefaultCookiesSetting recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: ContentSettings.DefaultImagesSetting recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: ContentSettings.DefaultJavaScriptSetting recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: ContentSettings.DefaultLocationSetting recorded 1 samples, average = 3.0 (flags = 0x1)
+0  ...
+3  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+4  ...
+
+Histogram: ContentSettings.DefaultMediaStreamSetting recorded 1 samples, average = 3.0 (flags = 0x1)
+0  ...
+3  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+4  ...
+
+Histogram: ContentSettings.DefaultMouseCursorSetting recorded 1 samples, average = 3.0 (flags = 0x1)
+0  ...
+3  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+4  ...
+
+Histogram: ContentSettings.DefaultNotificationsSetting recorded 1 samples, average = 3.0 (flags = 0x1)
+0  ...
+3  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+4  ...
+
+Histogram: ContentSettings.DefaultPluginsSetting recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: ContentSettings.DefaultPopupsSetting recorded 1 samples, average = 2.0 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+3  ...
+
+Histogram: ContentSettings.NumberOfAllowCookiesExceptions recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: ContentSettings.NumberOfBlockCookiesExceptions recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: ContentSettings.NumberOfExceptions recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: ContentSettings.NumberOfSessionOnlyCookiesExceptions recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.BetweenAccessIntervalMinutes recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.Count recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.DeletionCause recorded 2 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: Cookie.DomainCount recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.DomainPerEtldp1Count recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.Etldp1Count recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.EvictedLastAccessMinutes recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.ExpirationDurationMinutes recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Cookie.NumberOfLoadedCookies recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.PriorityBlockingTime recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.PriorityLoadCount recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Cookie.TimeBlockedOnLoad recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Cookie.TimeGet recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.TimeInitializeDB recorded 1 samples, average = 4.0 (flags = 0x1)
+0  ...
+4  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+5  ...
+
+Histogram: Cookie.TimeInitializeDomainMap recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.TimeKeyLoadDBQueueWait recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Cookie.TimeLoad recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Cookie.TimeLoadDBQueueWait recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.TimeLoadDomains recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Cookie.TimeParseDomains recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: DNS.PrefetchQueue recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: DNS.PrefetchResolution recorded 1 samples, average = 58.0 (flags = 0x1)
+0   ...
+56  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+63  ...
+
+Histogram: DiskCache.0.Error recorded 2 samples, average = 7.5 (flags = 0x1)
+0   ------------------------------------------------------------------------O (1 = 50.0%)
+1   ...
+15  ------------------------------------------------------------------------O (1 = 50.0%) {50.0%}
+16  ...
+
+Histogram: DiskCache.4.Error recorded 2 samples, average = 7.5 (flags = 0x1)
+0   ------------------------------------------------------------------------O (1 = 50.0%)
+1   ...
+15  ------------------------------------------------------------------------O (1 = 50.0%) {50.0%}
+16  ...
+
+Histogram: DiskCache.CreateBlock recorded 2 samples, average = 0.0
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: DiskCache.GetFileForNewBlock recorded 2 samples, average = 0.0
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: DomainBoundCerts.Support recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: Enterprise.PolicyLoadStatus recorded 34 samples, average = 1.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (17 = 50.0%)
+1  O                                                                         (0 = 0.0%) {50.0%}
+2  ------------------------------------------------------------------------O (17 = 50.0%) {50.0%}
+3  ...
+
+Histogram: Extension.ExternalProvidersReadyAfter recorded 1 samples, average = 81.0 (flags = 0x1)
+0   ...
+81  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+96  ...
+
+Histogram: Extensions.AppLocation recorded 4 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (4 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Extensions.CrxFetchSuccessRetryCountOtherUrl recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: Extensions.CrxInstallDirPathLength recorded 10 samples, average = 48.0 (flags = 0x1)
+0   ...
+48  ------------------------------------------------------------------------O (10 = 100.0%) {0.0%}
+50  ...
+
+Histogram: Extensions.DeclarativeWebRequestNetworkDelay recorded 31 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (31 = 100.0%)
+1  ...
+
+Histogram: Extensions.Disabled recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.DisabledForPermissions recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.EventPageActiveTime recorded 3 samples, average = 4586.0 (flags = 0x1)
+0     ...
+2460  ------------------------------------O                                     (1 = 33.3%) {0.0%}
+3333  O                                                                         (0 = 0.0%) {33.3%}
+4516  ------------------------------------------------------------------------O (2 = 66.7%) {33.3%}
+6118  ...
+
+Histogram: Extensions.EventPageLoadTime recorded 3 samples, average = 327.3 (flags = 0x1)
+0    ...
+268  ------------------------------------O                                     (1 = 33.3%) {0.0%}
+318  ------------------------------------------------------------------------O (2 = 66.7%) {33.3%}
+378  ...
+
+Histogram: Extensions.ExtensionLocation recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Extensions.ExtensionRootPathLength recorded 1 samples, average = 48.0 (flags = 0x1)
+0   ...
+48  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+50  ...
+
+Histogram: Extensions.ExternalJsonCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.FunctionCalls recorded 57 samples, average = 108.0 (flags = 0x1)
+0    ...
+12   ------------------------------------------------------------------------O (30 = 52.6%) {0.0%}
+13   ...
+115  -----------------------------O                                            (12 = 21.1%) {52.6%}
+116  ...
+234  -------------------O                                                      (8 = 14.0%) {73.7%}
+235  ...
+361  --------------O                                                           (6 = 10.5%) {87.7%}
+362  ...
+376  --O                                                                       (1 = 1.8%) {98.2%}
+377  ...
+
+Histogram: Extensions.InstallSource recorded 7 samples, average = 2.9 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (5 = 71.4%) {0.0%}
+2  ...
+7  --------------O                                                           (1 = 14.3%) {71.4%}
+8  --------------O                                                           (1 = 14.3%) {85.7%}
+9  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Extensions.InstallType recorded 7 samples, average = 4.7 (flags = 0x1)
+0  ...
+4  ------------------------------------------------------------------------O (4 = 57.1%) {0.0%}
+5  ------------------O                                                       (1 = 14.3%) {57.1%}
+6  ------------------------------------O                                     (2 = 28.6%) {71.4%}
+7  ...
+
+Histogram: Extensions.LoadAll recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Extensions.LoadAllTime recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadAllUser recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadApp recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadAppExternal recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadAppUser recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadBrowserAction recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadContentPack recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadExtension recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadExtensionExternal recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadExtensionUser recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadHostedApp recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadPackagedApp recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadPageAction recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadPlatformApp recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadTheme recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.LoadUserScript recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.ManifestFetchSuccessRetryCountGoogleUrl recorded 2 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: Extensions.ManifestReloadNeedsRelocalization recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.ManifestReloadNotNeeded recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.ManifestReloadUnpackedDir recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.NonWebStoreNewTabPageOverrides recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.Permissions_Install recorded 7 samples, average = 2.9 (flags = 0x1)
+0   O                                                                         (0 = 0.0%)
+1   ------------------------------------------------------------------------O (6 = 85.7%) {0.0%}
+2   ...
+14  ------------O                                                             (1 = 14.3%) {85.7%}
+15  ...
+
+Histogram: Extensions.SandboxUnpackInitialCrxPathLength recorded 10 samples, average = 101.7 (flags = 0x1)
+0    ...
+72   ------------------------------------------------------------------------O (5 = 50.0%) {0.0%}
+75   ...
+128  -------------------------------------------O                              (5 = 50.0%) {50.0%}
+133  ...
+
+Histogram: Extensions.SandboxUnpackLinkFreeCrxPathLength recorded 10 samples, average = 92.2 (flags = 0x1)
+0    ...
+81   -------------------O                                                      (1 = 10.0%) {0.0%}
+84   ----------------------------------------------------------O               (4 = 40.0%) {10.0%}
+88   ...
+100  ------------------------------------------------------------------------O (5 = 50.0%) {50.0%}
+104  ...
+
+Histogram: Extensions.SandboxUnpackRate recorded 10 samples, average = 253.6 (flags = 0x1)
+0     ...
+18    ------------------------------------------------------------------------O (1 = 10.0%) {0.0%}
+20    ...
+61    -----------------------------O                                            (1 = 10.0%) {10.0%}
+68    ----------------------------------------------------------O               (2 = 20.0%) {20.0%}
+75    -----------------------------O                                            (1 = 10.0%) {40.0%}
+83    O                                                                         (0 = 0.0%) {50.0%}
+92    ----------------------------------------------------------O               (2 = 20.0%) {50.0%}
+102   ...
+125   -----------------------------O                                            (1 = 10.0%) {70.0%}
+139   -----------------------------O                                            (1 = 10.0%) {80.0%}
+154   ...
+1701  -----------------------------O                                            (1 = 10.0%) {90.0%}
+1888  ...
+
+Histogram: Extensions.SandboxUnpackRate50kBTo1mB recorded 1 samples, average = 1772.0 (flags = 0x1)
+0     ...
+1701  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+1888  ...
+
+Histogram: Extensions.SandboxUnpackRateUnder50kB recorded 9 samples, average = 84.9 (flags = 0x1)
+0    ...
+18   ------------------------------------------------------------------------O (1 = 11.1%) {0.0%}
+20   ...
+61   -----------------------------O                                            (1 = 11.1%) {11.1%}
+68   ----------------------------------------------------------O               (2 = 22.2%) {22.2%}
+75   -----------------------------O                                            (1 = 11.1%) {44.4%}
+83   O                                                                         (0 = 0.0%) {55.6%}
+92   ----------------------------------------------------------O               (2 = 22.2%) {55.6%}
+102  ...
+125  -----------------------------O                                            (1 = 11.1%) {77.8%}
+139  -----------------------------O                                            (1 = 11.1%) {88.9%}
+154  ...
+
+Histogram: Extensions.SandboxUnpackSuccess recorded 10 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (10 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Extensions.SandboxUnpackSuccessCrxSize recorded 10 samples, average = 83.3 (flags = 0x1)
+0    ...
+4    ------------------------------------------------------------O             (1 = 10.0%) {0.0%}
+5    ...
+16   ------------------------O                                                 (2 = 20.0%) {10.0%}
+21   ------------------------------------------------------------------------O (6 = 60.0%) {30.0%}
+28   ...
+590  ------------O                                                             (1 = 10.0%) {90.0%}
+777  ...
+
+Histogram: Extensions.SandboxUnpackSuccessTime recorded 10 samples, average = 273.8 (flags = 0x1)
+0    ...
+160  ------------------O                                                       (1 = 10.0%) {0.0%}
+190  ------------------------------------------------------O                   (3 = 30.0%) {10.0%}
+226  ------------------O                                                       (1 = 10.0%) {40.0%}
+268  ------------------O                                                       (1 = 10.0%) {50.0%}
+318  ------------------------------------------------------------------------O (4 = 40.0%) {60.0%}
+378  ...
+
+Histogram: Extensions.SandboxUnpackTempCrxPathLength recorded 10 samples, average = 92.2 (flags = 0x1)
+0    ...
+81   -------------------O                                                      (1 = 10.0%) {0.0%}
+84   ----------------------------------------------------------O               (4 = 40.0%) {10.0%}
+88   ...
+100  ------------------------------------------------------------------------O (5 = 50.0%) {50.0%}
+104  ...
+
+Histogram: Extensions.SandboxUnpackUnpackedCrxPathLength recorded 10 samples, average = 86.0 (flags = 0x1)
+0   ...
+84  ------------------------------------------------------------------------O (10 = 100.0%) {0.0%}
+88  ...
+
+Histogram: Extensions.UnpackSuccessInstallCause recorded 10 samples, average = 2.5 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (5 = 50.0%) {0.0%}
+3  ------------------------------------------------------------------------O (5 = 50.0%) {50.0%}
+4  ...
+
+Histogram: Extensions.UnpackSuccessInstallSource recorded 10 samples, average = 1.6 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (9 = 90.0%) {0.0%}
+2  ...
+7  --------O                                                                 (1 = 10.0%) {90.0%}
+8  ...
+
+Histogram: Extensions.UpdateCheckApp recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateCheckExtension recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateCheckGoogleUrl recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Extensions.UpdateCheckHitUrlSizeLimit recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateCheckNoUrl recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Extensions.UpdateCheckOtherUrl recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateCheckPackagedApp recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateCheckPending recorded 1 samples, average = 6.0 (flags = 0x1)
+0  ...
+6  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+7  ...
+
+Histogram: Extensions.UpdateCheckTheme recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateCheckUrlLength recorded 2 samples, average = 399.5 (flags = 0x1)
+0    ...
+196  ------------------------------------------------------------------------O (1 = 50.0%) {0.0%}
+258  ...
+590  ------------------------------------------------------------------------O (1 = 50.0%) {50.0%}
+777  ...
+
+Histogram: Extensions.UpdateOnLoad recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Extensions.UpdateSource recorded 4 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (4 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Extensions.UpdateType recorded 4 samples, average = 4.2 (flags = 0x1)
+0  ...
+4  ------------------------------------------------------------------------O (3 = 75.0%) {0.0%}
+5  ------------------------O                                                 (1 = 25.0%) {75.0%}
+6  ...
+
+Histogram: Extensions.UpdaterWriteCrxAsFile recorded 5 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (5 = 100.0%)
+1  ...
+
+Histogram: GPU.AtExitContextGroupCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: GPU.AtExitMBytesAllocated recorded 1 samples, average = 8.0 (flags = 0x1)
+0  ...
+8  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+9  ...
+
+Histogram: GPU.AtExitMBytesAllocatedMax recorded 1 samples, average = 8.0 (flags = 0x1)
+0  ...
+8  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+9  ...
+
+Histogram: GPU.AtExitMBytesLimit recorded 1 samples, average = 384.0 (flags = 0x1)
+0    ...
+339  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+389  ...
+
+Histogram: GPU.AtExitManagedMemoryClientCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: GPU.AtExitReceivedMemoryStats recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: GPU.AtExitSurfaceCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: GPU.BlacklistFeatureTestResults.Accelerated2dCanvas recorded 2 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: GPU.BlacklistFeatureTestResults.AcceleratedCompositing recorded 2 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: GPU.BlacklistFeatureTestResults.Webgl recorded 2 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: GPU.BlacklistTestResultsPerEntry recorded 2 samples, average = 48.0 (flags = 0x1)
+0   ...
+48  ------------------------------------------------------------------------O (2 = 100.0%) {0.0%}
+49  ...
+
+Histogram: GPU.GPU.GPUProcessSoftwareRendering recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: GPU.GPUProcessInitialized recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: GPU.GPUProcessLaunchCause recorded 1 samples, average = 8.0 (flags = 0x1)
+0  ...
+8  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+9  ...
+
+Histogram: GPU.GPUProcessLaunchTime recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: GPU.GPUProcessLifetimeEvents recorded 2 samples, average = 1.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 50.0%)
+1  O                                                                         (0 = 0.0%) {50.0%}
+2  ------------------------------------------------------------------------O (1 = 50.0%) {50.0%}
+3  ...
+
+Histogram: GPU.GPUProcessTerminationStatus recorded 1 samples, average = 4.0 (flags = 0x1)
+0  ...
+4  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+5  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: GPU.HardwareAccelerationModeEnabled recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: GPU.InCompositorThreadFieldTrial recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: GPU.InForceCompositingModeFieldTrial recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryDBItemCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryDBKeywordTermsCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryDBKeywordTermsPopulate recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+10 ...
+
+Histogram: History.InMemoryDBKeywordURLItemCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryDBKeywordURLPopulate recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+10 ...
+
+Histogram: History.InMemoryDBPopulate recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+10 ...
+
+Histogram: History.InMemoryTypedUrlVisitCount recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryURLChars recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryURLHistoryItems recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryURLIndexSaveCacheTime recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryURLIndexingTime recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InMemoryURLWords recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: History.InitTime recorded 1 samples, average = 55.0
+0   ...
+48  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+57  ...
+
+Histogram: History.QueryHistory recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: InstantExtended.OptInState recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: InvalidatorStorage.MigrateInvalidationVersionsPref recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: LanguageUsage.AcceptLanguage recorded 1 samples (flags = 0x1)
+25966  ------------------------------------------------------------------------O (1 = 100.0%)
+
+Histogram: LanguageUsage.ApplicationLanguage recorded 1 samples (flags = 0x1)
+25966  ------------------------------------------------------------------------O (1 = 100.0%)
+
+Histogram: Launch.Modes recorded 1 samples, average = 9.0 (flags = 0x1)
+0  ...
+9  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+10 ...
+
+Histogram: LevelDBEnv.TimeUntilSuccessForCreateDir recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: LevelDBEnv.TimeUntilSuccessForLockFile recorded 3 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (3 = 100.0%)
+1  ...
+
+Histogram: LevelDBEnv.TimeUntilSuccessForRenameFile recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalAggregate_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalAggregate_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalAggregate_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalAggregate_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalCumulativePercentage_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalCumulativePercentage_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalCumulativePercentage_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_FinalCumulativePercentage_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateAggregate_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateAggregate_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateAggregate_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateAggregate_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateCumulativePercentage_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateCumulativePercentage_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateCumulativePercentage_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_Active_IntermediateCumulativePercentage_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalAggregate_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalAggregate_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalAggregate_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalAggregate_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalCumulativePercentage_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalCumulativePercentage_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalCumulativePercentage_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_FinalCumulativePercentage_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateAggregate_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateAggregate_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateAggregate_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateAggregate_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateCumulativePercentage_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateCumulativePercentage_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateCumulativePercentage_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_CacheWait_IntermediateCumulativePercentage_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalAggregate_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalAggregate_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalAggregate_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalAggregate_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalCumulativePercentage_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalCumulativePercentage_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalCumulativePercentage_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_FinalCumulativePercentage_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateAggregate_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateAggregate_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateAggregate_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateAggregate_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateCumulativePercentage_1000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateCumulativePercentage_2000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateCumulativePercentage_20000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: LoadTimeStats.Fraction_NetworkWait_IntermediateCumulativePercentage_4000 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: MPArch.ChildProcessLaunchFirst recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: MPArch.ChildProcessLaunchSubsequent recorded 16 samples, average = 1.2 (flags = 0x1)
+0  -------------O                                                            (2 = 12.5%)
+1  ------------------------------------------------------------------------O (11 = 68.8%) {12.5%}
+2  -------------O                                                            (2 = 12.5%) {81.2%}
+3  O                                                                         (0 = 0.0%) {93.8%}
+4  -------O                                                                  (1 = 6.2%) {93.8%}
+5  ...
+
+Histogram: MPArch.RPHCountPerLoad recorded 4 samples, average = 2.2 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (3 = 75.0%) {0.0%}
+3  ------------------------O                                                 (1 = 25.0%) {75.0%}
+4  ...
+
+Histogram: MPArch.RWH_DidUpdateBackingStore recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: MPArch.RWH_InputEventDelta recorded 71 samples, average = 12.9 (flags = 0x1)
+0    ------------------------------------------------------------------------O (52 = 73.2%)
+1    -------O                                                                  (5 = 7.0%) {73.2%}
+2    ...
+14   O                                                                         (1 = 1.4%) {80.3%}
+17   O                                                                         (1 = 1.4%) {81.7%}
+20   O                                                                         (1 = 1.4%) {83.1%}
+24   -O                                                                        (4 = 5.6%) {84.5%}
+29   -O                                                                        (3 = 4.2%) {90.1%}
+34   -O                                                                        (2 = 2.8%) {94.4%}
+40   O                                                                         (1 = 1.4%) {97.2%}
+48   ...
+533  O                                                                         (1 = 1.4%) {98.6%}
+633  ...
+
+Histogram: MPArch.RWH_OnMsgUpdateRect recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: MPArch.RWH_TotalPaintTime recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: MPArch.RWH_WheelQueueSize recorded 64 samples, average = 0.0
+0  ------------------------------------------------------------------------O (64 = 100.0%)
+1  ...
+
+Histogram: NaCl.enable-nacl-debug recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: NaCl.nacl-gdb recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: NaCl.nacl-gdb-script recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Net.AsyncResourceHandler_PendingDataCount recorded 144 samples, average = 9.2 (flags = 0x1)
+0   O                                                                         (0 = 0.0%)
+1   ----------------------O                                                   (13 = 9.0%) {0.0%}
+2   --------------------------------------O                                   (22 = 15.3%) {9.0%}
+3   ----------------------O                                                   (13 = 9.0%) {24.3%}
+4   ----------O                                                               (6 = 4.2%) {33.3%}
+5   ----------O                                                               (6 = 4.2%) {37.5%}
+6   ---O                                                                      (2 = 1.4%) {41.7%}
+7   -------O                                                                  (4 = 2.8%) {43.1%}
+8   -----O                                                                    (3 = 2.1%) {45.8%}
+9   ---O                                                                      (2 = 1.4%) {47.9%}
+10  -----O                                                                    (3 = 2.1%) {49.3%}
+11  -----O                                                                    (3 = 2.1%) {51.4%}
+12  -----O                                                                    (3 = 2.1%) {53.5%}
+13  -------O                                                                  (4 = 2.8%) {55.6%}
+14  -------O                                                                  (4 = 2.8%) {58.3%}
+15  ------------------------O                                                 (14 = 9.7%) {61.1%}
+16  ------------------------------------------------------------------------O (42 = 29.2%) {70.8%}
+17  ...
+
+Histogram: Net.AsyncResourceHandler_PendingDataCount_WhenFull recorded 41 samples, average = 16.0 (flags = 0x1)
+0   ...
+16  ------------------------------------------------------------------------O (41 = 100.0%) {0.0%}
+17  ...
+
+Histogram: Net.AsyncResourceHandler_SharedIOBuffer_Alloc recorded 157 samples, average = 32585.4 (flags = 0x1)
+0      ...
+3995   O                                                                         (1 = 0.6%) {0.0%}
+4378   ...
+32768  ------------------------------------------------------------------------O (156 = 99.4%) {0.6%}
+
+Histogram: Net.AsyncResourceHandler_SharedIOBuffer_Used recorded 144 samples, average = 30317.9 (flags = 0x1)
+0      ...
+59     --O                                                                       (3 = 2.1%) {0.0%}
+65     ...
+178    -O                                                                        (1 = 0.7%) {2.1%}
+195    ...
+370    -O                                                                        (1 = 0.7%) {2.8%}
+405    -O                                                                        (1 = 0.7%) {3.5%}
+444    ...
+641    -O                                                                        (1 = 0.7%) {4.2%}
+702    ...
+1333   -O                                                                        (1 = 0.7%) {4.9%}
+1461   -O                                                                        (1 = 0.7%) {5.6%}
+1601   ...
+5257   -O                                                                        (1 = 0.7%) {6.2%}
+5761   ...
+17271  -O                                                                        (1 = 0.7%) {6.9%}
+18926  -O                                                                        (1 = 0.7%) {7.6%}
+20739  ...
+24903  -O                                                                        (1 = 0.7%) {8.3%}
+27289  ...
+32768  ------------------------------------------------------------------------O (131 = 91.0%) {9.0%}
+
+Histogram: Net.AsyncResourceHandler_SharedIOBuffer_UsedPercentage recorded 144 samples, average = 92.5 (flags = 0x1)
+0    --O                                                                       (3 = 2.1%)
+1    --O                                                                       (3 = 2.1%) {2.1%}
+2    -O                                                                        (1 = 0.7%) {4.2%}
+3    O                                                                         (0 = 0.0%) {4.9%}
+4    -O                                                                        (1 = 0.7%) {4.9%}
+5    -O                                                                        (1 = 0.7%) {5.6%}
+6    ...
+16   -O                                                                        (1 = 0.7%) {6.2%}
+17   ...
+54   -O                                                                        (1 = 0.7%) {6.9%}
+55   ...
+59   -O                                                                        (1 = 0.7%) {7.6%}
+60   ...
+80   -O                                                                        (1 = 0.7%) {8.3%}
+81   ...
+100  ------------------------------------------------------------------------O (131 = 91.0%) {9.0%}
+101  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.CertVerifier_Job_Latency recorded 6 samples, average = 19.8 (flags = 0x1)
+0   ...
+7   ------------------------------------------------------------------------O (3 = 50.0%) {0.0%}
+8   ...
+16  ------------O                                                             (1 = 16.7%) {50.0%}
+18  ...
+37  ----------O                                                               (2 = 33.3%) {66.7%}
+42  ...
+
+Histogram: Net.Compress.SSL.BytesAfterCompression recorded 6 samples, average = 4394.8 (flags = 0x1)
+0      ------------------------------------------------------------------------O (2 = 33.3%)
+500    ...
+1599   ------------------------------------O                                     (1 = 16.7%) {33.3%}
+1728   ...
+2357   ------------------------------------------------------------------------O (2 = 33.3%) {50.0%}
+2547   ...
+19137  ------------------------------------O                                     (1 = 16.7%) {83.3%}
+20681  ...
+
+Histogram: Net.Compress.SSL.BytesBeforeCompression recorded 6 samples, average = 2332.0 (flags = 0x1)
+0      ------------------------------------------------------------------------O (2 = 33.3%)
+500    ------------------------------------O                                     (1 = 16.7%) {33.3%}
+540    ...
+682    ------------------------------------O                                     (1 = 16.7%) {50.0%}
+737    ...
+1173   ------------------------------------O                                     (1 = 16.7%) {66.7%}
+1268   ...
+11119  ------------------------------------O                                     (1 = 16.7%) {83.3%}
+12016  ...
+
+Histogram: Net.ConnectionTypeCount3 recorded 28 samples, average = 5.5 (flags = 0x1)
+0   ------------------------------------------------------------------------O (7 = 25.0%)
+1   ------------------------------------------------------------------------O (7 = 25.0%) {25.0%}
+2   ...
+8   ------------------------------------------------------------------------O (7 = 25.0%) {50.0%}
+9   ...
+13  ------------------------------------------------------------------------O (7 = 25.0%) {75.0%}
+14  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.ConnectionUsedSSLVersionFallback recorded 8 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1  ...
+
+Histogram: Net.DNS_Resolution_And_TCP_Connection_Latency2 recorded 7 samples, average = 112.9 (flags = 0x1)
+0    ...
+100  ------------------------------------------------------O                   (3 = 42.9%) {0.0%}
+113  ------------------------------------------------------------------------O (4 = 57.1%) {42.9%}
+128  ...
+
+Histogram: Net.DownloadBandwidth recorded 3 samples, average = 8705.0 (flags = 0x1)
+0     ...
+7083  ------------------------------------O                                     (1 = 33.3%) {0.0%}
+8416  ------------------------------------------------------------------------O (2 = 66.7%) {33.3%}
+10000 O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.ErrorCodesForMainFrame3 recorded 4 samples (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+
+Histogram: Net.ErrorCodesForSubresources2 recorded 9 samples (flags = 0x1)
+0  ------------------------------------------------------------------------O (9 = 100.0%)
+
+Histogram: Net.GoogleConnectionUsedSSLVersionFallback recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: Net.HadConnectionType3 recorded 4 samples, average = 5.5 (flags = 0x1)
+0   ------------------------------------------------------------------------O (1 = 25.0%)
+1   ------------------------------------------------------------------------O (1 = 25.0%) {25.0%}
+2   ...
+8   ------------------------------------------------------------------------O (1 = 25.0%) {50.0%}
+9   ...
+13  ------------------------------------------------------------------------O (1 = 25.0%) {75.0%}
+14  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.HttpConnectionLatency recorded 7 samples, average = 200.9 (flags = 0x1)
+0    ...
+164  ------------------------------------------------------------------------O (3 = 42.9%) {0.0%}
+186  ------------------------O                                                 (1 = 14.3%) {42.9%}
+211  ------------------------------------------------------------------------O (3 = 42.9%) {57.1%}
+239  ...
+
+Histogram: Net.HttpJob.TotalTime recorded 13 samples, average = 250.7 (flags = 0x1)
+0    ...
+68   ------------------------------------------------------------------------O (5 = 38.5%) {0.0%}
+81   ...
+114  --------------O                                                           (1 = 7.7%) {38.5%}
+135  ...
+226  -----------------------------O                                            (2 = 15.4%) {46.2%}
+268  -----------------------------O                                            (2 = 15.4%) {61.5%}
+318  --------------O                                                           (1 = 7.7%) {76.9%}
+378  --------------O                                                           (1 = 7.7%) {84.6%}
+449  ...
+752  --------------O                                                           (1 = 7.7%) {92.3%}
+894  ...
+
+Histogram: Net.HttpJob.TotalTimeNotCached recorded 13 samples, average = 250.7 (flags = 0x1)
+0    ...
+68   ------------------------------------------------------------------------O (5 = 38.5%) {0.0%}
+81   ...
+114  --------------O                                                           (1 = 7.7%) {38.5%}
+135  ...
+226  -----------------------------O                                            (2 = 15.4%) {46.2%}
+268  -----------------------------O                                            (2 = 15.4%) {61.5%}
+318  --------------O                                                           (1 = 7.7%) {76.9%}
+378  --------------O                                                           (1 = 7.7%) {84.6%}
+449  ...
+752  --------------O                                                           (1 = 7.7%) {92.3%}
+894  ...
+
+Histogram: Net.HttpJob.TotalTimeSuccess recorded 13 samples, average = 250.7 (flags = 0x1)
+0    ...
+68   ------------------------------------------------------------------------O (5 = 38.5%) {0.0%}
+81   ...
+114  --------------O                                                           (1 = 7.7%) {38.5%}
+135  ...
+226  -----------------------------O                                            (2 = 15.4%) {46.2%}
+268  -----------------------------O                                            (2 = 15.4%) {61.5%}
+318  --------------O                                                           (1 = 7.7%) {76.9%}
+378  --------------O                                                           (1 = 7.7%) {84.6%}
+449  ...
+752  --------------O                                                           (1 = 7.7%) {92.3%}
+894  ...
+
+Histogram: Net.HttpResponseCode recorded 26 samples, average = 200.0 (flags = 0x1)
+0    ...
+200  ------------------------------------------------------------------------O (26 = 100.0%) {0.0%}
+201  ...
+
+Histogram: Net.HttpSocketType recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: Net.HttpTimeToFirstByte recorded 13 samples, average = 188.3 (flags = 0x1)
+0    ...
+50   ------------------------------------------------------------------------O (4 = 30.8%) {0.0%}
+61   ------------------O                                                       (1 = 7.7%) {30.8%}
+75   ...
+113  ------------------O                                                       (1 = 7.7%) {38.5%}
+139  ...
+210  ------------------------------------------------------O                   (3 = 23.1%) {46.2%}
+258  ------------------------------------------------------O                   (3 = 23.1%) {69.2%}
+317  O                                                                         (0 = 0.0%) {92.3%}
+389  ------------------O                                                       (1 = 7.7%) {92.3%}
+477  ...
+
+Histogram: Net.IPv6ConnectDuration recorded 31 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (31 = 100.0%)
+1  ...
+
+Histogram: Net.IPv6ConnectFailureMatch recorded 31 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (31 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.IPv6Status recorded 1 samples, average = 3.0 (flags = 0x1)
+0  ...
+3  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+4  ...
+
+Histogram: Net.NumDuplicateCookiesInDb recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.PreconnectUtilization2 recorded 7 samples, average = 2.0 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (7 = 100.0%) {0.0%}
+3  ...
+
+Histogram: Net.PreconnectedNavigation recorded 9 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (9 = 100.0%)
+1  ...
+
+Histogram: Net.PredictionTrimSize recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Net.Priority_High_Latency_b recorded 13 samples, average = 185.1 (flags = 0x1)
+0    ...
+48   ------------------------------------------------------------------------O (3 = 23.1%) {0.0%}
+54   ------------------------O                                                 (1 = 7.7%) {23.1%}
+61   O                                                                         (0 = 0.0%) {30.8%}
+69   ------------------------O                                                 (1 = 7.7%) {30.8%}
+78   ...
+113  ------------------------O                                                 (1 = 7.7%) {38.5%}
+128  ...
+211  ------------------------------------------------O                         (2 = 15.4%) {46.2%}
+239  ------------------------O                                                 (1 = 7.7%) {61.5%}
+271  ------------------------O                                                 (1 = 7.7%) {69.2%}
+307  ------------------------------------------------O                         (2 = 15.4%) {76.9%}
+348  O                                                                         (0 = 0.0%) {92.3%}
+394  ------------------------O                                                 (1 = 7.7%) {92.3%}
+446  ...
+
+Histogram: Net.PublicKeyPinSuccess recorded 6 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (6 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.RenegotiationExtensionSupported recorded 7 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (7 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.SSLCertVerificationTime recorded 7 samples, average = 21.4 (flags = 0x1)
+0   ...
+7   ------------------------------------------------------------------------O (3 = 42.9%) {0.0%}
+8   ...
+14  --------O                                                                 (1 = 14.3%) {42.9%}
+17  ...
+29  -----O                                                                    (1 = 14.3%) {57.1%}
+34  O                                                                         (0 = 0.0%) {71.4%}
+40  ----------O                                                               (2 = 28.6%) {71.4%}
+48  ...
+
+Histogram: Net.SSL_Connection_Latency_2 recorded 7 samples, average = 87.3 (flags = 0x1)
+0    ...
+62   ------------------------------------------------------------------------O (3 = 42.9%) {0.0%}
+68   O                                                                         (0 = 0.0%) {42.9%}
+75   ------------------------O                                                 (1 = 14.3%) {42.9%}
+83   ...
+101  ------------------------O                                                 (1 = 14.3%) {57.1%}
+111  ------------------------------------------------O                         (2 = 28.6%) {71.4%}
+122  ...
+
+Histogram: Net.SSL_Connection_Latency_Full_Handshake recorded 7 samples, average = 87.3 (flags = 0x1)
+0    ...
+62   ------------------------------------------------------------------------O (3 = 42.9%) {0.0%}
+68   O                                                                         (0 = 0.0%) {42.9%}
+75   ------------------------O                                                 (1 = 14.3%) {42.9%}
+83   ...
+101  ------------------------O                                                 (1 = 14.3%) {57.1%}
+111  ------------------------------------------------O                         (2 = 28.6%) {71.4%}
+122  ...
+
+Histogram: Net.SSL_Connection_Latency_Google2 recorded 3 samples, average = 84.3 (flags = 0x1)
+0    ...
+62   ------------------------------------------------------------------------O (1 = 33.3%) {0.0%}
+68   O                                                                         (0 = 0.0%) {33.3%}
+75   ------------------------------------------------------------------------O (1 = 33.3%) {33.3%}
+83   ...
+101  ------------------------------------------------------------------------O (1 = 33.3%) {66.7%}
+111  ...
+
+Histogram: Net.SSL_Connection_Latency_Google_Full_Handshake recorded 3 samples, average = 84.3 (flags = 0x1)
+0    ...
+62   ------------------------------------------------------------------------O (1 = 33.3%) {0.0%}
+68   O                                                                         (0 = 0.0%) {33.3%}
+75   ------------------------------------------------------------------------O (1 = 33.3%) {33.3%}
+83   ...
+101  ------------------------------------------------------------------------O (1 = 33.3%) {66.7%}
+111  ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_HTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_SOCK recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_SSL2 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_SSLForProxies recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_SSLforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_TCP recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_TCPforHTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_TCPforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_ReusedSocket_TCPforSOCKS recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_HTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_SOCK recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_SSL2 recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_SSLForProxies recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_SSLforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_TCP recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_TCPforHTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_TCPforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketIdleTimeBeforeNextUse_UnusedSocket_TCPforSOCKS recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_HTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_SOCK recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_SSL2 recorded 8 samples, average = 17.9 (flags = 0x1)
+0    ------------------------------------------------------------------------O (7 = 87.5%)
+1    ...
+143  ------------------------------------------------------------------------O (1 = 12.5%) {87.5%}
+144  ...
+
+Histogram: Net.SocketInitErrorCodes_SSLForProxies recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_SSLforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_TCP recorded 8 samples, average = 17.9 (flags = 0x1)
+0    ------------------------------------------------------------------------O (7 = 87.5%)
+1    ...
+143  ------------------------------------------------------------------------O (1 = 12.5%) {87.5%}
+144  ...
+
+Histogram: Net.SocketInitErrorCodes_TCPforHTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_TCPforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketInitErrorCodes_TCPforSOCKS recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_HTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_SOCK recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_SSL2 recorded 7 samples, average = 200.9 (flags = 0x1)
+0    ...
+164  ------------------------------------------------------------------------O (3 = 42.9%) {0.0%}
+186  ------------------------O                                                 (1 = 14.3%) {42.9%}
+211  ------------------------------------------------------------------------O (3 = 42.9%) {57.1%}
+239  ...
+
+Histogram: Net.SocketRequestTime_SSLForProxies recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_SSLforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_TCP recorded 7 samples, average = 113.0 (flags = 0x1)
+0    ...
+100  ------------------------------------------------------O                   (3 = 42.9%) {0.0%}
+113  ------------------------------------------------------------------------O (4 = 57.1%) {42.9%}
+128  ...
+
+Histogram: Net.SocketRequestTime_TCPforHTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_TCPforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketRequestTime_TCPforSOCKS recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_HTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_SOCK recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_SSL2 recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: Net.SocketType_SSLForProxies recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_SSLforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_TCP recorded 7 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (7 = 100.0%)
+1  ...
+
+Histogram: Net.SocketType_TCPforHTTPProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_TCPforHTTPSProxy recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SocketType_TCPforSOCKS recorded 0 samples (flags = 0x1)
+0 ...
+
+Histogram: Net.SpdyIPPoolDomainMatch recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.SpdyPriorityCount recorded 13 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (13 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Net.SpdyRecvBytes recorded 13 samples, average = 60153.8 (flags = 0x1)
+0       ...
+2       ------------------------------------------------------------------------O (1 = 7.7%) {0.0%}
+3       ...
+49      --------------O                                                           (1 = 7.7%) {7.7%}
+65      ...
+258     --------------O                                                           (1 = 7.7%) {15.4%}
+340     O                                                                         (0 = 0.0%) {23.1%}
+448     --------------O                                                           (1 = 7.7%) {23.1%}
+590     --------------O                                                           (1 = 7.7%) {30.8%}
+777     O                                                                         (0 = 0.0%) {38.5%}
+1023    --------------O                                                           (1 = 7.7%) {38.5%}
+1347    ...
+9260    --------------O                                                           (1 = 7.7%) {46.2%}
+12196   --------------O                                                           (1 = 7.7%) {53.8%}
+16063   -----------------------------O                                            (2 = 15.4%) {61.5%}
+21156   -----------------------------O                                            (2 = 15.4%) {76.9%}
+27864   ...
+576468  --------------O                                                           (1 = 7.7%) {92.3%}
+759255  ...
+
+Histogram: Net.SpdySendBytes recorded 13 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (13 = 100.0%)
+1  ...
+
+Histogram: Net.SpdySession.BytesRead.OtherErrors recorded 6 samples, average = 130694.3 (flags = 0x1)
+0       ...
+185     ------------------------------------------------------------------------O (1 = 16.7%) {0.0%}
+270     ...
+1220    ------------------------------------------------------------------------O (1 = 16.7%) {16.7%}
+1779    ------------------------------------------------------------------------O (1 = 16.7%) {33.3%}
+2594    ...
+8041    ------------------------------------------------------------------------O (1 = 16.7%) {50.0%}
+11725   ------------------------------------------------------------------------O (1 = 16.7%) {66.7%}
+17096   ...
+742622  ------------------------------------------------------------------------O (1 = 16.7%) {83.3%}
+1082817 ...
+
+Histogram: Net.SpdySession.ClosedOnError recorded 6 samples (flags = 0x1)
+3  ------------------------------------------------------------------------O (6 = 100.0%)
+
+Histogram: Net.SpdySession.CreateStreamWithSocketConnected recorded 13 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (13 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.SpdySessionGet recorded 14 samples, average = 1.9 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (7 = 50.0%) {0.0%}
+2  ----------O                                                               (1 = 7.1%) {50.0%}
+3  --------------------------------------------------------------O           (6 = 42.9%) {57.1%}
+4  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.SpdySessionSocketNotConnectedGetPeerAddress recorded 13 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (13 = 100.0%)
+1  ...
+
+Histogram: Net.SpdySessionsWithStalls recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: Net.SpdySettingsReceived recorded 6 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (6 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.SpdySettingsSent recorded 6 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (6 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Net.SpdyStreamDownloadTime recorded 13 samples, average = 62.8 (flags = 0x1)
+0    ------------------------------------------------------------------------O (4 = 30.8%)
+1    ------------------O                                                       (1 = 7.7%) {30.8%}
+2    ------------------O                                                       (1 = 7.7%) {38.5%}
+3    ...
+17   ------------O                                                             (2 = 15.4%) {46.2%}
+20   ---------O                                                                (2 = 15.4%) {61.5%}
+24   ...
+34   ----O                                                                     (1 = 7.7%) {76.9%}
+40   O                                                                         (0 = 0.0%) {84.6%}
+48   ----O                                                                     (1 = 7.7%) {84.6%}
+57   ...
+633  ----O                                                                     (1 = 7.7%) {92.3%}
+752  ...
+
+Histogram: Net.SpdyStreamStallsPerSession recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: Net.SpdyStreamTime recorded 13 samples, average = 134.5 (flags = 0x1)
+0    ...
+57   ---------O                                                                (1 = 7.7%) {0.0%}
+68   ------------------------------------------------------------------------O (8 = 61.5%) {7.7%}
+81   ---------O                                                                (1 = 7.7%) {69.2%}
+96   O                                                                         (0 = 0.0%) {76.9%}
+114  ---------O                                                                (1 = 7.7%) {76.9%}
+135  ...
+190  ---------O                                                                (1 = 7.7%) {84.6%}
+226  ...
+633  ---------O                                                                (1 = 7.7%) {92.3%}
+752  ...
+
+Histogram: Net.SpdyStreamTimeToFirstByte recorded 13 samples, average = 71.2 (flags = 0x1)
+0    ...
+48   ------------------------------------------------------------------------O (6 = 46.2%) {0.0%}
+57   ------------------------O                                                 (2 = 15.4%) {46.2%}
+68   ------------------------------------------------O                         (4 = 30.8%) {61.5%}
+81   ...
+190  ------------O                                                             (1 = 7.7%) {92.3%}
+226  ...
+
+Histogram: Net.SpdyStreamsAbandonedPerSession recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: Net.SpdyStreamsPerSession recorded 6 samples, average = 2.2 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------O                         (2 = 33.3%) {0.0%}
+2  ------------------------------------------------------------------------O (3 = 50.0%) {33.3%}
+3  ...
+5  ------------------------O                                                 (1 = 16.7%) {83.3%}
+6  ...
+
+Histogram: Net.SpdyStreamsPushedAndClaimedPerSession recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: Net.SpdyStreamsPushedPerSession recorded 6 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (6 = 100.0%)
+1  ...
+
+Histogram: Net.SpdySynStreamCompressionPercentage recorded 13 samples, average = 76.5 (flags = 0x1)
+0   ...
+66  ------------------------------------O                                     (1 = 7.7%) {0.0%}
+67  ------------------------------------O                                     (1 = 7.7%) {7.7%}
+68  ------------------------------------------------------------------------O (2 = 15.4%) {15.4%}
+69  O                                                                         (0 = 0.0%) {30.8%}
+70  ------------------------------------------------------------------------O (2 = 15.4%) {30.8%}
+71  ...
+75  ------------------------------------O                                     (1 = 7.7%) {46.2%}
+76  ...
+83  ------------------------------------------------------------------------O (2 = 15.4%) {53.8%}
+84  O                                                                         (0 = 0.0%) {69.2%}
+85  ------------------------------------------------------------------------O (2 = 15.4%) {69.2%}
+86  O                                                                         (0 = 0.0%) {84.6%}
+87  ------------------------------------------------------------------------O (2 = 15.4%) {84.6%}
+88  ...
+
+Histogram: Net.SpdyVersion recorded 6 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (6 = 100.0%) {0.0%}
+6  ...
+
+Histogram: Net.TCP_Connection_Latency recorded 7 samples, average = 53.1 (flags = 0x1)
+0   ...
+42  ------------------------O                                                 (1 = 14.3%) {0.0%}
+48  ------------------------------------------------------------------------O (3 = 42.9%) {14.3%}
+54  ------------------------------------------------O                         (2 = 28.6%) {57.1%}
+61  ------------------------O                                                 (1 = 14.3%) {85.7%}
+69  ...
+
+Histogram: Net.TCP_Connection_Latency_IPv4_No_Race recorded 7 samples, average = 53.1 (flags = 0x1)
+0   ...
+42  ------------------------O                                                 (1 = 14.3%) {0.0%}
+48  ------------------------------------------------------------------------O (3 = 42.9%) {14.3%}
+54  ------------------------------------------------O                         (2 = 28.6%) {57.1%}
+61  ------------------------O                                                 (1 = 14.3%) {85.7%}
+69  ...
+
+Histogram: Net.Transaction_Connected recorded 13 samples, average = 185.1 (flags = 0x1)
+0    ...
+48   ------------------------------------------------------------------------O (3 = 23.1%) {0.0%}
+54   ------------------------O                                                 (1 = 7.7%) {23.1%}
+61   O                                                                         (0 = 0.0%) {30.8%}
+69   ------------------------O                                                 (1 = 7.7%) {30.8%}
+78   ...
+113  ------------------------O                                                 (1 = 7.7%) {38.5%}
+128  ...
+211  ------------------------------------------------O                         (2 = 15.4%) {46.2%}
+239  ------------------------O                                                 (1 = 7.7%) {61.5%}
+271  ------------------------O                                                 (1 = 7.7%) {69.2%}
+307  ------------------------------------------------O                         (2 = 15.4%) {76.9%}
+348  O                                                                         (0 = 0.0%) {92.3%}
+394  ------------------------O                                                 (1 = 7.7%) {92.3%}
+446  ...
+
+Histogram: Net.Transaction_Latency_Total recorded 13 samples, average = 248.3 (flags = 0x1)
+0    ...
+69   ------------------------------------------------------------------------O (5 = 38.5%) {0.0%}
+78   ...
+113  --------------O                                                           (1 = 7.7%) {38.5%}
+128  ...
+239  -----------------------------O                                            (2 = 15.4%) {46.2%}
+271  O                                                                         (0 = 0.0%) {61.5%}
+307  -------------------------------------------O                              (3 = 23.1%) {61.5%}
+348  O                                                                         (0 = 0.0%) {84.6%}
+394  --------------O                                                           (1 = 7.7%) {84.6%}
+446  ...
+831  --------------O                                                           (1 = 7.7%) {92.3%}
+941  ...
+
+Histogram: Net.Transaction_Latency_b recorded 13 samples, average = 134.8 (flags = 0x1)
+0    ...
+61   ---------O                                                                (1 = 7.7%) {0.0%}
+69   ------------------------------------------------------------------------O (8 = 61.5%) {7.7%}
+78   O                                                                         (0 = 0.0%) {69.2%}
+88   ---------O                                                                (1 = 7.7%) {69.2%}
+100  O                                                                         (0 = 0.0%) {76.9%}
+113  ---------O                                                                (1 = 7.7%) {76.9%}
+128  ...
+186  ---------O                                                                (1 = 7.7%) {84.6%}
+211  ...
+648  ---------O                                                                (1 = 7.7%) {92.3%}
+734  ...
+
+Histogram: Net.URLRequest_SetReferrer_IsEmptyOrValid recorded 26 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (26 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: NotifyOtherProcessOrCreate.Result recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: OSX.CatSixtyFour recorded 1 samples, average = 7.0 (flags = 0x1)
+0  ...
+7  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+8  ...
+
+Histogram: OSX.ConfirmToQuit recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Platform.IntelMaxMicroArchitecture recorded 1 samples, average = 6.0 (flags = 0x1)
+0  ...
+6  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+7  ...
+
+Histogram: Plugin.FlashUsage recorded 1 samples, average = 2.0 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+3  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: PrefService.ReadError recorded 2 samples, average = 6.0 (flags = 0x1)
+0  ...
+6  ------------------------------------------------------------------------O (2 = 100.0%) {0.0%}
+7  ...
+
+Histogram: Profile.NumberOfManagedProfiles recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Profile.NumberOfProfiles recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Profile.NumberOfSignedInProfiles recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Profile.PercentageOfManagedProfiles recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Renderer.KeyboardQueueSize recorded 3 samples, average = 1.3
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (2 = 66.7%) {0.0%}
+2  ------------------------------------O                                     (1 = 33.3%) {66.7%}
+3  ...
+
+Histogram: SB.QueueDepth recorded 1 samples, average = 0.0
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: SB2.DatabaseOpen recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: SB2.Delay recorded 13 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (13 = 100.0%)
+1  ...
+
+Histogram: SB2.SideEffectFreeWhitelistStatus recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: SequencedWorkerPool.TaskCount recorded 384 samples, average = 2.9 (flags = 0x1)
+0  --O                                                                       (5 = 1.3%)
+1  --O                                                                       (4 = 1.0%) {1.3%}
+2  ------------------------------------------------------------------------O (176 = 45.8%) {2.3%}
+3  ----------------------------------------------------O                     (128 = 33.3%) {48.2%}
+4  ------------O                                                             (29 = 7.6%) {81.5%}
+5  --------O                                                                 (19 = 4.9%) {89.1%}
+6  -------O                                                                  (16 = 4.2%) {94.0%}
+7  --O                                                                       (6 = 1.6%) {98.2%}
+8  O                                                                         (1 = 0.3%) {99.7%}
+9  ...
+
+Histogram: SequencedWorkerPool.UnrunnableTaskCount recorded 384 samples, average = 0.4 (flags = 0x1)
+0  ------------------------------------------------------------------------O (300 = 78.1%)
+1  ----------O                                                               (40 = 10.4%) {78.1%}
+2  ----O                                                                     (16 = 4.2%) {88.5%}
+3  ----O                                                                     (15 = 3.9%) {92.7%}
+4  ---O                                                                      (13 = 3.4%) {96.6%}
+5  ...
+
+Histogram: Settings.DefaultSearchProvider recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  ...
+
+Histogram: Settings.HomePageIsNewTabPage recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Settings.ShowHomeButton recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Settings.StartupPageLoadSettings recorded 1 samples, average = 5.0 (flags = 0x1)
+0  ...
+5  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+6  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Startup.BrowserMessageLoopStartTime recorded 1 samples, average = 156.0 (flags = 0x1)
+0    ...
+137  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+158  ...
+
+Histogram: Startup.BrowserMessageLoopStartTimeFromMainEntry recorded 1 samples, average = 110.0 (flags = 0x1)
+0   ...
+87  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+118 ...
+
+Histogram: Startup.BrowserOpenTabs recorded 1 samples, average = 13.0 (flags = 0x1)
+0   ...
+12  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+14  ...
+
+Histogram: Startup.SlowStartupNSSInit recorded 1 samples, average = 10.0
+0   O                                                                         (0 = 0.0%)
+10  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+13  ...
+
+Histogram: Sync.Shutdown.BackendDestroyedTime recorded 2 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (2 = 100.0%)
+1  ...
+
+Histogram: Tabs.TabCountPerLoad recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: Throttling.RequestThrottled recorded 13 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (13 = 100.0%)
+1  ...
+
+Histogram: Touchscreen.TouchEventsEnabled recorded 1 samples, average = 2.0 (flags = 0x1)
+0  ...
+2  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+3  ...
+
+Histogram: UMA.GeneratedLowEntropySource recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: UMA.LowEntropySourceValue recorded 1 samples (flags = 0x1)
+5604  ------------------------------------------------------------------------O (1 = 100.0%)
+
+Histogram: UrlFetcher.StringResponseSize recorded 8 samples, average = 4.4 (flags = 0x1)
+0  ------------------------------------------------------------------------O (8 = 100.0%)
+1000...
+
+Histogram: Variations.FetchSuccessLatency recorded 1 samples, average = 344.0 (flags = 0x1)
+0    ...
+317  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+389  ...
+
+Histogram: Variations.ResourceRequestsAllowed recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: Variations.SeedEmpty recorded 1 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (1 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: Variations.SeedFetchResponseCode recorded 1 samples (flags = 0x1)
+200  ------------------------------------------------------------------------O (1 = 100.0%)
+
+Histogram: Variations.TimeSinceLastFetchAttempt recorded 1 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (1 = 100.0%)
+1  ...
+
+Histogram: WindowManager.AppWindowCountPerLoad recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: WindowManager.PopUpWindowCountPerLoad recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: WindowManager.TabbedWindowCountPerLoad recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: appcache.CompletionQueueTime recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: appcache.CompletionRunTime recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: appcache.TaskQueueTime recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: appcache.TaskRunTime recorded 4 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (4 = 100.0%)
+1  ...
+
+Histogram: mime_sniffer.ShouldSniffMimeType2 recorded 13 samples, average = 1.0 (flags = 0x1)
+0  O                                                                         (0 = 0.0%)
+1  ------------------------------------------------------------------------O (13 = 100.0%) {0.0%}
+2  O                                                                         (0 = 0.0%) {100.0%}
+
+Histogram: nosniff.usage recorded 13 samples, average = 0.0 (flags = 0x1)
+0  ------------------------------------------------------------------------O (13 = 100.0%)
+1  ...
+
+

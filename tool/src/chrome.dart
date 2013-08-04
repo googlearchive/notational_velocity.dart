@@ -13,7 +13,8 @@ Future launchChrome() {
     {
      'load-and-launch-app': 'test',
      'no-startup-window': null,
-     'enable-logging': 'stderr'
+     'enable-logging': 'stderr',
+     'v': '1'
     };
 
   return TempDir
@@ -35,6 +36,7 @@ Future<int> _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
   argsMap['no-first-run'] = null;
 
   var args = argsMap.keys.map((key) {
+    assert(!key.startsWith('-'));
     var value = argsMap[key];
 
     var str = "--$key";
@@ -60,14 +62,20 @@ Future<int> _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
 void _captureStd(bool process, Stream<List<int>> std) {
 
   std.transform(UTF8.decoder)
-    .transform(new LineTransformer())
-    .listen((String line) {
+    .listen((String value) {
     if(process) {
-      print(line);
+      _print('parsed', AnsiColor.RED);
+      print(value);
     }
   }, onDone: () {
     // done!
   });
 }
 
-//final _chromeLogRegexp = new RegExp('\[(\d+)\:(\d+)\:(\d+)/(\d+):(\w+):(.*)\]', multiLine: false);
+void _print(String value, [AnsiColor color]) {
+  if(color != null) {
+    var ss = new ShellString.withColor(value, color);
+    value = ss.format(true);
+  }
+  print(value);
+}
