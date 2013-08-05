@@ -3,6 +3,7 @@ library nv.hop;
 import 'dart:async';
 import 'package:hop/hop.dart';
 import 'package:hop/hop_tasks.dart';
+import 'package:hop/src/hop_experimental.dart' as hop_ex;
 
 import '../test/harness_console.dart' as test_console;
 import 'src/chrome.dart' as chrome;
@@ -30,4 +31,8 @@ void main() {
 
 Future<bool> _launchChrome(TaskContext ctx) {
   return chrome.launchChrome().then((_) => true);
+}
+
+Future _copyFile(TaskContext ctx, String sourcePath, String destinationPath) {
+
 }

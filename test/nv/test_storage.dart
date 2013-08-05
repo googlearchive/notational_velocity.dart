@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 
+import '../data/pride_and_prejudice.dart';
+
 void testStorage(Map<String, Storage> stores) {
   group('test storage', () {
     stores.forEach((String storeName, Storage store) {
@@ -18,6 +20,12 @@ void testStorage(Map<String, Storage> stores) {
 void main(Storage storage) {
   setUp(() {
     return storage.clear();
+  });
+
+  test('store pnp', () {
+    return Future.forEach(PNP.keys, (String chapter) {
+      return storage.set(chapter, PNP[chapter]);
+    });
   });
 
   test('add many and clear', () {
