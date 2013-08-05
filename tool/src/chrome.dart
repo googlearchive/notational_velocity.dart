@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bot_io/bot_io.dart';
+import 'split.dart';
 
 // TODO: use an environment variable for this?
 const _chromePath = '/Users/kevin/source/dev/Google Chrome.app/Contents/MacOS/Google Chrome';
@@ -62,14 +63,13 @@ Future<int> _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
 void _captureStd(bool process, Stream<List<int>> std) {
 
   std.transform(UTF8.decoder)
-    .listen((String value) {
-    if(process) {
-      _print('parsed', AnsiColor.RED);
-      print(value);
-    }
-  }, onDone: () {
-    // done!
-  });
+    .transform(new SectionSplitter(chromeLogRegexp))
+    .map(ChromeLogEntry.parse)
+    .listen((ChromeLogEntry value) {
+      if(process) {
+        print([value.kind, value.details, value.content]);
+      }
+    });
 }
 
 void _print(String value, [AnsiColor color]) {
@@ -79,3 +79,28 @@ void _print(String value, [AnsiColor color]) {
   }
   print(value);
 }
+
+class ChromeLogEntry {
+  final String pid;
+  final String other;
+  final String monthDay;
+  final String hourMinSec;
+  final String kind;
+  final String details;
+  final String content;
+
+  ChromeLogEntry(this.pid, this.other, this.monthDay, this.hourMinSec, this.kind, this.details, this.content);
+
+  static ChromeLogEntry parse(Section input) {
+    var match = chromeLogRegexp.allMatches(input.header).single;
+
+    assert(match.groupCount == 6);
+
+    return new ChromeLogEntry(match[1], match[2], match[3], match[4], match[5], match[6], input.content.trim());
+  }
+
+}
+
+
+
+final chromeLogRegexp = new RegExp(r'^\[(\d+):(\d+):(\d+)/(\d+):(\w+):([^\]]+)\] ', multiLine: true);
