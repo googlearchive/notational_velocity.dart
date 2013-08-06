@@ -15,6 +15,8 @@ class AppModel extends ChangeNotifierBase {
     _notifyChange(_SEARCH_TERM);
   }
 
+  final ObservableList<Note> notes = new ObservableList<Note>();
+
   void _notifyChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
   }
@@ -39,11 +41,10 @@ abstract class Content {
 
 }
 
-class TextContent {
+class TextContent extends Content {
   final String value;
 
   TextContent(this.value) {
     assert(value != null);
   }
-
 }
