@@ -4,10 +4,16 @@
   <head>
     <meta charset="utf-8">
     <title>Notational Velocity</title>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0-rc1/css/bootstrap.css'>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css'>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <template id="app" bind>
-      <p>Hello {{searchTerm}}</p>
+      <div class="input-group nv-search">
+        <span class="input-group-addon"><i class="icon-search"></i></span>
+        <input type="text" class="form-control" placeholder="Search or Create" text" value="{{searchTerm}}">
+      </div>
     </template>
     <script src="packages/browser/dart.js"></script>
     <script src="packages/polymer/boot.js"></script>

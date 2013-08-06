@@ -5,7 +5,7 @@ import 'package:observe/observe.dart';
 
 class AppModel extends ObservableBase {
   @observable
-  String searchTerm = 'world!';
+  String searchTerm = '';
 }
 
 class Note {
