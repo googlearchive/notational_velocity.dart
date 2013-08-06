@@ -1,9 +1,16 @@
 body {
   background-color: #F8F8F8;
+  padding: 5px;
 }
 
 .nv-search {
   margin: 5px;
+}
+
+.nv-notes {
+  margin: 5px;
+  height: 300px;
+  overflow: scroll;
 }
 
 .debug-div {

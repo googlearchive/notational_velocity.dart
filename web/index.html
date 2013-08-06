@@ -14,6 +14,12 @@
         <span class="input-group-addon"><i class="icon-search"></i></span>
         <input type="text" class="form-control" placeholder="Search or Create" value="{{searchTerm}}">
       </div>
+
+      <div class='nv-notes list-group'>
+        <template repeat="{{ notes }}">
+          <a href='#' class='nv-note list-group-item'>{{ title }}</div>
+        </template>
+      </div>
     </template>
 
 
