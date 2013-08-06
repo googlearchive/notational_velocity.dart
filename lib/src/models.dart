@@ -3,9 +3,21 @@ library nv.models;
 import 'package:meta/meta.dart';
 import 'package:observe/observe.dart';
 
-class AppModel extends ObservableBase {
-  @observable
-  String searchTerm = '';
+class AppModel extends ChangeNotifierBase {
+  static const _SEARCH_TERM = const Symbol('searchTerm');
+
+  String _searchTerm = '';
+
+  String get searchTerm => _searchTerm;
+
+  void set searchTerm(String value) {
+    _searchTerm = value;
+    _notifyChange(_SEARCH_TERM);
+  }
+
+  void _notifyChange(Symbol prop) {
+    notifyChange(new PropertyChangeRecord(prop));
+  }
 }
 
 class Note {

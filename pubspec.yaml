@@ -3,7 +3,11 @@ description: Notational Velocity - Dart
 dependencies:
   js: 0.0.24
   meta: '>=0.6.13'
-  polymer: '>=0.5.3'
+  polymer:
+    git:
+      ref: polymer
+      url: https://github.com/dart-lang/web-ui.git
+    version: '>=0.5.3'
 dev_dependencies:
   bot_test: '>=0.1.2'
   browser: '>=0.6.13'
