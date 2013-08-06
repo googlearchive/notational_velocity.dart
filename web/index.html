@@ -15,6 +15,14 @@
         <input type="text" class="form-control" placeholder="Search or Create" value="{{searchTerm}}">
       </div>
     </template>
+
+
+    <template id="debug" bind>
+      <div class='debug-div'>
+        Search term: <strong>{{searchTerm}}</strong>
+      </div>
+    </template>
+
     <script src="packages/browser/dart.js"></script>
     <script src="packages/polymer/boot.js"></script>
     <script type="application/dart" src="web_app.dart"></script>

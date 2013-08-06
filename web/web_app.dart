@@ -5,5 +5,8 @@ import 'package:nv/nv.dart';
 void main() {
   mdv.initialize();
 
-  query('#app').model = new AppModel();
+  var model = new AppModel();
+
+  query('#app').model = model;
+  query('#debug').model = model;
 }

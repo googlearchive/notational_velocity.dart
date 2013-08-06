@@ -5,3 +5,15 @@ body {
 .nv-search {
   margin: 5px;
 }
+
+.debug-div {
+  border: solid gray 2px;
+  border-radius: 10px;
+  background: lightgray;
+  margin: 10px;
+  padding: 10px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  min-width: 200px;
+}
