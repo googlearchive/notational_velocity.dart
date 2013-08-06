@@ -1,6 +1,12 @@
 library nv.models;
 
 import 'package:meta/meta.dart';
+import 'package:observe/observe.dart';
+
+class AppModel extends ObservableBase {
+  @observable
+  String searchTerm = 'world!';
+}
 
 class Note {
   final String title;
