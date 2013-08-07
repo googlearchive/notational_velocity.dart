@@ -1,5 +1,7 @@
 name: nv
 description: Notational Velocity - Dart
+environment:
+  sdk: '>=0.6.15+3'
 dependencies:
   js: 0.0.24
   meta: '>=0.6.13'
