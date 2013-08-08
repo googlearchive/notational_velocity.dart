@@ -22,7 +22,7 @@ Future launchChrome() {
       .then((dir) => _launchChrome(dir, testLaunch))
       .then((int exitCode) {
         if(exitCode != 0) {
-          throw 'process failed';
+          throw new Exception('Chrome process failed. Exit code: $exitCode');
         }
       });
 }
