@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 
-import '../data/pride_and_prejudice.dart';
+import 'package:nv/debug.dart';
 
 void testStorage(Map<String, Storage> stores) {
   group('test storage', () {

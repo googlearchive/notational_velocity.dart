@@ -1,12 +1,13 @@
 import 'dart:html';
 import 'package:mdv/mdv.dart' as mdv;
 import 'package:nv/nv.dart';
-import '../test/data/pride_and_prejudice.dart';
+import 'package:nv/debug.dart';
 
 void main() {
   mdv.initialize();
 
-  var model = new AppModel();
+  var storage = new StringStorage(window.sessionStorage);
+  var model = new AppModel(storage);
 
   _bootstrapPNP(model);
 

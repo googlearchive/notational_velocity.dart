@@ -3,10 +3,26 @@ library nv.models;
 import 'package:meta/meta.dart';
 import 'package:observe/observe.dart';
 
+import 'shared.dart';
+import 'storage.dart';
+
 class AppModel extends ChangeNotifierBase {
   static const _SEARCH_TERM = const Symbol('searchTerm');
 
+  final Storage _storage;
+  final ObservableList<Note> _notes;
+  final ReadOnlyObservableList<Note> notes;
+
   String _searchTerm = '';
+
+  factory AppModel(Storage storage) {
+    var notes = new ObservableList<Note>();
+    var roNotes = new ReadOnlyObservableList<Note>(notes);
+
+    return new AppModel._internal(storage, notes, roNotes);
+  }
+
+  AppModel._internal(this._storage, this._notes, this.notes);
 
   String get searchTerm => _searchTerm;
 
@@ -15,7 +31,6 @@ class AppModel extends ChangeNotifierBase {
     _notifyChange(_SEARCH_TERM);
   }
 
-  final ObservableList<Note> notes = new ObservableList<Note>();
 
   void _notifyChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
