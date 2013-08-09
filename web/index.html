@@ -7,6 +7,10 @@
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0-rc1/css/bootstrap.css'>
     <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css'>
     <link rel="stylesheet" href="styles.css">
+
+    <link rel="import" href="packages/nv/elements/debug_element.html">
+
+    <script src="packages/polymer/boot.js"></script>
   </head>
   <body>
     <template id="app" bind>
@@ -22,15 +26,8 @@
       </div>
     </template>
 
+    <debug-element id='debug'></debug-element>
 
-    <template id="debug" bind>
-      <div class='debug-div'>
-        Search term: <strong>{{searchTerm}}</strong>
-      </div>
-    </template>
-
-    <script src="packages/browser/dart.js"></script>
-    <script src="packages/polymer/boot.js"></script>
     <script type="application/dart" src="web_app.dart"></script>
   </body>
 </html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+
+    <polymer-element name="debug-element">
+      <template>
+        <style>
+          debug-element {
+            display: inline-block;
+          }
+          .root {
+            border: solid gray 2px;
+            border-radius: 10px;
+            background: lightgray;
+            margin: 10px;
+            padding: 10px;
+            min-width: 200px;
+          }
+        </style>
+        <div class='root'>
+          Search term: <strong>{{appModel.searchTerm}}</strong>
+        </div>
+      </template>
+
+      <script type="application/dart" src="debug_element.dart"></script>
+    </polymer-element>
+
+  </body>
+</html>
