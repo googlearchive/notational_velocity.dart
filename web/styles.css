@@ -3,16 +3,6 @@ body {
   padding: 5px;
 }
 
-.nv-search {
-  margin: 5px;
-}
-
-.nv-notes {
-  margin: 5px;
-  height: 300px;
-  overflow: scroll;
-}
-
 debug-element {
   position: absolute;
   bottom: 0px;
