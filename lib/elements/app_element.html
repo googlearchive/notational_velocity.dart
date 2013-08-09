@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+
+<polymer-element name="app-element">
+  <template>
+    <style>
+    </style>
+    <div class="input-group nv-search">
+      <span class="input-group-addon"><i class="icon-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search or Create" value="{{ appModel.searchTerm }}">
+    </div>
+
+    <div class='nv-notes list-group'>
+      <template repeat="{{ appModel.notes }}">
+        <a href='#' class='nv-note list-group-item'>{{ title }}</div>
+      </template>
+    </div>
+  </template>
+
+  <script type="application/dart" src="app_element.dart"></script>
+</polymer-element>
+
+  </body>
+</html>
