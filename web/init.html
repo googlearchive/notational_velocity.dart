@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+
+  <polymer-element name="init">
+    <script type="application/dart">
+      import 'dart:html';
+      import 'package:polymer/polymer.dart';
+      import 'package:nv/init.dart' as init;
+      import 'package:nv/src/models.dart';
+      import 'package:nv/src/storage.dart';
+
+      @polymerInitMethod
+      void _init() {
+        print('doing magic init?');
+        var storage = new StringStorage(window.sessionStorage);
+        var appModel = new AppModel(storage);
+
+        init.initAppModel(appModel);
+      }
+    </script>
+  </polymer-element>
+
+
+  </body>
+</html>

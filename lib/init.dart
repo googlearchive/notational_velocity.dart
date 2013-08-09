@@ -1,15 +1,16 @@
 library nv.init;
 
-import 'dart:html';
 import 'package:nv/src/models.dart';
-import 'package:nv/src/storage.dart';
 
 AppModel get appModel {
-  if(_appModel == null) {
-    var storage = new StringStorage(window.sessionStorage);
-    _appModel = new AppModel(storage);
-  }
+  assert(_appModel != null);
   return _appModel;
+}
+
+void initAppModel(AppModel value) {
+  assert(_appModel == null);
+  assert(value != null);
+  _appModel = value;
 }
 
 AppModel _appModel;
