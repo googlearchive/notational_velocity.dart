@@ -3,6 +3,7 @@ description: Notational Velocity - Dart
 environment:
   sdk: '>=0.6.15+3'
 dependencies:
+  bot: any
   js: '>=0.0.24'
   meta: '>=0.6.13'
   polymer: '>=0.5.3'

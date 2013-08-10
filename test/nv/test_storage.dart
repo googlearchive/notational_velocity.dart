@@ -11,10 +11,35 @@ void testStorage(Map<String, Storage> stores) {
     stores.forEach((String storeName, Storage store) {
       group(storeName, () {
         main(store);
+        testNested(store);
       });
     });
   });
 
+}
+
+void testNested(Storage storage) {
+  group('nested', () {
+    main(new NestedStorage(storage, ['test1']));
+
+    test('independant', () {
+      var n1 = new NestedStorage(storage, ['t1']);
+      var n2 = new NestedStorage(storage, ['t2']);
+
+      return n1.addAll(_validValues)
+          .then((_) => _matchesValidValues(n1))
+          .then((_) => _isEmpty(n2))
+          .then((_) => n2.addAll(_validValues))
+          .then((_) => _matchesValidValues(n1))
+          .then((_) => _matchesValidValues(n2))
+          .then((_) => n1.clear())
+          .then((_) => _isEmpty(n1))
+          .then((_) => _matchesValidValues(n2))
+          .then((_) => n2.clear())
+          .then((_) => _isEmpty(n1))
+          .then((_) => _isEmpty(n2));
+    });
+  });
 }
 
 void main(Storage storage) {
@@ -29,25 +54,26 @@ void main(Storage storage) {
         })
         .then((List<String> keys) {
           expect(keys, unorderedEquals(PNP.keys));
-    });
+        });
   });
 
   test('add many and clear', () {
     return storage.addAll(_validValues)
-    .then((_) {
-      return _matchesValidValues(storage);
-    })
-    .then((_) {
-      return storage.clear();
-    })
-    .then((_) {
-      return Future.forEach(_validValues.keys, (key) {
-        return storage.get(key)
-            .then((value) {
-              expect(value, null);
-            });
+      .then((_) {
+        return _matchesValidValues(storage);
+      })
+      .then((_) {
+        return storage.clear();
+      })
+      .then((_) => _isEmpty(storage))
+      .then((_) {
+        return Future.forEach(_validValues.keys, (key) {
+          return storage.get(key)
+              .then((value) {
+                expect(value, null);
+              });
+        });
       });
-    });
   });
 
   test('addAll, getKeys', () {
@@ -93,6 +119,13 @@ void main(Storage storage) {
       });
     }
   });
+}
+
+Future _isEmpty(Storage storage) {
+  return storage.getKeys()
+      .then((keys) {
+        expect(keys, isEmpty);
+      });
 }
 
 Future _matchesValidValues(Storage storage) {
