@@ -16,6 +16,8 @@ abstract class Storage {
 
   Future<dynamic> get(String key);
 
+  Future<bool> exists(String key);
+
   Future remove(String key);
 
   Future clear();
@@ -43,6 +45,9 @@ class NestedStorage implements Storage {
 
   @override
   Future<dynamic> get (String key) => _storage.get(_getKey(key));
+
+  @override
+  Future<bool> exists(String key) => _storage.exists(_getKey(key));
 
   @override
   Future remove(String key) => _storage.remove(_getKey(key));
@@ -127,10 +132,10 @@ class StringStorage implements Storage {
 
   @override
   Future set(String key, value) {
-    String val = JSON.stringify(value);
+    if(value == null) return remove(key);
 
     return new Future(() {
-      _store[key] = val;
+      _store[key] = JSON.stringify(value);
     });
   }
 
@@ -139,6 +144,8 @@ class StringStorage implements Storage {
     dynamic val = _store[key];
 
     if(val == null) {
+      // should NEVER store null.
+      assert(!_store.containsKey(key));
       return new Future.value(null);
     } else {
       return new Future(() => JSON.parse(val));
@@ -159,13 +166,19 @@ class StringStorage implements Storage {
     });
   }
 
+  Future<bool> exists(String key) => new Future.value(_store.containsKey(key));
+
   Future<List<String>> getKeys() =>
     new Future(() => _store.keys.toList(growable: false));
 
   Future addAll(Map<String, dynamic> values) {
     return new Future(() {
       values.forEach((k, v) {
-        _store[k] = JSON.stringify(v);
+        if(v == null) {
+          _store.remove(k);
+        } else {
+          _store[k] = JSON.stringify(v);
+        }
       });
     });
   }

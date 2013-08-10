@@ -68,7 +68,11 @@ void _testCore(Storage storage) {
   });
 
   test('add many and clear', () {
-    return storage.addAll(_validValues)
+    // the added null is a no-op
+    final validValuesAndNull = new Map.from(_validValues);
+    validValuesAndNull['null'] = null;
+
+    return storage.addAll(validValuesAndNull)
       .then((_) {
         return _matchesValidValues(storage);
       })
@@ -98,6 +102,31 @@ void _testCore(Storage storage) {
         });
   });
 
+  test('setting null == removing', () {
+    return storage.exists('a')
+        .then((bool exists) {
+          expect(exists, isFalse);
+
+          return storage.get('a');
+        })
+        .then((val) {
+          expect(val, isNull);
+
+          return storage.set('a', null);
+        })
+        .then((_) {
+          return storage.exists('a');
+        })
+        .then((bool exists) {
+          expect(exists, isFalse);
+
+          return storage.get('a');
+        })
+        .then((val) {
+          expect(val, isNull);
+        });
+  });
+
   group('store values', () {
     const key = 'test_key';
 
@@ -121,10 +150,10 @@ void _testCore(Storage storage) {
               return storage.remove(key);
             })
             .then((dynamic value) {
-              return storage.get(key);
+              return storage.exists(key);
             })
-            .then((value) {
-              expect(value, isNull);
+            .then((bool value) {
+              expect(value, isFalse);
             });
       });
     }
@@ -153,7 +182,6 @@ Future _matchesValidValues(Storage storage) {
 }
 
 const _validValues = const {
-  'null': null,
   'string': 'a string',
   'int': 42,
   'double': 3.1415,

@@ -2,7 +2,6 @@ library nv.chrome;
 
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as wrapping;
 import 'dart:json' as JSON;
@@ -10,7 +9,6 @@ import 'storage.dart';
 
 class PackagedStorage implements Storage {
 
-  @override
   Future clear() {
     final completer = new Completer();
 
@@ -23,8 +21,9 @@ class PackagedStorage implements Storage {
     return completer.future;
   }
 
-  @override
   Future set(String key, dynamic value) {
+    if(value == null) return remove(key);
+
     var map = new Map<String, dynamic>()
         ..[key] = JSON.stringify(value);
 
@@ -40,36 +39,18 @@ class PackagedStorage implements Storage {
     return completer.future;
   }
 
-  @override
   Future<dynamic> get(String key) {
-    final completer = new Completer();
-
-    js.scoped(() {
-      final onDone = new js.Callback.once((Map values) {
-        String value = values[key];
-
-        var val = (value == null) ? null : JSON.parse(value);
-
-        completer.complete(val);
+    return _get(key)
+        .then((String jsonString) {
+          var val = (jsonString == null) ? null : JSON.parse(jsonString);
+          return val;
       });
-
-      _localProxy['get'](key, onDone);
-    });
-
-    return completer.future;
   }
 
-  Future remove(String key) {
-    final completer = new Completer();
+  Future<bool> exists(String key) =>
+    _get(key).then((String jsonString) => jsonString != null);
 
-    js.scoped(() {
-      final onDone = new js.Callback.once(completer.complete);
-
-      _localProxy['remove'](key, onDone);
-    });
-
-    return completer.future;
-  }
+  Future remove(String key) => _remove([key]);
 
   Future<List<String>> getKeys() {
     final completer = new Completer<List<String>>();
@@ -90,15 +71,53 @@ class PackagedStorage implements Storage {
 
   Future addAll(Map<String, dynamic> values) {
     var map = new Map<String, dynamic>();
+    var removes = [];
     values.forEach((k, v) {
-      map[k] = JSON.stringify(v);
+      if(v == null) {
+        removes.add(k);
+      } else {
+        map[k] = JSON.stringify(v);
+      }
     });
+
+    return _remove(removes)
+        .then((_) {
+
+          final completer = new Completer();
+
+          js.scoped(() {
+            final onDone = new js.Callback.once(completer.complete);
+            _localProxy['set'](js.map(map), onDone);
+          });
+
+          return completer.future;
+        });
+  }
+
+  Future<String> _get(String key) {
+    final completer = new Completer();
+
+    js.scoped(() {
+      final onDone = new js.Callback.once((Map values) {
+        String value = values[key];
+        completer.complete(value);
+      });
+
+      _localProxy['get'](key, onDone);
+    });
+
+    return completer.future;
+  }
+
+  Future _remove(List<String> keys) {
+    if(keys.isEmpty) return new Future.value(null);
 
     final completer = new Completer();
 
     js.scoped(() {
       final onDone = new js.Callback.once(completer.complete);
-      _localProxy['set'](js.map(map), onDone);
+
+      _localProxy['remove'](js.array(keys), onDone);
     });
 
     return completer.future;
