@@ -23,8 +23,15 @@ void main(Storage storage) {
   });
 
   test('store pnp', () {
-    return Future.forEach(PNP.keys, (String chapter) {
+    return Future
+        .forEach(PNP.keys, (String chapter) {
       return storage.set(chapter, PNP[chapter]);
+        })
+        .then((_) {
+          return storage.getKeys();
+        })
+        .then((List<String> keys) {
+          expect(keys, unorderedEquals(PNP.keys));
     });
   });
 
