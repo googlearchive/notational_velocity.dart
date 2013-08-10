@@ -6,40 +6,11 @@ import 'package:observe/observe.dart';
 import 'shared.dart';
 import 'storage.dart';
 
-class AppModel extends ChangeNotifierBase {
-  static const _SEARCH_TERM = const Symbol('searchTerm');
-
-  final Storage _storage;
-  final ObservableList<Note> _notes;
-  final ReadOnlyObservableList<Note> notes;
-
-  String _searchTerm = '';
-
-  factory AppModel(Storage storage) {
-    var notes = new ObservableList<Note>();
-    var roNotes = new ReadOnlyObservableList<Note>(notes);
-
-    return new AppModel._internal(storage, notes, roNotes);
-  }
-
-  AppModel._internal(this._storage, this._notes, this.notes);
-
-  String get searchTerm => _searchTerm;
-
-  void set searchTerm(String value) {
-    _searchTerm = value;
-    _notifyChange(_SEARCH_TERM);
-  }
-
-
-  void _notifyChange(Symbol prop) {
-    notifyChange(new PropertyChangeRecord(prop));
-  }
-}
+part 'models/app_model.dart';
 
 class Note {
   final String title;
-  final Content content;
+  final NoteContent content;
 
   Note(this.title, this.content) {
     assert(title != null);
@@ -52,11 +23,11 @@ class Note {
   String toString() => 'Note: $title';
 }
 
-abstract class Content {
+abstract class NoteContent {
 
 }
 
-class TextContent extends Content {
+class TextContent extends NoteContent {
   final String value;
 
   TextContent(this.value) {
