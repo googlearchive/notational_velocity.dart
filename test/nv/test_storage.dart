@@ -3,8 +3,9 @@ library test.nv.storage;
 import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
-
 import 'package:nv/debug.dart';
+
+import 'test_app_model.dart' as testAM;
 
 void testStorage(Map<String, Storage> stores) {
   group('Storage', () {
@@ -12,6 +13,7 @@ void testStorage(Map<String, Storage> stores) {
       group(storeName, () {
         main(store);
         testNested(store);
+        testAM.main(store);
       });
     });
   });
@@ -20,24 +22,31 @@ void testStorage(Map<String, Storage> stores) {
 
 void testNested(Storage storage) {
   group('nested', () {
-    main(new NestedStorage(storage, ['test1']));
+    main(new NestedStorage(storage, 'test1'));
 
     test('independant', () {
-      var n1 = new NestedStorage(storage, ['t1']);
-      var n2 = new NestedStorage(storage, ['t2']);
+      var n1 = new NestedStorage(storage, 't1');
+      var n11 = new NestedStorage(n1, 't11');
+      var n2 = new NestedStorage(storage, 't2');
 
       return n1.addAll(_validValues)
           .then((_) => _matchesValidValues(n1))
+          .then((_) => _isEmpty(n11))
           .then((_) => _isEmpty(n2))
           .then((_) => n2.addAll(_validValues))
+          .then((_) => n11.addAll(_validValues))
           .then((_) => _matchesValidValues(n1))
           .then((_) => _matchesValidValues(n2))
+          .then((_) => _matchesValidValues(n11))
           .then((_) => n1.clear())
           .then((_) => _isEmpty(n1))
           .then((_) => _matchesValidValues(n2))
           .then((_) => n2.clear())
           .then((_) => _isEmpty(n1))
-          .then((_) => _isEmpty(n2));
+          .then((_) => _isEmpty(n2))
+          .then((_) => _matchesValidValues(n11))
+          .then((_) => n11.clear())
+          .then((_) => _isEmpty(n11));
     });
   });
 }

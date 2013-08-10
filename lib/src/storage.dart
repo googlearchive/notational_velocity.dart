@@ -33,16 +33,10 @@ class NestedStorage implements Storage {
   final Storage _storage;
   final List<String> _rootKeys;
 
-  NestedStorage(this._storage, [List<String> rootKeys]) :
-    _rootKeys = (rootKeys == null) ? [] : rootKeys {
-    assert(this._storage != null);
-
-    for(var k in _rootKeys) {
-      assert(k != null);
-      assert(k.isNotEmpty);
-    }
+  NestedStorage(Storage storage, String path) :
+    this._storage = _getRootStorage(storage),
+    this._rootKeys = _getFullPath(storage, path) {
   }
-
 
   @override
   Future set(String key, value) => _storage.set(_getKey(key), value);
@@ -90,13 +84,34 @@ class NestedStorage implements Storage {
     return keyPath.last;
   }
 
+
+  String _getKey(String key) =>
+      new Uri(pathSegments: $(_rootKeys).concat([key]).toList(growable: false)).path;
+
   static List<String> _getPath(String input) {
     var uri = new Uri(path: input);
     return uri.pathSegments;
   }
 
-  String _getKey(String key) =>
-      new Uri(pathSegments: $(_rootKeys).concat([key]).toList(growable: false)).path;
+  static Storage _getRootStorage(Storage parent) {
+    assert(parent != null);
+    while(parent is NestedStorage) {
+      parent = parent._storage;
+    }
+    return parent;
+  }
+
+  static List<String> _getFullPath(Storage parent, String path) {
+    assert(parent != null);
+    assert(path != null);
+    assert(path.isNotEmpty);
+
+    if(parent is NestedStorage) {
+      return $(parent._rootKeys).concat([path]).toList(growable: false);
+    } else {
+      return [path];
+    }
+  }
 }
 
 class StringStorage implements Storage {
