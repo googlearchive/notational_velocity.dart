@@ -114,7 +114,7 @@ class StringStorage implements Storage {
   Future set(String key, value) {
     String val = JSON.stringify(value);
 
-    return new Future.sync(() {
+    return new Future(() {
       _store[key] = val;
     });
   }
@@ -126,29 +126,29 @@ class StringStorage implements Storage {
     if(val == null) {
       return new Future.value(null);
     } else {
-      return new Future.sync(() => JSON.parse(val));
+      return new Future(() => JSON.parse(val));
     }
   }
 
   @override
   Future remove(String key) {
-    return new Future.sync(() {
+    return new Future(() {
       _store.remove(key);
     });
   }
 
   @override
   Future clear() {
-    return new Future.sync(() {
+    return new Future(() {
       _store.clear();
     });
   }
 
   Future<List<String>> getKeys() =>
-    new Future.sync(() => _store.keys.toList(growable: false));
+    new Future(() => _store.keys.toList(growable: false));
 
   Future addAll(Map<String, dynamic> values) {
-    return new Future.sync(() {
+    return new Future(() {
       values.forEach((k, v) {
         _store[k] = JSON.stringify(v);
       });
