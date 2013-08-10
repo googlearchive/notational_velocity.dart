@@ -7,7 +7,7 @@ import 'package:nv/src/storage.dart';
 import 'package:nv/debug.dart';
 
 void testStorage(Map<String, Storage> stores) {
-  group('test storage', () {
+  group('Storage', () {
     stores.forEach((String storeName, Storage store) {
       group(storeName, () {
         main(store);
