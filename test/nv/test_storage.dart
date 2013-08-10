@@ -11,8 +11,13 @@ void testStorage(Map<String, Storage> stores) {
   group('Storage', () {
     stores.forEach((String storeName, Storage store) {
       group(storeName, () {
-        main(store);
-        testNested(store);
+
+        setUp(() {
+          return store.clear();
+        });
+
+        _testCore(store);
+        _testNested(store);
         testAM.main(store);
       });
     });
@@ -20,9 +25,9 @@ void testStorage(Map<String, Storage> stores) {
 
 }
 
-void testNested(Storage storage) {
+void _testNested(Storage storage) {
   group('nested', () {
-    main(new NestedStorage(storage, 'test1'));
+    _testCore(new NestedStorage(storage, 'test1'));
 
     test('independant', () {
       var n1 = new NestedStorage(storage, 't1');
@@ -51,11 +56,7 @@ void testNested(Storage storage) {
   });
 }
 
-void main(Storage storage) {
-  setUp(() {
-    return storage.clear();
-  });
-
+void _testCore(Storage storage) {
   test('store pnp', () {
       return storage.addAll(PNP)
         .then((_) {
