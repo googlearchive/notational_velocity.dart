@@ -40,6 +40,7 @@ class AppModel extends ChangeNotifierBase {
   //
   // Methods
   //
+
   Future<NoteContent> openOrCreateNote(String title) {
 
     return _searchTitle(title)
@@ -76,6 +77,10 @@ class AppModel extends ChangeNotifierBase {
         });
   }
 
+  //
+  // Implementation
+  //
+
   /**
    * Returns null if not fonud
    */
@@ -110,10 +115,6 @@ class AppModel extends ChangeNotifierBase {
           return keys.firstWhere((t) => t.toLowerCase().startsWith(title), orElse: () => null);
         });
   }
-
-  //
-  // Implementations
-  //
 
   void _notifyChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
