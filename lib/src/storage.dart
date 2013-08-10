@@ -6,6 +6,9 @@ import 'package:meta/meta.dart';
 
 // TODO: consider moving this to bot_web -> share w/ PPW
 
+/**
+ * By convention, the only supported value types should be JSON-serializable
+ */
 abstract class Storage {
 
   Future set(String key, value);
@@ -15,6 +18,10 @@ abstract class Storage {
   Future remove(String key);
 
   Future clear();
+
+  Future<List<String>> getKeys();
+
+  Future addAll(Map<String, dynamic> values);
 }
 
 class StringStorage implements Storage {
@@ -59,6 +66,17 @@ class StringStorage implements Storage {
   Future clear() {
     return new Future.sync(() {
       _store.clear();
+    });
+  }
+
+  Future<List<String>> getKeys() =>
+    new Future.sync(() => _store.keys.toList(growable: false));
+
+  Future addAll(Map<String, dynamic> values) {
+    return new Future.sync(() {
+      values.forEach((k, v) {
+        _store[k] = JSON.stringify(v);
+      });
     });
   }
 }

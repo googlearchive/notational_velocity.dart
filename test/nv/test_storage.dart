@@ -53,6 +53,28 @@ void main(Storage storage) {
     });
   });
 
+  test('addAll, getKeys', () {
+    return storage.getKeys()
+        .then((List<String> keys) {
+          expect(keys, isEmpty);
+
+          return storage.addAll(_validValues);
+        })
+        .then((_) {
+          return storage.getKeys();
+        })
+        .then((List<String> keys) {
+          expect(keys, unorderedEquals(_validValues.keys));
+
+          return Future.forEach(keys, (k) {
+            return storage.get(k)
+                .then((dynamic value) {
+                  expect(value, _validValues[k]);
+                });
+          });
+        });
+  });
+
   group('store values', () {
     const key = 'test_key';
 

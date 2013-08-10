@@ -17,8 +17,10 @@ void testCore(Configuration config) {
   unittestConfiguration = config;
   groupSep = ' - ';
 
+  group('Storage', () {
+    storage.main(new StringStorage.memory());
+  });
   shared.main();
-  storage.main(new StringStorage.memory());
   split.main();
   drt.main();
 }
