@@ -23,10 +23,7 @@ void main(Storage storage) {
   });
 
   test('store pnp', () {
-    return Future
-        .forEach(PNP.keys, (String chapter) {
-      return storage.set(chapter, PNP[chapter]);
-        })
+      return storage.addAll(PNP)
         .then((_) {
           return storage.getKeys();
         })
@@ -36,16 +33,9 @@ void main(Storage storage) {
   });
 
   test('add many and clear', () {
-    return Future.forEach(_validValues.keys, (key) {
-      return storage.set(key, _validValues[key]);
-    })
+    return storage.addAll(_validValues)
     .then((_) {
-      return Future.forEach(_validValues.keys, (key) {
-        return storage.get(key)
-            .then((value) {
-              expect(value, _validValues[key]);
-            });
-      });
+      return _matchesValidValues(storage);
     })
     .then((_) {
       return storage.clear();
@@ -68,17 +58,7 @@ void main(Storage storage) {
           return storage.addAll(_validValues);
         })
         .then((_) {
-          return storage.getKeys();
-        })
-        .then((List<String> keys) {
-          expect(keys, unorderedEquals(_validValues.keys));
-
-          return Future.forEach(keys, (k) {
-            return storage.get(k)
-                .then((dynamic value) {
-                  expect(value, _validValues[k]);
-                });
-          });
+          return _matchesValidValues(storage);
         });
   });
 
@@ -113,6 +93,20 @@ void main(Storage storage) {
       });
     }
   });
+}
+
+Future _matchesValidValues(Storage storage) {
+  return storage.getKeys()
+    .then((List<String> keys) {
+      expect(keys, unorderedEquals(_validValues.keys));
+
+      return Future.forEach(keys, (k) {
+        return storage.get(k)
+            .then((dynamic value) {
+              expect(value, _validValues[k]);
+            });
+      });
+    });
 }
 
 const _validValues = const {
