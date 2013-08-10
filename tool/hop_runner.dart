@@ -22,7 +22,6 @@ void main() {
 
   addTask('app_dart2js', createDartCompilerTask(paths,
       liveTypeAnalysis: true,
-      rejectDeprecatedFeatures: true,
       allowUnsafeEval: false));
 
   var map = {
