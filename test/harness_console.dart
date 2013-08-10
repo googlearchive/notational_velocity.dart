@@ -17,9 +17,7 @@ void testCore(Configuration config) {
   unittestConfiguration = config;
   groupSep = ' - ';
 
-  group('Storage', () {
-    storage.main(new StringStorage.memory());
-  });
+  storage.testStorage( { 'memory': new StringStorage.memory()} );
   shared.main();
   split.main();
   drt.main();
