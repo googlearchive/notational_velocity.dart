@@ -1,15 +1,7 @@
 library nv.models;
 
-import 'dart:async';
 import 'package:bot/bot.dart';
 import 'package:meta/meta.dart';
-import 'package:observe/observe.dart';
-
-import 'serialization.dart' as serial;
-import 'shared.dart';
-import 'storage.dart';
-
-part 'models/app_model.dart';
 
 class Note {
   final String title;
@@ -25,8 +17,6 @@ class Note {
   factory Note.now(String title, NoteContent content) =>
       new Note(title, new DateTime.now(), content);
 
-  factory Note.fromJson(dynamic json) => serial.fromJson(json);
-
   @override
   bool operator ==(other) =>
       other is Note &&
@@ -38,8 +28,6 @@ class Note {
 
   @override
   String toString() => 'Note: $title';
-
-  dynamic toJson() => serial.toJson(this);
 }
 
 abstract class NoteContent {

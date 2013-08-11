@@ -2,6 +2,8 @@ library test.nv.app_model;
 
 import 'dart:async';
 import 'package:unittest/unittest.dart';
+
+import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
 import 'package:nv/src/storage.dart';
 
@@ -15,7 +17,7 @@ void main(Storage storage) {
   group('AppModel', () {
 
     test('simple', () {
-      var appModel = new AppModel(storage);
+      var appModel = new AppController(storage);
 
       return _testSimple(appModel);
     });
@@ -23,7 +25,7 @@ void main(Storage storage) {
   });
 }
 
-Future _testSimple(AppModel model) {
+Future _testSimple(AppController model) {
   _expectClean(model);
 
   final tc = new TextContent('first content!');
@@ -60,7 +62,7 @@ List<String> _permutateTitle(String title) {
   return [title, title.toLowerCase(), title.toUpperCase()];
 }
 
-Future _expectClean(AppModel appModel) {
+Future _expectClean(AppController appModel) {
   //expect(appModel.working, isFalse);
   expect(appModel.notes, isEmpty);
 }

@@ -1,16 +1,16 @@
 library nv.init;
 
-import 'package:nv/src/models.dart';
+import 'package:nv/src/controllers.dart';
 
-AppModel get appModel {
+AppController get appModel {
   assert(_appModel != null);
   return _appModel;
 }
 
-void initAppModel(AppModel value) {
+void initAppModel(AppController value) {
   assert(_appModel == null);
   assert(value != null);
   _appModel = value;
 }
 
-AppModel _appModel;
+AppController _appModel;

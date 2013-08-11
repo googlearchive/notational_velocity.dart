@@ -1,10 +1,18 @@
-part of nv.models;
+library ap.controllers;
+
+import 'dart:async';
+import 'package:observe/observe.dart';
+
+import 'models.dart';
+import 'shared.dart';
+import 'storage.dart';
+import 'serialization.dart' as serial;
 
 // TODO: trim trailing whitespace from titles?
 // TODO: prevent titles with tabs and newlines?
 // TODO: prevent whitespace-only titles?
 
-class AppModel extends ChangeNotifierBase {
+class AppController extends ChangeNotifierBase {
   static const _SEARCH_TERM = const Symbol('searchTerm');
 
   final Storage _noteStorage;
@@ -13,17 +21,17 @@ class AppModel extends ChangeNotifierBase {
 
   String _searchTerm = '';
 
-  factory AppModel(Storage storage) {
+  factory AppController(Storage storage) {
     var notes = new ObservableList<Note>();
     var roNotes = new ReadOnlyObservableList<Note>(notes);
 
     // nesting storage to avoid collisions w/ other apps on this domain
     var nested = new NestedStorage(storage, 'nv0.0.1');
 
-    return new AppModel._internal(nested, notes, roNotes);
+    return new AppController._internal(nested, notes, roNotes);
   }
 
-  AppModel._internal(Storage storage, this._notes, this.notes) :
+  AppController._internal(Storage storage, this._notes, this.notes) :
     _noteStorage = new NestedStorage(storage, 'notes');
 
   //
@@ -75,7 +83,7 @@ class AppModel extends ChangeNotifierBase {
             throw new NVError('Provided title does not match existing note: $title');
           }
 
-          return _noteStorage.set(title, note.toJson());
+          return _noteStorage.set(title, serial.toJson(note));
         });
   }
 
@@ -91,7 +99,7 @@ class AppModel extends ChangeNotifierBase {
         .then((dynamic value) {
           if(value == null) return null;
 
-          return new Note.fromJson(value);
+          return serial.fromJson(value);
         });
   }
 
@@ -101,7 +109,7 @@ class AppModel extends ChangeNotifierBase {
     var nc = new TextContent('');
     var note = new Note(title, new DateTime.now(), nc);
 
-    return _noteStorage.set(title, note.toJson())
+    return _noteStorage.set(title, serial.toJson(note))
         .then((_) => note);
   }
 

@@ -1,5 +1,5 @@
 import 'package:polymer/polymer.dart';
-import 'package:nv/src/models.dart';
+import 'package:nv/src/controllers.dart';
 import 'package:nv/debug.dart';
 
 import 'package:nv/init.dart' as init;
@@ -10,5 +10,5 @@ class DebugElement extends PolymerElement {
 
   DebugElement() : _vm = new DebugVM(init.appModel);
 
-  AppModel get appModel => _vm.appModel;
+  AppController get appModel => _vm.appModel;
 }

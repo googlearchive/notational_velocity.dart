@@ -1,7 +1,7 @@
 part of nv.debug;
 
 class DebugVM {
-  final AppModel appModel;
+  final AppController appModel;
 
   DebugVM(this.appModel);
 

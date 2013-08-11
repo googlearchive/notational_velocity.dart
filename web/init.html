@@ -8,13 +8,13 @@
       import 'dart:html';
       import 'package:polymer/polymer.dart';
       import 'package:nv/init.dart' as init;
-      import 'package:nv/src/models.dart';
+      import 'package:nv/src/controllers.dart';
       import 'package:nv/src/storage.dart';
 
       @polymerInitMethod
       void _init() {
         var storage = new StringStorage(window.sessionStorage);
-        var appModel = new AppModel(storage);
+        var appModel = new AppController(storage);
 
         init.initAppModel(appModel);
       }
