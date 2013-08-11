@@ -6,13 +6,13 @@ import 'package:unittest/unittest.dart';
 
 import 'package:nv/src/storage.dart';
 import 'package:nv/src/chrome.dart' as chrome;
-import '../nv/test_storage.dart' as storage;
+import '../harness_shared.dart' as shared;
 
-main() {
+void main() {
   groupSep = ' - ';
   useHtmlEnhancedConfiguration();
 
-  storage.testStorage({
+  shared.main({
     'memory': new StringStorage.memory(),
     'sessionStorage': new StringStorage(window.sessionStorage),
     'chrome Storage':new chrome.PackagedStorage()

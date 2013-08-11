@@ -5,52 +5,43 @@ import 'package:unittest/unittest.dart';
 
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
-import 'package:nv/src/storage.dart';
 
 const _testTitle1 = 'Test Title 1';
 
-void main(Storage storage) {
-  setUp(() {
-    return storage.clear();
-  });
-
+void main() {
   group('AppModel', () {
 
     test('simple', () {
-      var appModel = new AppController(storage);
+      var appModel = new AppController(new Map<String, Note>());
 
-      return _testSimple(appModel);
+      _testSimple(appModel);
     });
 
   });
 }
 
-Future _testSimple(AppController model) {
+void _testSimple(AppController model) {
   _expectClean(model);
 
   final tc = new TextContent('first content!');
 
-  return model.openOrCreateNote(_testTitle1)
-      .then((Note note) {
-        expect(note, isNotNull);
+  var note = model.openOrCreateNote(_testTitle1);
+  expect(note, isNotNull);
 
-        var nc = note.content;
-        expect(nc is TextContent, isTrue);
-        expect(nc.value, isEmpty);
+  var nc = note.content;
+  expect(nc is TextContent, isTrue);
+  expect(nc.value, isEmpty);
 
-        return model.updateNote(_testTitle1, tc);
-      })
-      .then((_) {
-        var titleVariations = _permutateTitle(_testTitle1)
-            ..add('Test');
+  model.updateNote(_testTitle1, tc);
 
-        return Future.forEach(titleVariations, (t) {
-          return model.openOrCreateNote(_testTitle1)
-            .then((Note nc) {
-              expect(nc.content, tc);
-      });
-        });
-      });
+  var titleVariations = _permutateTitle(_testTitle1)
+    ..add('Test');
+
+  for(var t in titleVariations) {
+    var nc = model.openOrCreateNote(_testTitle1);
+    expect(nc.title, _testTitle1);
+    expect(nc.content, tc);
+  }
 }
 
 List<String> _permutateTitle(String title) {

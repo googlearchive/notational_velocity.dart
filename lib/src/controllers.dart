@@ -5,8 +5,6 @@ import 'package:observe/observe.dart';
 
 import 'models.dart';
 import 'shared.dart';
-import 'storage.dart';
-import 'serialization.dart' as serial;
 
 // TODO: trim trailing whitespace from titles?
 // TODO: prevent titles with tabs and newlines?
@@ -15,24 +13,20 @@ import 'serialization.dart' as serial;
 class AppController extends ChangeNotifierBase {
   static const _SEARCH_TERM = const Symbol('searchTerm');
 
-  final Storage _noteStorage;
+  final Map<String, Note> _noteStorage;
   final ObservableList<Note> _notes;
   final ReadOnlyObservableList<Note> notes;
 
   String _searchTerm = '';
 
-  factory AppController(Storage storage) {
+  factory AppController(Map<String, Note> noteStorage) {
     var notes = new ObservableList<Note>();
     var roNotes = new ReadOnlyObservableList<Note>(notes);
 
-    // nesting storage to avoid collisions w/ other apps on this domain
-    var nested = new NestedStorage(storage, 'nv0.0.1');
-
-    return new AppController._internal(nested, notes, roNotes);
+    return new AppController._internal(noteStorage, notes, roNotes);
   }
 
-  AppController._internal(Storage storage, this._notes, this.notes) :
-    _noteStorage = new NestedStorage(storage, 'notes');
+  AppController._internal(this._noteStorage, this._notes, this.notes);
 
   //
   // Properties
@@ -49,42 +43,37 @@ class AppController extends ChangeNotifierBase {
   // Methods
   //
 
-  Future<Note> openOrCreateNote(String title) {
+  Note openOrCreateNote(String title) {
 
-    return _searchTitle(title)
-        .then((String matchedTitle) {
+    var key = title.toLowerCase();
 
-          if(matchedTitle == null) {
-            return _createSaveReturnNote(title);
-          } else {
-            return _getNote(matchedTitle)
-                .then((Note nc) {
-                  // Should absolutely get a valid value here
-                  assert(nc != null);
-                  return nc;
-                });
-          }
-        });
+    var value = _noteStorage[key];
+
+    if(value == null) {
+      var nc = new TextContent('');
+      var note = new Note.now(title, nc);
+      _noteStorage[note.key] = note;
+      return note;
+    }
+
+    return value;
   }
 
   Future deleteNote(String title) {
     throw new UnimplementedError('not there yet...');
   }
 
-  Future updateNote(String title, NoteContent content) {
+  void updateNote(String title, NoteContent noteContent) {
     // NOTE: title must *exactly* match an existing note
     // This keeps us honest about our search model, etc
 
-    var note = new Note.now(title, content);
+    var note = new Note.now(title, noteContent);
 
-    return _noteStorage.exists(title)
-        .then((bool exists) {
-          if(!exists) {
-            throw new NVError('Provided title does not match existing note: $title');
-          }
+    if(!_noteStorage.containsKey(note.key)) {
+      throw new NVError('Provided title does not match existing note: ${note.title}');
+    }
 
-          return _noteStorage.set(title, serial.toJson(note));
-        });
+    _noteStorage[note.key] = note;
   }
 
   //
@@ -94,38 +83,8 @@ class AppController extends ChangeNotifierBase {
   /**
    * Returns null if not fonud
    */
-  Future<Note> _getNote(String title) {
-    return _noteStorage.get(title)
-        .then((dynamic value) {
-          if(value == null) return null;
-
-          return serial.fromJson(value);
-        });
-  }
-
-  Future<Note> _createSaveReturnNote(String title) {
-    // TODO: assume the title is not taken? Hmm...
-
-    var nc = new TextContent('');
-    var note = new Note(title, new DateTime.now(), nc);
-
-    return _noteStorage.set(title, serial.toJson(note))
-        .then((_) => note);
-  }
-
-  Future<String> _searchTitle(String title) {
-    assert(title != null);
-    // TODO: should support ordering by title and last modified
-    // for now: alpha order desc by title
-
-    title = title.toLowerCase();
-
-    return _noteStorage.getKeys()
-        .then((List<String> keys) {
-          keys.sort();
-
-          return keys.firstWhere((t) => t.toLowerCase().startsWith(title), orElse: () => null);
-        });
+  Note _getNote(String title) {
+    return _noteStorage[title];
   }
 
   void _notifyChange(Symbol prop) {

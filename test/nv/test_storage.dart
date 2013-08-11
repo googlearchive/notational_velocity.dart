@@ -5,8 +5,6 @@ import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/debug.dart';
 
-import 'test_app_model.dart' as testAM;
-
 void testStorage(Map<String, Storage> stores) {
   group('Storage', () {
     stores.forEach((String storeName, Storage store) {
@@ -18,7 +16,6 @@ void testStorage(Map<String, Storage> stores) {
 
         _testCore(store);
         _testNested(store);
-        testAM.main(store);
       });
     });
   });

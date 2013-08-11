@@ -17,6 +17,8 @@ class Note {
   factory Note.now(String title, NoteContent content) =>
       new Note(title, new DateTime.now(), content);
 
+  String get key => title.toLowerCase();
+
   @override
   bool operator ==(other) =>
       other is Note &&
