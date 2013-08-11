@@ -26,7 +26,9 @@ class AppController extends ChangeNotifierBase {
     return new AppController._internal(noteStorage, notes, roNotes);
   }
 
-  AppController._internal(this._noteStorage, this._notes, this.notes);
+  AppController._internal(this._noteStorage, this._notes, this.notes) {
+    _updateNotesList();
+  }
 
   //
   // Properties
@@ -53,6 +55,9 @@ class AppController extends ChangeNotifierBase {
       var nc = new TextContent('');
       var note = new Note.now(title, nc);
       _noteStorage[note.key] = note;
+
+      _updateNotesList();
+
       return note;
     }
 
@@ -74,17 +79,25 @@ class AppController extends ChangeNotifierBase {
     }
 
     _noteStorage[note.key] = note;
+
+    _updateNotesList();
   }
 
   //
   // Implementation
   //
 
-  /**
-   * Returns null if not fonud
-   */
-  Note _getNote(String title) {
-    return _noteStorage[title];
+  void _updateNotesList() {
+    var sortedNotes = _noteStorage.values.toList()
+        ..sort(_currentNoteSort);
+
+    _notes.clear();
+    _notes.addAll(sortedNotes);
+  }
+
+  int _currentNoteSort(Note a, Note b) {
+    // NOET: key => case insensitive sort
+    return a.key.compareTo(b.key);
   }
 
   void _notifyChange(Symbol prop) {

@@ -5,15 +5,15 @@
 
   <polymer-element name="init">
     <script type="application/dart">
-      import 'dart:html';
       import 'package:polymer/polymer.dart';
+
       import 'package:nv/init.dart' as init;
       import 'package:nv/src/controllers.dart';
-      import 'package:nv/src/storage.dart';
+      import 'package:nv/src/models.dart';
 
       @polymerInitMethod
       void _init() {
-        var storage = new StringStorage(window.sessionStorage);
+        var storage = new Map<String, Note>();
         var appModel = new AppController(storage);
 
         init.initAppModel(appModel);

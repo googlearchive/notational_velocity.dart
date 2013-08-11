@@ -6,20 +6,14 @@
     <polymer-element name="debug-element">
       <template>
         <style>
-          debug-element {
-            display: inline-block;
-          }
-          .root {
-            border: solid gray 2px;
-            border-radius: 10px;
-            background: lightgray;
-            margin: 10px;
-            padding: 10px;
-            min-width: 200px;
+          .root > .section {
+            margin-bottom: 10px;
           }
         </style>
-        <div class='root'>
-          Search term: <strong>{{appModel.searchTerm}}</strong>
+        <div class='root panel panel-info'>
+          <div class='panel-heading'><strong>Debug Controls</strong></div>
+          <div class='section'>Search term: <strong>{{appModel.searchTerm}}</strong></div>
+          <div class='section'><button on-click='populate'>Populate!</button></div>
         </div>
       </template>
 
