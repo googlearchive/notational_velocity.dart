@@ -5,6 +5,7 @@ import 'package:bot/bot.dart';
 import 'package:meta/meta.dart';
 import 'package:observe/observe.dart';
 
+import 'serialization.dart' as serial;
 import 'shared.dart';
 import 'storage.dart';
 
@@ -21,6 +22,12 @@ class Note {
     assert(lastModified != null);
   }
 
+  factory Note.now(String title, NoteContent content) =>
+      new Note(title, new DateTime.now(), content);
+
+  factory Note.fromJson(dynamic json) => serial.fromJson(json);
+
+  @override
   bool operator ==(other) =>
       other is Note &&
       other.title == title &&
@@ -31,6 +38,8 @@ class Note {
 
   @override
   String toString() => 'Note: $title';
+
+  dynamic toJson() => serial.toJson(this);
 }
 
 abstract class NoteContent {

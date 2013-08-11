@@ -41,7 +41,7 @@ class AppModel extends ChangeNotifierBase {
   // Methods
   //
 
-  Future<NoteContent> openOrCreateNote(String title) {
+  Future<Note> openOrCreateNote(String title) {
 
     return _searchTitle(title)
         .then((String matchedTitle) {
@@ -50,7 +50,7 @@ class AppModel extends ChangeNotifierBase {
             return _createSaveReturnNote(title);
           } else {
             return _getNote(matchedTitle)
-                .then((NoteContent nc) {
+                .then((Note nc) {
                   // Should absolutely get a valid value here
                   assert(nc != null);
                   return nc;
@@ -67,13 +67,15 @@ class AppModel extends ChangeNotifierBase {
     // NOTE: title must *exactly* match an existing note
     // This keeps us honest about our search model, etc
 
+    var note = new Note.now(title, content);
+
     return _noteStorage.exists(title)
         .then((bool exists) {
           if(!exists) {
             throw new NVError('Provided title does not match existing note: $title');
           }
 
-          return _noteStorage.set(title, content.toJson());
+          return _noteStorage.set(title, note.toJson());
         });
   }
 
@@ -84,19 +86,21 @@ class AppModel extends ChangeNotifierBase {
   /**
    * Returns null if not fonud
    */
-  Future<NoteContent> _getNote(String title) {
+  Future<Note> _getNote(String title) {
     return _noteStorage.get(title)
         .then((dynamic value) {
           if(value == null) return null;
 
-          return _parse(value);
+          return new Note.fromJson(value);
         });
   }
 
-  Future<NoteContent> _createSaveReturnNote(String title) {
+  Future<Note> _createSaveReturnNote(String title) {
     // TODO: assume the title is not taken? Hmm...
 
-    var note = new TextContent('');
+    var nc = new TextContent('');
+    var note = new Note(title, new DateTime.now(), nc);
+
     return _noteStorage.set(title, note.toJson())
         .then((_) => note);
   }

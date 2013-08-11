@@ -14,12 +14,6 @@ void main(Storage storage) {
 
   group('AppModel', () {
 
-    test('test title varies enough', () {
-      expect(_testTitle1.toLowerCase(), isNot(_testTitle1));
-      expect(_testTitle1.toUpperCase(), isNot(_testTitle1));
-      expect(_testTitle1, _testTitle1);
-    });
-
     test('simple', () {
       var appModel = new AppModel(storage);
 
@@ -35,19 +29,35 @@ Future _testSimple(AppModel model) {
   final tc = new TextContent('first content!');
 
   return model.openOrCreateNote(_testTitle1)
-      .then((NoteContent nc) {
-        expect(nc, isNotNull);
+      .then((Note note) {
+        expect(note, isNotNull);
+
+        var nc = note.content;
         expect(nc is TextContent, isTrue);
         expect(nc.value, isEmpty);
 
         return model.updateNote(_testTitle1, tc);
       })
       .then((_) {
-        return model.openOrCreateNote(_testTitle1);
-      })
-      .then((NoteContent nc) {
-        expect(nc, tc);
+        var titleVariations = _permutateTitle(_testTitle1)
+            ..add('Test');
+
+        return Future.forEach(titleVariations, (t) {
+          return model.openOrCreateNote(_testTitle1)
+            .then((Note nc) {
+              expect(nc.content, tc);
       });
+        });
+      });
+}
+
+List<String> _permutateTitle(String title) {
+  expect(title, title);
+  expect(title.toLowerCase(), isNot(title));
+  expect(title.toUpperCase(), isNot(title));
+  expect(title.toUpperCase(), isNot(title.toLowerCase()));
+
+  return [title, title.toLowerCase(), title.toUpperCase()];
 }
 
 Future _expectClean(AppModel appModel) {
