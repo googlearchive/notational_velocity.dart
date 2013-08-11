@@ -24,9 +24,17 @@ dynamic toJson(Note note) {
   map[_VERSION] = _currentSerialVersion;
   map[_TITLE] = note.title;
   map[_LAST_MODIFIED] = note.lastModified.toString();
-  map[_CONTENT] = note.content.toJson();
+  map[_CONTENT] = _jsonFromNoteContent(note.content);
 
   return map;
+}
+
+dynamic _jsonFromNoteContent(NoteContent content) {
+  if(content is TextContent) {
+    return content.value;
+  } else {
+    throw new UnimplementedError('cannot the provided NoteContent');
+  }
 }
 
 NoteContent _noteContentFromJson(dynamic json) {

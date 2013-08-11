@@ -44,8 +44,6 @@ class Note {
 
 abstract class NoteContent {
 
-  dynamic toJson();
-
 }
 
 class TextContent extends NoteContent {
@@ -54,8 +52,6 @@ class TextContent extends NoteContent {
   TextContent(this.value) {
     assert(value != null);
   }
-
-  dynamic toJson() => value;
 
   bool operator ==(other) =>
       other is TextContent && other.value == this.value;
@@ -66,18 +62,4 @@ class TextContent extends NoteContent {
       (value.length > 30) ? "${value.substring(0, 27)}..." : value;
 
   static const _MAX_TO_STRING_LENGTH = 30;
-}
-
-/**
- * Assume [value] is a valid JSON-able object
- */
-NoteContent _parse(dynamic value) {
-  assert(value != null);
-
-  if(value is String) {
-    // TextContent
-    return new TextContent(value);
-  } else {
-    throw new ArgumentError("Don't know how to turn value into NoteContent");
-  }
 }
