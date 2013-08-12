@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <link rel="import" href="editor_element.html">
+  </head>
   <body>
 
 <polymer-element name="app-element">
@@ -15,13 +18,6 @@
         height: 300px;
         overflow: scroll;
       }
-
-      .nv-edit {
-        height: 300px;
-        margin: 5px;
-        padding: 5px;
-        background: white;
-      }
     </style>
     <div class="input-group nv-search">
       <span class="input-group-addon"><i class="icon-search"></i></span>
@@ -35,9 +31,7 @@
       </template>
     </div>
 
-    <div class='nv-edit' contenteditable='true' on-input='handleContentEdit'>
-      this is editable?
-    </div>
+    <editor-element></editor-element>
 
   </template>
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+
+    <polymer-element name="editor-element">
+<template>
+  <style>
+      .root {
+        height: 300px;
+        margin: 5px;
+        padding: 5px;
+        background: white;
+      }
+  </style>
+  <div class='root' contenteditable='true' on-input='handleContentEdit'>
+    this is editable?
+  </div>
+</template>
+
+      <script type="application/dart" src="editor_element.dart"></script>
+    </polymer-element>
+
+  </body>
+</html>

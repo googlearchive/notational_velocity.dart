@@ -11,11 +11,6 @@ class AppElement extends PolymerElement {
 
   AppController get appModel => init.appModel;
 
-  void handleContentEdit(Event e, var detail, Element target) {
-    print([e, e.type, detail, target]);
-  }
-
-
   void handleNoteClick(Event e, var detail, Element target) {
     e.preventDefault();
     _noteClick(target.dataset['noteTitle']);
