@@ -8,6 +8,7 @@ import 'package:hop/src/hop_experimental.dart' as hop_ex;
 
 import '../test/harness_console.dart' as test_console;
 import 'src/chrome.dart' as chrome;
+import 'src/polymer_build.dart' as build;
 
 void main() {
 
@@ -32,6 +33,8 @@ void main() {
     };
 
   addTask('update_js', new Task.async((TaskContext ctx) => _copyFiles(ctx, map)));
+
+  addTask('build', new Task.async((ctx) => build.build([], ['web/index.html'])));
 
   runHop();
 }
