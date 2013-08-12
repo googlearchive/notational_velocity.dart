@@ -1,5 +1,6 @@
 library nv.serialization;
 
+import 'dart:convert';
 import 'models.dart';
 
 const _currentSerialVersion = 0;
@@ -7,7 +8,32 @@ const _currentSerialVersion = 0;
 const _TITLE = 'title', _LAST_MODIFIED = 'lastModified', _CONTENT = 'content',
   _VERSION = 'version';
 
-Note fromJson(dynamic json) {
+const _n2j = const _NoteToJsonConverter();
+const _j2n = const _JsonToNoteConverter();
+
+const NOTE_CODEC = const NoteCodec();
+
+class NoteCodec extends Codec<Note, Object> {
+  const NoteCodec();
+
+  Converter<Note, Object> get encoder => _n2j;
+
+  Converter<Object, Note> get decoder => _j2n;
+}
+
+class _NoteToJsonConverter extends Converter<Note, Object> {
+  const _NoteToJsonConverter();
+
+  Object convert(Note note) => _toJson(note);
+}
+
+class _JsonToNoteConverter extends Converter<Object, Note> {
+  const _JsonToNoteConverter();
+
+  Note convert(Object json) => _fromJson(json);
+}
+
+Note _fromJson(dynamic json) {
   Map<String, dynamic> map = json;
 
   assert(json[_VERSION] == _currentSerialVersion);
@@ -18,7 +44,7 @@ Note fromJson(dynamic json) {
   return new Note(json[_TITLE], lastModified, content);
 }
 
-dynamic toJson(Note note) {
+dynamic _toJson(Note note) {
   var map = new Map<String, dynamic>();
 
   map[_VERSION] = _currentSerialVersion;
