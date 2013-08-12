@@ -3,21 +3,26 @@
 <html>
   <body>
 
-  <polymer-element name="init">
+  <polymer-element name='init-element'>
     <script type="application/dart">
-      import 'package:polymer/polymer.dart';
+import 'package:polymer/polymer.dart';
 
-      import 'package:nv/init.dart' as init;
-      import 'package:nv/src/controllers.dart';
-      import 'package:nv/src/models.dart';
+import 'package:nv/init.dart' as init;
+import 'package:nv/src/controllers.dart';
+import 'package:nv/src/models.dart';
 
-      @polymerInitMethod
-      void _init() {
-        var storage = new Map<String, Note>();
-        var appModel = new AppController(storage);
+@polymerInitMethod
+void _init() {
+  var storage = new Map<String, Note>();
+  var appModel = new AppController(storage);
 
-        init.initAppModel(appModel);
-      }
+  init.initAppModel(appModel);
+}
+
+@CustomTag('init-element')
+class InitElement extends PolymerElement {
+}
+
     </script>
   </polymer-element>
 
