@@ -6,14 +6,14 @@
     <polymer-element name="editor-element">
 <template>
   <style>
-      .root {
+      #root {
         height: 300px;
         margin: 5px;
         padding: 5px;
         background: white;
       }
   </style>
-  <div class='root' contenteditable='true' on-input='handleContentEdit'>
+  <div id='root' contenteditable='true' on-input='handleContentEdit'>
     this is editable?
   </div>
 </template>
