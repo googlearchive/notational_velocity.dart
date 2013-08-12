@@ -2,6 +2,7 @@ library nv.sync;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:collection';
 import 'package:nv/src/storage.dart';
 
 // 1) Assume underlying storage is "owned" by the created instance.
@@ -35,12 +36,12 @@ class MapSync<E> {
 
     // something to wait for initial sync?
 
-    return ms;
+    return new Future.value(ms);
   }
 
 
 }
 
-class _SyncMap<E> implements Map<String, E> {
+class _SyncMap<E> extends HashMap<String, E> {
 
 }
