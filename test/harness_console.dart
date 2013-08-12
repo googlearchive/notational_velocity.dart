@@ -6,7 +6,6 @@ import 'package:nv/src/storage.dart';
 
 import 'test_dump_render_tree.dart' as drt;
 import 'harness_shared.dart' as shared;
-import 'tool/split_tests.dart' as split;
 
 
 main() {
@@ -19,5 +18,4 @@ void testCore(Configuration config) {
 
   shared.main( { 'memory': new StringStorage.memory()} );
   drt.main();
-  split.main();
 }

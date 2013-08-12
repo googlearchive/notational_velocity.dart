@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bot_io/bot_io.dart';
-import 'split.dart';
+import 'package:nv/src/shared.dart';
 
 // TODO: use an environment variable for this?
 const _chromePath = '/Users/kevin/source/dev/Google Chrome.app/Contents/MacOS/Google Chrome';

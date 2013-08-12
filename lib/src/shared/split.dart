@@ -1,7 +1,4 @@
-library nv.tool.split;
-
-import 'dart:convert';
-import 'package:bot/bot.dart';
+part of nv.shared;
 
 class Section {
   final String header;
@@ -107,4 +104,3 @@ class _SectionSplitterSink extends StringConversionSinkBase {
     return matches[0];
   }
 }
-
