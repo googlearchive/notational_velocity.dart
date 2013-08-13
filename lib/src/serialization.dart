@@ -8,8 +8,9 @@ const _currentSerialVersion = 0;
 const _TITLE = 'title', _LAST_MODIFIED = 'lastModified', _CONTENT = 'content',
   _VERSION = 'version';
 
-const _n2j = const _NoteToJsonConverter();
-const _j2n = const _JsonToNoteConverter();
+// TODO: would love these to be const: https://codereview.chromium.org/22979003/
+final _n2j = new _NoteToJsonConverter();
+final _j2n = new _JsonToNoteConverter();
 
 const NOTE_CODEC = const NoteCodec();
 
@@ -22,14 +23,10 @@ class NoteCodec extends Codec<Note, Object> {
 }
 
 class _NoteToJsonConverter extends Converter<Note, Object> {
-  const _NoteToJsonConverter();
-
   Object convert(Note note) => _toJson(note);
 }
 
 class _JsonToNoteConverter extends Converter<Object, Note> {
-  const _JsonToNoteConverter();
-
   Note convert(Object json) => _fromJson(json);
 }
 
