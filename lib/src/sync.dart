@@ -3,28 +3,36 @@ library nv.sync;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:collection';
+
+import 'package:bot/bot.dart';
+import 'package:meta/meta.dart';
+import 'package:observe/observe.dart';
+
 import 'package:nv/src/storage.dart';
 
 // 1) Assume underlying storage is "owned" by the created instance.
 //    No changes underneath
 // 2) Assume all values are json-able
 
-class MapSync<E> {
+class MapSync<E> extends ChangeNotifierBase {
   final _Encoder<E, dynamic> _encode;
   final _Decoder<E, dynamic> _decode;
   final _SyncMap<E> _map = new _SyncMap<E>();
+  final Set<String> _dirtyKeys = new Set<String>();
   final Storage _storage;
-  bool _updated = false;
 
   MapSync._(this._storage, [Codec<E, dynamic> codec]) :
     _encode = (codec == null) ? _identity : codec.encode,
-    _decode = (codec == null) ? _identity : codec.decode;
+    _decode = (codec == null) ? _identity : codec.decode {
+
+    _map.onKeyChanged.listen(_onKeyDirty);
+  }
 
   //
   // Properties
   //
 
-  bool get updated => _updated;
+  bool get updated => _dirtyKeys.isEmpty;
 
   Map<String, E> get map => _map;
 
@@ -58,28 +66,60 @@ class MapSync<E> {
     _map._set(key, _decode(json));
   }
 
+  void _onKeyDirty(String key) {
+    var wasEmpty = _dirtyKeys.isEmpty;
+    _dirtyKeys.add(key);
 
+    if(wasEmpty) {
+      _notifyChange(_UPDATED);
+    }
+    _sync();
+  }
+
+  void _sync() => Timer.run(_doSync);
+
+  void _doSync() {
+    print('sync starting...');
+  }
+
+  void _notifyChange(Symbol prop) {
+    notifyChange(new PropertyChangeRecord(prop));
+  }
+
+  static const _UPDATED = const Symbol('updated');
 }
 
 class _SyncMap<E> extends HashMap<String, E> {
+  final EventHandle<String> _keyChanged = new EventHandle<String>();
 
+  @override
   void operator []=(String key, E value) {
-    throw new UnimplementedError('need to get on this guy...');
+    // TODO: check for an actual change at some point?
+
+    _set(key, value);
+    _keyChanged.add(key);
   }
 
+  @override
   void clear() {
     throw new UnimplementedError('not implemented clear yet');
   }
 
-  // putIfAbsent
+  @override
   E putIfAbsent(String key, E ifAbsent()) {
     throw new UnimplementedError('putIfAbsent');
   }
 
-  // remove
+  @override
   E remove(Object key) {
     throw new UnimplementedError('remove');
   }
+
+  Stream<String> get onKeyChanged => _keyChanged.stream;
+
+  //
+  // Implementation
+  //
 
   void _set(String key, E value) {
     super[key] = value;
