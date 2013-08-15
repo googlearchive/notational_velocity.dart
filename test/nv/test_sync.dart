@@ -38,7 +38,11 @@ void main(Storage store) {
           .then((List<ChangeRecord> records) {
             PropertyChangeRecord change = records.single;
             expect(change.field, const Symbol('updated'));
-          });
+            expect(mapSync.updated, isTrue);
+
+            return _asyncExpect(store.getKeys(), ['a']);
+          })
+          .then((_) => _asyncExpect(store.get('a'), 1));
 
       // wait on update change event
 
@@ -53,6 +57,13 @@ void main(Storage store) {
     });
 
   });
+}
+
+Future _asyncExpect(Future asyncValue, dynamic matches) {
+  return asyncValue
+      .then((value) {
+        expect(value, matches);
+      });
 }
 
 class _EventWatcher<T> {

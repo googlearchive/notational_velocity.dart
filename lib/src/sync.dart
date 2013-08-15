@@ -21,6 +21,8 @@ class MapSync<E> extends ChangeNotifierBase {
   final Set<String> _dirtyKeys = new Set<String>();
   final Storage _storage;
 
+  bool _syncActive = false;
+
   MapSync._(this._storage, [Codec<E, dynamic> codec]) :
     _encode = (codec == null) ? _identity : codec.encode,
     _decode = (codec == null) ? _identity : codec.decode {
@@ -76,10 +78,32 @@ class MapSync<E> extends ChangeNotifierBase {
     _sync();
   }
 
-  void _sync() => Timer.run(_doSync);
+  void _sync() {
+    assert(!_syncActive);
+    _syncActive = true;
+    Timer.run(_doSync);
+  }
 
   void _doSync() {
-    print('sync starting...');
+    assert(_syncActive);
+
+    if(updated) {
+      _notifyChange(_UPDATED);
+      _syncActive = false;
+      return;
+    }
+
+    var key = _dirtyKeys.first;
+
+    var value = _encode(_map[key]);
+    _storage.set(key, value)
+      .then((_) {
+        var removed = _dirtyKeys.remove(key);
+        assert(removed);
+        Timer.run(_doSync);
+      });
+
+    // TODO: if set fails, we don't have a very good way to handle it...
   }
 
   void _notifyChange(Symbol prop) {
