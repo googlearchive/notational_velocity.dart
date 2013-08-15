@@ -36,6 +36,8 @@ void main() {
 
   addTask('build', new Task.async((ctx) => build.build([], ['web/index.html'])));
 
+  addChainedTask('package_test_compile_and_run', ['app_dart2js', 'chrome']);
+
   runHop();
 }
 
