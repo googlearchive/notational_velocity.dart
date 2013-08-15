@@ -33,7 +33,8 @@ Future<int> launchChrome(String manifestDir, {String chromePath,
      'load-and-launch-app': manifestDir,
      'no-default-browser-check': null,
      'no-first-run': null,
-     'no-startup-window': null
+     'no-startup-window': null,
+     'disable-default-apps': null // don't need gmail, drive, etc
     };
 
   if(logVerbose) {
