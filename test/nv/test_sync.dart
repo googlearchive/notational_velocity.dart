@@ -1,11 +1,12 @@
 library test.nv.sync;
 
 import 'dart:async';
-import 'dart:collection';
 import 'package:observe/observe.dart';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/src/sync.dart';
+
+import '../src/store_sync_test_util.dart';
 
 void main(Storage store) {
   group('sync', () {
@@ -16,17 +17,17 @@ void main(Storage store) {
 
     test('create', () {
 
-      return store.addAll(_validValues)
+      return store.addAll(VALID_VALUES)
           .then((_) => MapSync.create(store))
           .then((ms) {
-            expect(ms.map, equals(_validValues));
+            expect(ms.map, equals(VALID_VALUES));
             expect(ms.updated, isTrue);
           });
     });
 
     _testMapSync('simple set', store, (MapSync mapSync) {
 
-      var watcher = new _EventWatcher<List<ChangeRecord>>();
+      var watcher = new EventWatcher<List<ChangeRecord>>();
       mapSync.changes.listen(watcher.handler);
 
       expect(mapSync.map, isEmpty);
@@ -40,74 +41,12 @@ void main(Storage store) {
             expect(change.field, const Symbol('updated'));
             expect(mapSync.updated, isTrue);
 
-            return _asyncExpect(store.getKeys(), ['a']);
+            return asyncExpect(store.getKeys(), ['a']);
           })
-          .then((_) => _asyncExpect(store.get('a'), 1));
-
-      // wait on update change event
-
-      // set one
-
-      // - updated is false
-
-      // on updated prop change
-      // updated is true
-      // value is seen in source storage
-
+          .then((_) => asyncExpect(store.get('a'), 1));
     });
 
   });
-}
-
-Future _asyncExpect(Future asyncValue, dynamic matches) {
-  return asyncValue
-      .then((value) {
-        expect(value, matches);
-      });
-}
-
-class _EventWatcher<T> {
-  final Queue<T> _events = new Queue<T>();
-
-  Completer<T> _listenCompleter;
-  int _eventCount = 0;
-
-  int get pendingEventCount => _events.length;
-
-  List<T> clearPending() {
-    var items = _events.toList();
-    _events.clear();
-    return items;
-  }
-
-  int get eventCount => _eventCount;
-
-  void handler(T args) {
-    _events.add(args);
-    _eventCount++;
-
-    if(_listenCompleter != null) {
-      var completer = _listenCompleter;
-      _listenCompleter = null;
-      Timer.run(()  => completer.complete(_getSingleEvent()));
-    }
-  }
-
-  Future<T> listenOne() {
-    assert(_listenCompleter == null);
-    if(_events.isEmpty) {
-      _listenCompleter = new Completer();
-      return _listenCompleter.future;
-    }
-
-    return new Future(_getSingleEvent);
-  }
-
-  T _getSingleEvent() {
-    var items = clearPending();
-    assert(items.length == 1);
-    return items.single;
-  }
 }
 
 void _testMapSync(String testName, Storage store, runner(MapSync store)) {
@@ -115,15 +54,3 @@ void _testMapSync(String testName, Storage store, runner(MapSync store)) {
     return MapSync.create(store).then(runner);
   });
 }
-
-const _validValues = const {
-  'string': 'a string',
-  'int': 42,
-  'double': 3.1415,
-  'array': const [1,2,3,4],
-  'map': const {
-    'int': 42,
-    'array': const [1,2,3],
-    'map': const { 'a':1, 'b':2}
-  }
-};

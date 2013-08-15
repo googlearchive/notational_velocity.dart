@@ -5,6 +5,8 @@ import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/debug.dart';
 
+import '../src/store_sync_test_util.dart';
+
 void testStorage(Map<String, Storage> stores) {
   group('Storage', () {
     stores.forEach((String storeName, Storage store) {
@@ -31,24 +33,24 @@ void _testNested(Storage storage) {
       var n11 = new NestedStorage(n1, 't11');
       var n2 = new NestedStorage(storage, 't2');
 
-      return n1.addAll(_validValues)
-          .then((_) => _matchesValidValues(n1))
-          .then((_) => _isEmpty(n11))
-          .then((_) => _isEmpty(n2))
-          .then((_) => n2.addAll(_validValues))
-          .then((_) => n11.addAll(_validValues))
-          .then((_) => _matchesValidValues(n1))
-          .then((_) => _matchesValidValues(n2))
-          .then((_) => _matchesValidValues(n11))
+      return n1.addAll(VALID_VALUES)
+          .then((_) => matchesValidValues(n1))
+          .then((_) => expectStorageEmpty(n11))
+          .then((_) => expectStorageEmpty(n2))
+          .then((_) => n2.addAll(VALID_VALUES))
+          .then((_) => n11.addAll(VALID_VALUES))
+          .then((_) => matchesValidValues(n1))
+          .then((_) => matchesValidValues(n2))
+          .then((_) => matchesValidValues(n11))
           .then((_) => n1.clear())
-          .then((_) => _isEmpty(n1))
-          .then((_) => _matchesValidValues(n2))
+          .then((_) => expectStorageEmpty(n1))
+          .then((_) => matchesValidValues(n2))
           .then((_) => n2.clear())
-          .then((_) => _isEmpty(n1))
-          .then((_) => _isEmpty(n2))
-          .then((_) => _matchesValidValues(n11))
+          .then((_) => expectStorageEmpty(n1))
+          .then((_) => expectStorageEmpty(n2))
+          .then((_) => matchesValidValues(n11))
           .then((_) => n11.clear())
-          .then((_) => _isEmpty(n11));
+          .then((_) => expectStorageEmpty(n11));
     });
   });
 }
@@ -66,19 +68,19 @@ void _testCore(Storage storage) {
 
   test('add many and clear', () {
     // the added null is a no-op
-    final validValuesAndNull = new Map.from(_validValues);
+    final validValuesAndNull = new Map.from(VALID_VALUES);
     validValuesAndNull['null'] = null;
 
     return storage.addAll(validValuesAndNull)
       .then((_) {
-        return _matchesValidValues(storage);
+        return matchesValidValues(storage);
       })
       .then((_) {
         return storage.clear();
       })
-      .then((_) => _isEmpty(storage))
+      .then((_) => expectStorageEmpty(storage))
       .then((_) {
-        return Future.forEach(_validValues.keys, (key) {
+        return Future.forEach(VALID_VALUES.keys, (key) {
           return storage.get(key)
               .then((value) {
                 expect(value, null);
@@ -92,10 +94,10 @@ void _testCore(Storage storage) {
         .then((List<String> keys) {
           expect(keys, isEmpty);
 
-          return storage.addAll(_validValues);
+          return storage.addAll(VALID_VALUES);
         })
         .then((_) {
-          return _matchesValidValues(storage);
+          return matchesValidValues(storage);
         });
   });
 
@@ -127,8 +129,8 @@ void _testCore(Storage storage) {
   group('store values', () {
     const key = 'test_key';
 
-    for(var description in _validValues.keys) {
-      var testValue = _validValues[description];
+    for(var description in VALID_VALUES.keys) {
+      var testValue = VALID_VALUES[description];
 
       test(description, () {
 
@@ -156,36 +158,3 @@ void _testCore(Storage storage) {
     }
   });
 }
-
-Future _isEmpty(Storage storage) {
-  return storage.getKeys()
-      .then((keys) {
-        expect(keys, isEmpty);
-      });
-}
-
-Future _matchesValidValues(Storage storage) {
-  return storage.getKeys()
-    .then((List<String> keys) {
-      expect(keys, unorderedEquals(_validValues.keys));
-
-      return Future.forEach(keys, (k) {
-        return storage.get(k)
-            .then((dynamic value) {
-              expect(value, _validValues[k]);
-            });
-      });
-    });
-}
-
-const _validValues = const {
-  'string': 'a string',
-  'int': 42,
-  'double': 3.1415,
-  'array': const [1,2,3,4],
-  'map': const {
-    'int': 42,
-    'array': const [1,2,3],
-    'map': const { 'a':1, 'b':2}
-  }
-};
