@@ -11,10 +11,6 @@ import '../src/store_sync_test_util.dart';
 void main(Storage store) {
   group('sync', () {
 
-    setUp(() {
-      return store.clear();
-    });
-
     test('create', () {
 
       return store.addAll(VALID_VALUES)
