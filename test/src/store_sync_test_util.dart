@@ -17,22 +17,21 @@ const VALID_VALUES = const {
   }
 };
 
-Future expectStorageEmpty(Storage storage) {
-  return storage.getKeys()
-      .then((keys) {
-        expect(keys, isEmpty);
-      });
-}
+Future expectStorageEmpty(Storage storage) =>
+    matchesMapValues(storage, {});
 
-Future matchesValidValues(Storage storage) {
+Future matchesValidValues(Storage storage) =>
+    matchesMapValues(storage, VALID_VALUES);
+
+Future matchesMapValues(Storage storage, Map<String, dynamic> values) {
   return storage.getKeys()
     .then((List<String> keys) {
-      expect(keys, unorderedEquals(VALID_VALUES.keys));
+      expect(keys, unorderedEquals(values.keys));
 
       return Future.forEach(keys, (k) {
         return storage.get(k)
             .then((dynamic value) {
-              expect(value, VALID_VALUES[k]);
+              expect(value, values[k]);
             });
       });
     });

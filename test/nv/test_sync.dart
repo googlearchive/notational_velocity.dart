@@ -41,9 +41,8 @@ void main(Storage store) {
             expect(change.field, const Symbol('updated'));
             expect(mapSync.updated, isTrue);
 
-            return asyncExpect(store.getKeys(), ['a']);
-          })
-          .then((_) => asyncExpect(store.get('a'), 1));
+            return matchesMapValues(store, { 'a': 1 });
+          });
     });
 
   });

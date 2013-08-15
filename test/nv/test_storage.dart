@@ -59,10 +59,7 @@ void _testCore(Storage storage) {
   test('store pnp', () {
       return storage.addAll(PNP)
         .then((_) {
-          return storage.getKeys();
-        })
-        .then((List<String> keys) {
-          expect(keys, unorderedEquals(PNP.keys));
+          return matchesMapValues(storage, PNP);
         });
   });
 
@@ -78,15 +75,7 @@ void _testCore(Storage storage) {
       .then((_) {
         return storage.clear();
       })
-      .then((_) => expectStorageEmpty(storage))
-      .then((_) {
-        return Future.forEach(VALID_VALUES.keys, (key) {
-          return storage.get(key)
-              .then((value) {
-                expect(value, null);
-              });
-        });
-      });
+      .then((_) => expectStorageEmpty(storage));
   });
 
   test('addAll, getKeys', () {
@@ -96,9 +85,7 @@ void _testCore(Storage storage) {
 
           return storage.addAll(VALID_VALUES);
         })
-        .then((_) {
-          return matchesValidValues(storage);
-        });
+        .then((_) => matchesValidValues(storage));
   });
 
   test('setting null == removing', () {
