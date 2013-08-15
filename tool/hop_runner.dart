@@ -40,7 +40,7 @@ void main() {
 }
 
 Future<bool> _launchChrome(TaskContext ctx) {
-  return chrome.launchChrome().then((_) => true);
+  return chrome.launchChrome('test').then((int exitCode) => exitCode == 0);
 }
 
 Future<bool> _copyFiles(TaskContext ctx, Map<String, String> sourceToDest) {

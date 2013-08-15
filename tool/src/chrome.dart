@@ -6,35 +6,48 @@ import 'dart:io';
 import 'package:bot_io/bot_io.dart';
 import 'package:nv/src/shared.dart';
 
-// TODO: use an environment variable for this?
-const _chromePath = '/Users/kevin/source/dev/Google Chrome.app/Contents/MacOS/Google Chrome';
+const _CHROME_PATH_ENV_KEY = 'CHROME_PATH';
+const _MAC_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
-Future launchChrome() {
-  var testLaunch =
+Future<int> launchChrome(String manifestDir, {String chromePath,
+  bool logStdOut: false, bool logStdErr: true, bool logVerbose: true}) {
+  if(chromePath == null) {
+    chromePath = Platform.environment[_CHROME_PATH_ENV_KEY];
+  }
+  if(chromePath == null && Platform.isMacOS) {
+    chromePath = _MAC_CHROME_PATH;
+  }
+
+  if(chromePath == null) {
+    throw new ArgumentError('"chromePath" must be provided or the '
+        '$_CHROME_PATH_ENV_KEY environment variable must be set');
+  }
+
+  if(!FileSystemEntity.isFileSync(chromePath)) {
+    throw new Exception('Could not find Chrome at $chromePath');
+  }
+
+  var config =
     {
-     'load-and-launch-app': 'test',
-     'no-startup-window': null,
      'enable-logging': 'stderr',
-     'v': '1'
+     'load-and-launch-app': manifestDir,
+     'no-default-browser-check': null,
+     'no-first-run': null,
+     'no-startup-window': null
     };
 
+  if(logVerbose) {
+    config['v'] = null;
+  }
+
   return TempDir
-      .then((dir) => _launchChrome(dir, testLaunch))
-      .then((int exitCode) {
-        if(exitCode != 0) {
-          throw new Exception('Chrome process failed. Exit code: $exitCode');
-        }
-      });
+      .then((dir) => _launchChrome(dir, chromePath, config, logStdOut, logStdErr));
 }
 
-Future<int> _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
+Future<int> _launchChrome(Directory tempDir, String chromePath,
+    Map<String, String> argsMap, bool logStdOut, bool logStdErr) {
 
-  if(argsMap == null) {
-    argsMap = {};
-  }
   argsMap['user-data-dir'] = tempDir.path;
-  argsMap['no-default-browser-check'] = null;
-  argsMap['no-first-run'] = null;
 
   var args = argsMap.keys.map((key) {
     assert(!key.startsWith('-'));
@@ -48,13 +61,11 @@ Future<int> _launchChrome(Directory tempDir, [Map<String, String> argsMap]) {
     }
   }).toList(growable: false);
 
-  print(args);
-
-  return Process.start(_chromePath, args)
+  return Process.start(chromePath, args)
       .then((Process process) {
 
-        _captureStd(false, process.stdout);
-        _captureStd(true, process.stderr);
+        _captureStd(logStdOut, process.stdout);
+        _captureStd(logStdErr, process.stderr);
 
         return process.exitCode;
       });
