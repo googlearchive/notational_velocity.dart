@@ -10,7 +10,9 @@ const _CHROME_PATH_ENV_KEY = 'CHROME_PATH';
 const _MAC_CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
 Future<int> launchChrome(String manifestDir, {String chromePath,
-  bool logStdOut: false, bool logStdErr: true, bool logVerbose: true}) {
+  bool logStdOut: false, bool logStdErr: true, bool logVerbose: true,
+  int debugPort: null}) {
+
   if(chromePath == null) {
     chromePath = Platform.environment[_CHROME_PATH_ENV_KEY];
   }
@@ -29,26 +31,32 @@ Future<int> launchChrome(String manifestDir, {String chromePath,
 
   var config =
     {
+     'debug-packed-apps': null,
+     'disable-default-apps': null, // don't need gmail, drive, etc
      'enable-logging': 'stderr',
      'load-and-launch-app': manifestDir,
      'no-default-browser-check': null,
      'no-first-run': null,
-     'no-startup-window': null,
-     'disable-default-apps': null // don't need gmail, drive, etc
+     'no-startup-window': null
     };
 
   if(logVerbose) {
     config['v'] = null;
   }
 
+  if(debugPort != null) {
+    config['remote-debugging-port'] = debugPort;
+  }
+
   return TempDir
-      .then((dir) => _launchChrome(dir, chromePath, config, logStdOut, logStdErr));
+      .then((dir) {
+        config['user-data-dir'] = dir.path;
+        return _launchChrome(chromePath, config, logStdOut, logStdErr);
+      });
 }
 
-Future<int> _launchChrome(Directory tempDir, String chromePath,
+Future<int> _launchChrome(String chromePath,
     Map<String, String> argsMap, bool logStdOut, bool logStdErr) {
-
-  argsMap['user-data-dir'] = tempDir.path;
 
   var args = argsMap.keys.map((key) {
     assert(!key.startsWith('-'));
