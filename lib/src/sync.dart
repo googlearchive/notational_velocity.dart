@@ -139,6 +139,13 @@ class _SyncMap<E> extends HashMap<String, E> {
     throw new UnimplementedError('remove');
   }
 
+  @override
+  void addAll(Map<String, E> other) {
+    other.forEach((k, v) {
+      this[k] = v;
+    });
+  }
+
   Stream<String> get onKeyChanged => _keyChanged.stream;
 
   //

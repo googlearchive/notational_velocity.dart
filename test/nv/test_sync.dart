@@ -23,31 +23,61 @@ void main(Storage store) {
 
     _testMapSync('simple set', store, (MapSync mapSync) {
 
-      var watcher = new EventWatcher<List<ChangeRecord>>();
-      mapSync.changes.listen(watcher.handler);
-
       expect(mapSync.map, isEmpty);
 
-      mapSync.map['a'] = 1;
-      expect(mapSync.updated, isFalse);
-
-      return watcher.listenOne()
-          .then((List<ChangeRecord> records) {
-            PropertyChangeRecord change = records.single;
-            expect(change.field, const Symbol('updated'));
-            expect(mapSync.updated, isFalse);
-
-            return watcher.listenOne();
+      return _expectSyncMapChange(store, mapSync,
+          { 'a' : 1 },
+          { 'a': 1 })
+          .then((_) {
+            return _expectSyncMapChange(store, mapSync,
+                { 'b' : 2 },
+                { 'a': 1, 'b': 2 });
           })
-        .then((List<ChangeRecord> records) {
-          PropertyChangeRecord change = records.single;
-          expect(change.field, const Symbol('updated'));
-          expect(mapSync.updated, isTrue);
-
-          return matchesMapValues(store, { 'a': 1 });
-        });
+          .then((_) {
+            return _expectSyncMapChange(store, mapSync,
+                { 'b' : 3 },
+                { 'a': 1, 'b': 3 });
+          })
+          .then((_) {
+            return _expectSyncMapChange(store, mapSync,
+                { 'a' : null },
+                { 'b': 3 });
+          })
+          .then((_) {
+            return _expectSyncMapChange(store, mapSync,
+                { 'b' : null },
+                { });
+      });
     });
   });
+}
+
+Future _expectSyncMapChange(Storage store, MapSync mapSync, Map delta, Map expected) {
+  var watcher = new EventWatcher<List<ChangeRecord>>();
+  var sub = mapSync.changes.listen(watcher.handler);
+
+  expect(mapSync.updated, isTrue);
+
+  mapSync.map.addAll(delta);
+
+  expect(mapSync.updated, isFalse);
+
+  return watcher.listenOne()
+      .then((List<ChangeRecord> records) {
+        PropertyChangeRecord change = records.single;
+        expect(change.field, const Symbol('updated'));
+        expect(mapSync.updated, isFalse);
+
+        return watcher.listenOne();
+      })
+      .then((List<ChangeRecord> records) {
+        PropertyChangeRecord change = records.single;
+        expect(change.field, const Symbol('updated'));
+        expect(mapSync.updated, isTrue);
+
+        return matchesMapValues(store, expected);
+      })
+      .whenComplete(sub.cancel);
 }
 
 void _testMapSync(String testName, Storage store, runner(MapSync store)) {
