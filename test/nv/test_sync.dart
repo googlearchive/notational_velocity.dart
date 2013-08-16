@@ -35,12 +35,18 @@ void main(Storage store) {
           .then((List<ChangeRecord> records) {
             PropertyChangeRecord change = records.single;
             expect(change.field, const Symbol('updated'));
-            expect(mapSync.updated, isTrue);
+            expect(mapSync.updated, isFalse);
 
-            return matchesMapValues(store, { 'a': 1 });
-          });
+            return watcher.listenOne();
+          })
+        .then((List<ChangeRecord> records) {
+          PropertyChangeRecord change = records.single;
+          expect(change.field, const Symbol('updated'));
+          expect(mapSync.updated, isTrue);
+
+          return matchesMapValues(store, { 'a': 1 });
+        });
     });
-
   });
 }
 

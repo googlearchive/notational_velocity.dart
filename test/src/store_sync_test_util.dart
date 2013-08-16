@@ -75,7 +75,7 @@ class EventWatcher<T> {
   Future<T> listenOne() {
     assert(_listenCompleter == null);
     if(_events.isEmpty) {
-      _listenCompleter = new Completer();
+      _listenCompleter = new Completer.sync();
       return _listenCompleter.future;
     }
 
