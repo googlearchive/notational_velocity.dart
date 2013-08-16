@@ -146,6 +146,7 @@ function dartPrint(msg) {
       || (msg === 'unittest-suite-wait-for-done')) {
     window.postMessage(msg, '*');
   }
+  console.log(msg);
 }
 
 // dart2js will generate code to call this function instead of calling
