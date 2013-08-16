@@ -88,6 +88,9 @@ void _captureStd(bool process, Stream<List<int>> std) {
     .listen((ChromeLogEntry value) {
       if(process) {
         print([value.kind, value.details, value.content]);
+        if(value.kind == 'INFO' && value.details.startsWith('CONSOLE(')) {
+          _print(value.content, AnsiColor.GREEN);
+        }
       }
     });
 }
