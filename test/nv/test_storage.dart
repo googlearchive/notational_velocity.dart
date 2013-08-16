@@ -9,8 +9,14 @@ import 'test_sync.dart' as sync;
 import '../src/store_sync_test_util.dart';
 
 void testStorage(Map<String, Storage> stores) {
+  var allStores = new Map.from(stores);
+
+  allStores['memory - sync'] = new StringStorage.memorySync();
+  allStores['memory - async'] = new StringStorage.memoryAsync();
+  allStores['memory - delayed - 10'] = new StringStorage.memoryDelayed(10);
+
   group('Storage', () {
-    stores.forEach((String storeName, Storage store) {
+    allStores.forEach((String storeName, Storage store) {
       group(storeName, () {
 
         setUp(() {

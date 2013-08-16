@@ -1,21 +1,36 @@
 part of nv.storage;
 
-const _slowDelay = const Duration(milliseconds: 10);
+Future _slowRunner(int milliseconds, task()) =>
+    new Future.delayed(new Duration(milliseconds: milliseconds), task);
 
-Future _slowRunner(task()) =>
-  new Future.delayed(_slowDelay, task);
+Future _syncRunner(task()) =>
+    new Future(task);
+
+Future _asyncRunner(task()) =>
+    new Future.sync(task);
+
+typedef Future FutureRunner(task());
 
 class StringStorage implements Storage {
 
-  final Function _runner;
+  final FutureRunner _runner;
 
   final Map<String, String> _store;
 
-  factory StringStorage.memory([runner() = null]) =>
+  factory StringStorage.memorySync() =>
+      new StringStorage.memory(_syncRunner);
+
+  factory StringStorage.memoryAsync() =>
+      new StringStorage.memory(_asyncRunner);
+
+  factory StringStorage.memoryDelayed([int milliseconds = 10]) =>
+      new StringStorage.memory((task) => _slowRunner(milliseconds, task));
+
+  factory StringStorage.memory(FutureRunner runner) =>
       new StringStorage(new Map<String, String>(), runner);
 
-  StringStorage(this._store, [runner() = null]) :
-    this._runner = (runner == null) ? _slowRunner : runner {
+  StringStorage(this._store, [FutureRunner runner = null]) :
+    this._runner = (runner == null) ? _asyncRunner : runner {
     assert(this._store != null);
   }
 

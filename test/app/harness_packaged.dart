@@ -13,7 +13,6 @@ void main() {
   useHtmlEnhancedConfiguration();
 
   shared.main({
-    'memory': new StringStorage.memory(),
     'sessionStorage': new StringStorage(window.sessionStorage),
     'chrome Storage':new chrome.PackagedStorage()
   });

@@ -12,7 +12,6 @@ main() {
   useHtmlEnhancedConfiguration();
 
   shared.main({
-    'memory': new StringStorage.memory(),
     'localStorage': new StringStorage(window.localStorage),
     'sessionStorage': new StringStorage(window.sessionStorage)
   });
