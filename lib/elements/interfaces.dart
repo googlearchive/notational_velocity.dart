@@ -4,6 +4,9 @@ library nv.element_interfaces;
 // Why can't I just use the type directly?
 
 abstract class EditorInterface {
-  String get value;
-  void set value(String val);
+  String get text;
+  void set text(String val);
+
+  bool get enabled;
+  void set enabled(bool val);
 }

@@ -31,7 +31,8 @@ class AppElement extends PolymerElement {
 
     var value = content.value;
 
-    editor.value = value;
+    editor.enabled = true;
+    editor.text = value;
   }
 
   Element get _editor => shadowRoot.query('editor-element');

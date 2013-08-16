@@ -3,6 +3,7 @@ library ap.controllers;
 import 'dart:async';
 import 'package:observe/observe.dart';
 
+import 'config.dart';
 import 'models.dart';
 import 'shared.dart';
 
@@ -27,6 +28,12 @@ class AppController extends ChangeNotifierBase {
   }
 
   AppController._internal(this._noteStorage, this._notes, this.notes) {
+    if(_noteStorage.isEmpty) {
+      INITIAL_NOTES.forEach((String title, String content) {
+        _noteStorage[title] = new Note.now(title, new TextContent(content));
+      });
+    }
+
     _updateNotesList();
   }
 
