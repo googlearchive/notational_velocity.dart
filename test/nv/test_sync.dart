@@ -25,40 +25,47 @@ void main(Storage store) {
 
       expect(mapSync.map, isEmpty);
 
-      return _expectSyncMapChange(store, mapSync,
+      return _expectSyncMapWithDeltaMap(store, mapSync,
           { 'a' : 1 },
           { 'a': 1 })
           .then((_) {
-            return _expectSyncMapChange(store, mapSync,
+            return _expectSyncMapWithDeltaMap(store, mapSync,
                 { 'b' : 2 },
                 { 'a': 1, 'b': 2 });
           })
           .then((_) {
-            return _expectSyncMapChange(store, mapSync,
+            return _expectSyncMapWithDeltaMap(store, mapSync,
                 { 'b' : 3 },
                 { 'a': 1, 'b': 3 });
           })
           .then((_) {
-            return _expectSyncMapChange(store, mapSync,
+            return _expectSyncMapWithDeltaMap(store, mapSync,
                 { 'a' : null },
                 { 'b': 3 });
           })
           .then((_) {
-            return _expectSyncMapChange(store, mapSync,
+            return _expectSyncMapWithDeltaMap(store, mapSync,
                 { 'b' : null },
                 { });
-      });
+          });
+
     });
   });
 }
 
-Future _expectSyncMapChange(Storage store, MapSync mapSync, Map delta, Map expected) {
+Future _expectSyncMapWithDeltaMap(Storage store, MapSync mapSync, Map delta, Map expected) {
+  return _expectSyncMapWithChange(store, mapSync, () {
+    mapSync.map.addAll(delta);
+  }, expected);
+}
+
+Future _expectSyncMapWithChange(Storage store, MapSync mapSync, void action(), Map expected) {
   var watcher = new EventWatcher<List<ChangeRecord>>();
   var sub = mapSync.changes.listen(watcher.handler);
 
   expect(mapSync.updated, isTrue);
 
-  mapSync.map.addAll(delta);
+  action();
 
   expect(mapSync.updated, isFalse);
 
