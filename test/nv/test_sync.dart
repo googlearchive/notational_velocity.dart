@@ -9,7 +9,7 @@ import 'package:nv/src/sync.dart';
 import '../src/store_sync_test_util.dart';
 
 void main(Storage store) {
-  group('sync', () {
+  group('MapSync', () {
 
     test('create', () {
 
