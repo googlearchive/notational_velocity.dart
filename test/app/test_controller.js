@@ -7,10 +7,6 @@
  * conent shell.
  */
 
-// Clear the console before every test run - this is Firebug specific code.
-if (typeof console == "object" && typeof console.clear == "function") {
-  console.clear();
-}
 // Set window onerror to make sure that we catch test harness errors across all
 // browsers.
 window.onerror = function (message, url, lineNumber) {
@@ -81,6 +77,7 @@ function processMessage(msg) {
   } else if (msg == 'unittest-suite-fail') {
     showErrorAndExit('Some tests failed.');
   }
+  console.log(msg);
 }
 
 function onReceive(e) {
@@ -148,11 +145,7 @@ function dartPrint(msg) {
       || (msg === 'unittest-suite-done')
       || (msg === 'unittest-suite-wait-for-done')) {
     window.postMessage(msg, '*');
-    return;
   }
-  var pre = document.createElement("pre");
-  pre.appendChild(document.createTextNode(String(msg)));
-  document.body.appendChild(pre);
 }
 
 // dart2js will generate code to call this function instead of calling
