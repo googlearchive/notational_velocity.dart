@@ -79,9 +79,10 @@ class MapSync<E> extends ChangeNotifierBase {
   }
 
   void _sync() {
-    assert(!_syncActive);
-    _syncActive = true;
-    Timer.run(_doSync);
+    if(!_syncActive) {
+      _syncActive = true;
+      Timer.run(_doSync);
+    }
   }
 
   void _doSync() {
@@ -136,7 +137,9 @@ class _SyncMap<E> extends HashMap<String, E> {
 
   @override
   E remove(Object key) {
-    throw new UnimplementedError('remove');
+    var value = super.remove(key);
+    _keyChanged.add(key);
+    return value;
   }
 
   @override

@@ -50,7 +50,21 @@ void main(Storage store) {
           });
 
     });
-  });
+
+    _testMapSync('simple remove', store, (MapSync mapSync) {
+
+      expect(mapSync.map, isEmpty);
+
+      return _expectSyncMapWithDeltaMap(store, mapSync,
+          { 'a' : 1, 'b' : 2 },
+          { 'a': 1, 'b' : 2 })
+          .then((_) {
+            return _expectSyncMapWithChange(store, mapSync,
+                () => mapSync.map.remove('a'),
+                { 'b': 2 });
+          });
+    });
+});
 }
 
 Future _expectSyncMapWithDeltaMap(Storage store, MapSync mapSync, Map delta, Map expected) {
