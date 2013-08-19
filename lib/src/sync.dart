@@ -14,6 +14,10 @@ import 'package:nv/src/storage.dart';
 //    No changes underneath
 // 2) Assume all values are json-able
 
+// TODO: some kind of dispose?
+//   ensure sync happens
+//   kill off key change event listener
+
 class MapSync<E> extends ChangeNotifierBase {
   final _Encoder<E, dynamic> _encode;
   final _Decoder<E, dynamic> _decode;
@@ -22,40 +26,42 @@ class MapSync<E> extends ChangeNotifierBase {
   final Storage _storage;
 
   bool _syncActive = false;
+  bool _loaded = false;
 
-  MapSync._(this._storage, [Codec<E, dynamic> codec]) :
+  MapSync(this._storage, [Codec<E, dynamic> codec]) :
     _encode = (codec == null) ? _identity : codec.encode,
     _decode = (codec == null) ? _identity : codec.decode {
 
     _map.onKeyChanged.listen(_onKeyDirty);
+    _load();
   }
 
   //
   // Properties
   //
 
-  bool get updated => _dirtyKeys.isEmpty;
+  bool get loaded => _loaded;
 
-  Map<String, E> get map => _map;
+  bool get updated => _loaded && _dirtyKeys.isEmpty;
+
+  Map<String, E> get map => _loaded ? _map : const {};
 
   //
   // Methods
   //
 
   static Future<MapSync> create(Storage storage, [Codec codec]) {
-    var ms = new MapSync._(storage, codec);
+    var ms = new MapSync(storage, codec);
 
-    return storage.getKeys()
-        .then((List<String> keys) {
-          return Future.forEach(keys, (String key) {
-            return storage.get(key)
-                .then((Object json) {
-                  ms._set(key, json);
-                });
-          });
-
+    return ms.changes
+        .firstWhere((List<ChangeRecord> changes) {
+            return changes
+              .where((ChangeRecord cr) => cr is PropertyChangeRecord)
+              .any((PropertyChangeRecord pcr) =>
+                  pcr.field == const Symbol('loaded'));
         })
         .then((_) {
+          assert(ms.loaded);
           return ms;
         });
   }
@@ -109,6 +115,25 @@ class MapSync<E> extends ChangeNotifierBase {
 
   void _notifyChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
+  }
+
+  void _load() {
+    assert(!_loaded);
+    _storage.getKeys()
+      .then((List<String> keys) {
+        return Future.forEach(keys, (String key) {
+          return _storage.get(key)
+              .then((Object json) {
+                _set(key, json);
+              });
+        });
+
+      })
+      .then((_) {
+        assert(!_loaded);
+        _loaded = true;
+        _notifyChange(const Symbol('loaded'));
+      });
   }
 
   static const _UPDATED = const Symbol('updated');
