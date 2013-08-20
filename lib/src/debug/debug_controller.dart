@@ -1,9 +1,9 @@
 part of nv.debug;
 
-class DebugVM {
+class DebugController {
   final AppController controller;
 
-  DebugVM(this.controller);
+  DebugController(this.controller);
 
   Future clear() {
     throw new UnimplementedError('DebugVM.clear is not impld');

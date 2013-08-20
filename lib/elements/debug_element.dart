@@ -10,11 +10,11 @@ class DebugElement extends PolymerElement with ChangeNotifierMixin {
 
   bool get applyAuthorStyles => true;
 
-  DebugVM _vm;
+  DebugController _vm;
 
   DebugElement() {
     init.controllerFuture.then((AppController controller) {
-      _vm = new DebugVM(controller);
+      _vm = new DebugController(controller);
       notifyChange(new PropertyChangeRecord(const Symbol('controller')));
     });
   }
