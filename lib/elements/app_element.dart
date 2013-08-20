@@ -36,14 +36,12 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
     TextContent content = note.content;
 
-    EditorInterface editor = _editor.xtag;
-
     var value = content.value;
 
-    editor.enabled = true;
-    editor.text = value;
+    _editor.enabled = true;
+    _editor.text = value;
   }
 
-  Element get _editor => shadowRoot.query('editor-element');
+  EditorInterface get _editor => shadowRoot.query('editor-element').xtag;
 
 }
