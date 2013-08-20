@@ -8,15 +8,14 @@
 import 'package:polymer/polymer.dart';
 
 import 'package:nv/init.dart' as init;
+import 'package:nv/debug.dart';
 import 'package:nv/src/controllers.dart';
-import 'package:nv/src/models.dart';
 
-@polymerInitMethod
+@initMethod
 void _init() {
-  var storage = new Map<String, Note>();
-  var appModel = new AppController(storage);
-
-  init.initAppModel(appModel);
+  getDebugController().then((AppController ac) {
+    init.populateController(ac);
+  });
 }
 
 @CustomTag('init-element')

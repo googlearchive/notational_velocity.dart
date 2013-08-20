@@ -3,8 +3,11 @@ library test.nv.app_model;
 import 'dart:async';
 import 'package:unittest/unittest.dart';
 
+import 'package:nv/debug.dart';
+import 'package:nv/src/config.dart';
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
+import 'package:nv/src/shared.dart';
 
 const _testTitle1 = 'Test Title 1';
 
@@ -12,16 +15,15 @@ void main() {
   group('AppModel', () {
 
     test('simple', () {
-      var appModel = new AppController(new Map<String, Note>());
-
-      _testSimple(appModel);
+      return getDebugController()
+          .then((AppController ac) => _testSimple(ac));
     });
 
   });
 }
 
-void _testSimple(AppController model) {
-  _expectClean(model);
+Future _testSimple(AppController model) {
+  _expectFirstRun(model);
 
   final tc = new TextContent('first content!');
 
@@ -42,6 +44,10 @@ void _testSimple(AppController model) {
     expect(nc.title, _testTitle1);
     expect(nc.content, tc);
   }
+
+  expect(model.isUpdated, isFalse);
+
+  return firstPropChangeRecord(model, const Symbol('isUpdated'));
 }
 
 List<String> _permutateTitle(String title) {
@@ -53,7 +59,6 @@ List<String> _permutateTitle(String title) {
   return [title, title.toLowerCase(), title.toUpperCase()];
 }
 
-Future _expectClean(AppController appModel) {
-  //expect(appModel.working, isFalse);
-  expect(appModel.notes, isEmpty);
+Future _expectFirstRun(AppController controller) {
+  expect(controller.notes.single.title, INITIAL_NOTES.keys.first);
 }

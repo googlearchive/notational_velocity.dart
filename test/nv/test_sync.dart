@@ -14,10 +14,10 @@ void main(Storage store) {
     test('create', () {
 
       return store.addAll(VALID_VALUES)
-          .then((_) => MapSync.create(store))
+          .then((_) => MapSync.createAndLoad(store))
           .then((ms) {
             expect(ms.map, equals(VALID_VALUES));
-            expect(ms.updated, isTrue);
+            expect(ms.isUpdated, isTrue);
           });
     });
 
@@ -77,24 +77,24 @@ Future _expectSyncMapWithChange(Storage store, MapSync mapSync, void action(), M
   var watcher = new EventWatcher<List<ChangeRecord>>();
   var sub = mapSync.changes.listen(watcher.handler);
 
-  expect(mapSync.updated, isTrue);
+  expect(mapSync.isUpdated, isTrue);
 
   action();
 
-  expect(mapSync.updated, isFalse);
+  expect(mapSync.isUpdated, isFalse);
 
   return watcher.listenOne()
       .then((List<ChangeRecord> records) {
         PropertyChangeRecord change = records.single;
-        expect(change.field, const Symbol('updated'));
-        expect(mapSync.updated, isFalse);
+        expect(change.field, const Symbol('isUpdated'));
+        expect(mapSync.isUpdated, isFalse);
 
         return watcher.listenOne();
       })
       .then((List<ChangeRecord> records) {
         PropertyChangeRecord change = records.single;
-        expect(change.field, const Symbol('updated'));
-        expect(mapSync.updated, isTrue);
+        expect(change.field, const Symbol('isUpdated'));
+        expect(mapSync.isUpdated, isTrue);
 
         return matchesMapValues(store, expected);
       })
@@ -103,6 +103,6 @@ Future _expectSyncMapWithChange(Storage store, MapSync mapSync, void action(), M
 
 void _testMapSync(String testName, Storage store, runner(MapSync store)) {
   test(testName, () {
-    return MapSync.create(store).then(runner);
+    return MapSync.createAndLoad(store).then(runner);
   });
 }

@@ -1,16 +1,14 @@
 library nv.init;
 
+import 'dart:async';
 import 'package:nv/src/controllers.dart';
 
-AppController get appModel {
-  assert(_appModel != null);
-  return _appModel;
+Future<AppController> get controllerFuture => _controllerCompleter.future;
+
+void populateController(AppController value) {
+  assert(!_controllerCompleter.isCompleted);
+  _controllerCompleter.complete(value);
 }
 
-void initAppModel(AppController value) {
-  assert(_appModel == null);
-  assert(value != null);
-  _appModel = value;
-}
-
-AppController _appModel;
+Completer<AppController> _controllerCompleter =
+  new Completer<AppController>();

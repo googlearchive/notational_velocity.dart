@@ -8,6 +8,7 @@ import 'package:bot/bot.dart';
 import 'package:meta/meta.dart';
 import 'package:observe/observe.dart';
 
+import 'package:nv/src/shared.dart';
 import 'package:nv/src/storage.dart';
 
 // 1) Assume underlying storage is "owned" by the created instance.
@@ -18,57 +19,81 @@ import 'package:nv/src/storage.dart';
 //   ensure sync happens
 //   kill off key change event listener
 
-class MapSync<E> extends ChangeNotifierBase {
+class MapSync<E> extends ChangeNotifierBase implements Loadable {
   final _Encoder<E, dynamic> _encode;
   final _Decoder<E, dynamic> _decode;
   final _SyncMap<E> _map = new _SyncMap<E>();
   final Set<String> _dirtyKeys = new Set<String>();
   final Storage _storage;
 
+  Completer _loadCompleter;
   bool _syncActive = false;
-  bool _loaded = false;
 
   MapSync(this._storage, [Codec<E, dynamic> codec]) :
     _encode = (codec == null) ? _identity : codec.encode,
     _decode = (codec == null) ? _identity : codec.decode {
 
     _map.onKeyChanged.listen(_onKeyDirty);
-    _load();
   }
 
   //
   // Properties
   //
 
-  bool get loaded => _loaded;
+  LoadState get loadState => (_loadCompleter == null) ? LoadState.UNLOADED :
+    (_loadCompleter.isCompleted) ? LoadState.LOADED : LoadState.LOADING;
 
-  bool get updated => _loaded && _dirtyKeys.isEmpty;
+  bool get isLoaded => loadState == LoadState.LOADED;
 
-  Map<String, E> get map => _loaded ? _map : const {};
+  bool get isUpdated => isLoaded && _dirtyKeys.isEmpty;
+
+  Map<String, E> get map => isLoaded ? _map : const {};
 
   //
   // Methods
   //
 
-  static Future<MapSync> create(Storage storage, [Codec codec]) {
+  Future load() {
+    if(_loadCompleter == null) {
+      _doLoad();
+    }
+
+    return _loadCompleter.future;
+  }
+
+  static Future<MapSync> createAndLoad(Storage storage, [Codec codec]) {
     var ms = new MapSync(storage, codec);
 
-    return ms.changes
-        .firstWhere((List<ChangeRecord> changes) {
-            return changes
-              .where((ChangeRecord cr) => cr is PropertyChangeRecord)
-              .any((PropertyChangeRecord pcr) =>
-                  pcr.field == const Symbol('loaded'));
-        })
-        .then((_) {
-          assert(ms.loaded);
-          return ms;
-        });
+    return ms.load()
+        .then((_) => ms);
   }
 
   //
   // Impl
   //
+
+  void _doLoad() {
+    assert(_loadCompleter == null);
+    _loadCompleter = new Completer();
+    _notifyChange(const Symbol('isLoaded'));
+    _notifyChange(const Symbol('loadState'));
+
+    _storage.getKeys()
+      .then((List<String> keys) {
+        return Future.forEach(keys, (String key) {
+          return _storage.get(key)
+              .then((Object json) {
+                _set(key, json);
+              });
+        });
+
+      })
+      .then((_) {
+        _loadCompleter.complete();
+        _notifyChange(const Symbol('isLoaded'));
+        _notifyChange(const Symbol('loadState'));
+      });
+  }
 
   void _set(String key, Object json) {
     _map._set(key, _decode(json));
@@ -79,7 +104,7 @@ class MapSync<E> extends ChangeNotifierBase {
     _dirtyKeys.add(key);
 
     if(wasEmpty) {
-      _notifyChange(_UPDATED);
+      _notifyChange(_IS_UPDATED);
     }
     _sync();
   }
@@ -94,8 +119,8 @@ class MapSync<E> extends ChangeNotifierBase {
   void _doSync() {
     assert(_syncActive);
 
-    if(updated) {
-      _notifyChange(_UPDATED);
+    if(isUpdated) {
+      _notifyChange(_IS_UPDATED);
       _syncActive = false;
       return;
     }
@@ -117,26 +142,7 @@ class MapSync<E> extends ChangeNotifierBase {
     notifyChange(new PropertyChangeRecord(prop));
   }
 
-  void _load() {
-    assert(!_loaded);
-    _storage.getKeys()
-      .then((List<String> keys) {
-        return Future.forEach(keys, (String key) {
-          return _storage.get(key)
-              .then((Object json) {
-                _set(key, json);
-              });
-        });
-
-      })
-      .then((_) {
-        assert(!_loaded);
-        _loaded = true;
-        _notifyChange(const Symbol('loaded'));
-      });
-  }
-
-  static const _UPDATED = const Symbol('updated');
+  static const _IS_UPDATED = const Symbol('isUpdated');
 }
 
 class _SyncMap<E> extends HashMap<String, E> {

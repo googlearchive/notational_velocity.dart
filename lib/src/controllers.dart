@@ -6,6 +6,7 @@ import 'package:observe/observe.dart';
 import 'config.dart';
 import 'models.dart';
 import 'shared.dart';
+import 'sync.dart';
 
 // TODO: trim trailing whitespace from titles?
 // TODO: prevent titles with tabs and newlines?
@@ -14,25 +15,30 @@ import 'shared.dart';
 class AppController extends ChangeNotifierBase {
   static const _SEARCH_TERM = const Symbol('searchTerm');
 
-  final Map<String, Note> _noteStorage;
+  final MapSync<Note> _noteSync;
   final ObservableList<Note> _notes;
   final ReadOnlyObservableList<Note> notes;
 
   String _searchTerm = '';
 
-  factory AppController(Map<String, Note> noteStorage) {
+  factory AppController(MapSync<Note> noteStorage) {
     var notes = new ObservableList<Note>();
     var roNotes = new ReadOnlyObservableList<Note>(notes);
 
     return new AppController._internal(noteStorage, notes, roNotes);
   }
 
-  AppController._internal(this._noteStorage, this._notes, this.notes) {
+  AppController._internal(this._noteSync, this._notes, this.notes) {
+    assert(_noteSync.isLoaded);
+
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
         _noteStorage[title] = new Note.now(title, new TextContent(content));
       });
     }
+
+    // TODO: hold onto the subscription. Support dispose?
+    _noteSync.changes.listen(_onNoteSyncChanged);
 
     _updateNotesList();
   }
@@ -47,6 +53,8 @@ class AppController extends ChangeNotifierBase {
     _searchTerm = value;
     _notifyChange(_SEARCH_TERM);
   }
+
+  bool get isUpdated => _noteSync.isUpdated;
 
   //
   // Methods
@@ -94,6 +102,20 @@ class AppController extends ChangeNotifierBase {
   // Implementation
   //
 
+  Map<String, Note> get _noteStorage => _noteSync.map;
+
+  void _onNoteSyncChanged(List<ChangeRecord> records) {
+    var forwardProps = records
+        .where((ChangeRecord cr) => cr is PropertyChangeRecord)
+        .map((pcr) => pcr.field)
+        .where((Symbol field) => _NOTE_SYNC_FORWARD_PROPS.contains(field))
+        .toList();
+
+    for(var matchField in forwardProps) {
+      _notifyChange(matchField);
+    }
+  }
+
   void _updateNotesList() {
     var sortedNotes = _noteStorage.values.toList()
         ..sort(_currentNoteSort);
@@ -102,7 +124,7 @@ class AppController extends ChangeNotifierBase {
     _notes.addAll(sortedNotes);
   }
 
-  int _currentNoteSort(Note a, Note b) {
+  static int _currentNoteSort(Note a, Note b) {
     // NOET: key => case insensitive sort
     return a.key.compareTo(b.key);
   }
@@ -110,4 +132,6 @@ class AppController extends ChangeNotifierBase {
   void _notifyChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
   }
+
+  static const _NOTE_SYNC_FORWARD_PROPS = const [const Symbol('isUpdated')];
 }

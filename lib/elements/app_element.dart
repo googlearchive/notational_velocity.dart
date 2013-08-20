@@ -9,8 +9,16 @@ import 'package:nv/elements/interfaces.dart';
 class AppElement extends PolymerElement {
   bool get applyAuthorStyles => true;
 
+  AppController _controller;
 
-  AppController get appModel => init.appModel;
+  AppController get controller => _controller;
+
+  AppElement() {
+    init.controllerFuture.then((AppController value) {
+      assert(_controller == null);
+      _controller = value;
+    });
+  }
 
   void handleNoteClick(Event e, var detail, Element target) {
     e.preventDefault();
@@ -18,7 +26,7 @@ class AppElement extends PolymerElement {
   }
 
   void _noteClick(String noteTitle) {
-    var note = appModel.openOrCreateNote(noteTitle);
+    var note = controller.openOrCreateNote(noteTitle);
     _loadNote(note);
   }
 
