@@ -1,4 +1,4 @@
-library test.nv.app_model;
+library test.nv.app_controller;
 
 import 'dart:async';
 import 'package:unittest/unittest.dart';
@@ -15,7 +15,7 @@ import 'package:nv/src/sync.dart';
 const _testTitle1 = 'Test Title 1';
 
 void main() {
-  group('AppModel', () {
+  group('AppController', () {
 
     test('simple', () {
       return _getDebugController()
