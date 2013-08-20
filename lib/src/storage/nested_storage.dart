@@ -73,7 +73,7 @@ class NestedStorage implements Storage {
   static Storage _getRootStorage(Storage parent) {
     assert(parent != null);
     while(parent is NestedStorage) {
-      parent = parent._storage;
+      parent = (parent as NestedStorage)._storage;
     }
     return parent;
   }
@@ -84,7 +84,7 @@ class NestedStorage implements Storage {
     assert(path.isNotEmpty);
 
     if(parent is NestedStorage) {
-      return $(parent._rootKeys).concat([path]).toList(growable: false);
+      return $((parent as NestedStorage)._rootKeys).concat([path]).toList(growable: false);
     } else {
       return [path];
     }

@@ -54,7 +54,7 @@ dynamic _toJson(Note note) {
 
 dynamic _jsonFromNoteContent(NoteContent content) {
   if(content is TextContent) {
-    return content.value;
+    return (content as TextContent).value;
   } else {
     throw new UnimplementedError('cannot the provided NoteContent');
   }
