@@ -79,10 +79,6 @@ class AppController extends ChangeNotifierBase {
     return value;
   }
 
-  Future deleteNote(String title) {
-    throw new UnimplementedError('not there yet...');
-  }
-
   Note updateNote(String title, NoteContent noteContent) {
     // NOTE: title must *exactly* match an existing note
     // This keeps us honest about our search model, etc
