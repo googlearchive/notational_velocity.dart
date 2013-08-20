@@ -3,11 +3,14 @@ library test.nv.app_model;
 import 'dart:async';
 import 'package:unittest/unittest.dart';
 
-import 'package:nv/debug.dart';
 import 'package:nv/src/config.dart';
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
 import 'package:nv/src/shared.dart';
+
+import 'package:nv/src/serialization.dart';
+import 'package:nv/src/storage.dart';
+import 'package:nv/src/sync.dart';
 
 const _testTitle1 = 'Test Title 1';
 
@@ -15,11 +18,18 @@ void main() {
   group('AppModel', () {
 
     test('simple', () {
-      return getDebugController()
+      return _getDebugController()
           .then((AppController ac) => _testSimple(ac));
     });
 
   });
+}
+
+Future<AppController> _getDebugController() {
+  var storage = new StringStorage.memoryDelayed();
+
+  return MapSync.createAndLoad(storage, NOTE_CODEC)
+    .then((MapSync<Note> ms) => new AppController(ms));
 }
 
 Future _testSimple(AppController model) {

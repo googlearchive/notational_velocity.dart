@@ -4,23 +4,7 @@
   <body>
 
   <polymer-element name='init-element'>
-    <script type="application/dart">
-import 'package:polymer/polymer.dart';
-
-import 'package:nv/init.dart' as init;
-import 'package:nv/debug.dart';
-import 'package:nv/src/controllers.dart';
-
-@initMethod
-void _init() {
-  getDebugController().then((AppController ac) {
-    init.populateController(ac);
-  });
-}
-
-@CustomTag('init-element')
-class InitElement extends PolymerElement { }
-    </script>
+    <script type="application/dart" src='init.dart'></script>
   </polymer-element>
 
 
