@@ -21,11 +21,11 @@
     </style>
     <div class="input-group nv-search">
       <span class="input-group-addon"><i class="icon-search"></i></span>
-      <input type="text" class="form-control" placeholder="Search or Create" value="{{ appModel.searchTerm }}">
+      <input type="text" class="form-control" placeholder="Search or Create" value="{{ controller.searchTerm }}">
     </div>
 
     <div class='nv-notes list-group'>
-      <template repeat="{{ appModel.notes }}">
+      <template repeat="{{ controller.notes }}">
         <a href='#' on-click='handleNoteClick' data-noteTitle='{{ title }}'
           class='nv-note list-group-item'>{{ title }}</a>
       </template>

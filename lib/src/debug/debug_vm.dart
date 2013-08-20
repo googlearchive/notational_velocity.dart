@@ -1,9 +1,9 @@
 part of nv.debug;
 
 class DebugVM {
-  final AppController appModel;
+  final AppController controller;
 
-  DebugVM(this.appModel);
+  DebugVM(this.controller);
 
   Future clear() {
     throw new UnimplementedError('DebugVM.clear is not impld');
@@ -13,7 +13,7 @@ class DebugVM {
 
     return Future.forEach(PNP.keys, (String chapter) {
       return new Future(() {
-        var note = appModel.openOrCreateNote(chapter);
+        var note = controller.openOrCreateNote(chapter);
 
         TextContent tc = note.content;
 
@@ -21,7 +21,7 @@ class DebugVM {
 
         if(tc.value != chapterContent) {
           tc = new TextContent(chapterContent);
-          appModel.updateNote(chapter, tc);
+          controller.updateNote(chapter, tc);
         }
       });
     });

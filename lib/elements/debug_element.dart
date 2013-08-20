@@ -6,15 +6,20 @@ import 'package:nv/debug.dart';
 import 'package:nv/init.dart' as init;
 
 @CustomTag('debug-element')
-class DebugElement extends PolymerElement {
+class DebugElement extends PolymerElement with ChangeNotifierMixin {
+
   bool get applyAuthorStyles => true;
 
-  final DebugVM _vm;
+  DebugVM _vm;
 
-  DebugElement() : _vm = new DebugVM(init.appModel);
+  DebugElement() {
+    init.controllerFuture.then((AppController controller) {
+      _vm = new DebugVM(controller);
+      notifyChange(new PropertyChangeRecord(const Symbol('controller')));
+    });
+  }
 
-  AppController get appModel => _vm.appModel;
-
+  AppController get controller => (_vm == null) ? null : _vm.controller;
 
   void populate(Event e, var detail, ButtonElement target) {
     assert(!target.disabled);

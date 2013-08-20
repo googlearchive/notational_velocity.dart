@@ -6,7 +6,7 @@ import 'package:nv/init.dart' as init;
 import 'package:nv/elements/interfaces.dart';
 
 @CustomTag('app-element')
-class AppElement extends PolymerElement {
+class AppElement extends PolymerElement with ChangeNotifierMixin {
   bool get applyAuthorStyles => true;
 
   AppController _controller;
@@ -17,6 +17,7 @@ class AppElement extends PolymerElement {
     init.controllerFuture.then((AppController value) {
       assert(_controller == null);
       _controller = value;
+      notifyChange(new PropertyChangeRecord(const Symbol('controller')));
     });
   }
 
