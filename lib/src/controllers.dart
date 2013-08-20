@@ -38,7 +38,8 @@ class AppController extends ChangeNotifierBase {
     }
 
     // TODO: hold onto the subscription. Support dispose?
-    _noteSync.changes.listen(_onNoteSyncChanged);
+    filterPropertyChangeRecords(_noteSync, const Symbol('isUpdated'))
+      .listen(_onNoteSyncIsUpdated);
 
     _updateNotesList();
   }
@@ -102,16 +103,8 @@ class AppController extends ChangeNotifierBase {
 
   Map<String, Note> get _noteStorage => _noteSync.map;
 
-  void _onNoteSyncChanged(List<ChangeRecord> records) {
-    var forwardProps = records
-        .where((ChangeRecord cr) => cr is PropertyChangeRecord)
-        .map((pcr) => pcr.field)
-        .where((Symbol field) => _NOTE_SYNC_FORWARD_PROPS.contains(field))
-        .toList();
-
-    for(var matchField in forwardProps) {
-      _notifyChange(matchField);
-    }
+  void _onNoteSyncIsUpdated(PropertyChangeRecord record) {
+    _notifyChange(const Symbol('isUpdated'));
   }
 
   void _updateNotesList() {
@@ -130,6 +123,4 @@ class AppController extends ChangeNotifierBase {
   void _notifyChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
   }
-
-  static const _NOTE_SYNC_FORWARD_PROPS = const [const Symbol('isUpdated')];
 }
