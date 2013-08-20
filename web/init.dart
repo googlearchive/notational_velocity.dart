@@ -1,6 +1,7 @@
 library nv.web.init;
 
 import 'dart:async';
+import 'dart:html';
 import 'package:polymer/polymer.dart';
 
 import 'package:nv/init.dart' as init;
@@ -19,9 +20,11 @@ void _initmain() {
 }
 
 Future<AppController> _getDebugController() {
-  var storage = new StringStorage.memoryDelayed();
+  var rootStorage = new StringStorage(window.localStorage);
 
-  return MapSync.createAndLoad(storage, NOTE_CODEC)
+  var nestedStorage = new NestedStorage(rootStorage, 'nv_v0.0.1');
+
+  return MapSync.createAndLoad(nestedStorage, NOTE_CODEC)
     .then((MapSync<Note> ms) => new AppController(ms));
 }
 
