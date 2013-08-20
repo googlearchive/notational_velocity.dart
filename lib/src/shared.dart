@@ -41,17 +41,28 @@ abstract class Loadable implements Observable {
   bool get isLoaded;
 }
 
+Stream<PropertyChangeRecord> filterPropertyChangeRecords(
+    Observable source, Symbol matchingSymbol) =>
+        source.changes.transform(new _PropChangeFilterTransform(matchingSymbol));
 
 Future<PropertyChangeRecord> firstPropChangeRecord(Observable source,
     Symbol matchingSymbol) =>
-  source.changes
-      .map((List<ChangeRecord> changes) {
-        return changes
-            .where((c) => c is PropertyChangeRecord)
-            .where((PropertyChangeRecord pcr) => pcr.field == matchingSymbol)
-            .toList();
-      })
-      .where((List<ChangeRecord> records) => records.isNotEmpty)
-      .first.then((List<ChangeRecord> records) {
-        return records.single;
-      });
+        filterPropertyChangeRecords(source, matchingSymbol).first;
+
+class _PropChangeFilterTransform extends StreamEventTransformer<List<ChangeRecord>, PropertyChangeRecord> {
+  final Symbol targetProperty;
+
+  _PropChangeFilterTransform(this.targetProperty);
+
+  @override
+  void handleData(List<ChangeRecord> records, EventSink<PropertyChangeRecord> sink) {
+    var matches = records
+        .where((r) => r is PropertyChangeRecord)
+        .where((PropertyChangeRecord pcr) => pcr.field == targetProperty)
+        .toList();
+
+    if(matches.isNotEmpty) {
+      sink.add(matches.first);
+    }
+  }
+}
