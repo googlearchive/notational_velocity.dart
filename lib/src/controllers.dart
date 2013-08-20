@@ -33,7 +33,7 @@ class AppController extends ChangeNotifierBase {
 
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
-        _noteStorage[title] = new Note.now(title, new TextContent(content));
+        _noteStorage[title.toLowerCase()] = new Note.now(title, new TextContent(content));
       });
     }
 
