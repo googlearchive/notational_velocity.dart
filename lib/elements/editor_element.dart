@@ -40,7 +40,7 @@ class EditorElement extends PolymerElement
 
   void handleContentEdit(Event e, var detail, Element target) {
     assert(_enabled);
-    _notifyPropChange(const Symbol('value'));
+    _notifyPropChange(const Symbol('text'));
   }
 
   //
