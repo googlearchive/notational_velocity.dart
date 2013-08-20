@@ -83,7 +83,7 @@ class AppController extends ChangeNotifierBase {
     throw new UnimplementedError('not there yet...');
   }
 
-  void updateNote(String title, NoteContent noteContent) {
+  Note updateNote(String title, NoteContent noteContent) {
     // NOTE: title must *exactly* match an existing note
     // This keeps us honest about our search model, etc
 
@@ -96,6 +96,8 @@ class AppController extends ChangeNotifierBase {
     _noteStorage[note.key] = note;
 
     _updateNotesList();
+
+    return note;
   }
 
   //

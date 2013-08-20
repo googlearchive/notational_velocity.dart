@@ -68,5 +68,15 @@ List<String> _permutateTitle(String title) {
 }
 
 Future _expectFirstRun(AppController controller) {
-  expect(controller.notes.single.title, INITIAL_NOTES.keys.first);
+  expect(controller.notes, hasLength(INITIAL_NOTES.length));
+
+  for(var note in controller.notes) {
+    var match = INITIAL_NOTES[note.title];
+    expect(match, isNotNull);
+    expect(note.content is TextContent, isTrue);
+
+    TextContent tc = note.content;
+    expect(tc.value, match);
+  }
+
 }

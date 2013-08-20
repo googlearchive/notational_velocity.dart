@@ -53,10 +53,17 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   // Implementation
   //
 
-  void _editorTextChanged(_) {
+  void _editorTextChanged(PropertyChangeRecord record) {
+    _saveCurrentNote();
+  }
+
+  void _saveCurrentNote() {
     var title = _currentNote.title;
     var noteContent = new TextContent(_editor.text);
-    _controller.updateNote(title, noteContent);
+
+    var updatedNote = _controller.updateNote(title, noteContent);
+    assert(updatedNote.key == _currentNote.key);
+    _currentNote = updatedNote;
   }
 
   void _noteClick(String noteTitle) {
@@ -66,7 +73,9 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
   void _loadNote(Note note) {
     if(_currentNote != null) {
-      throw new UnimplementedError('tbd');
+      // Making sure that the current value is saved to the hash...right?
+      _saveCurrentNote();
+      _currentNote = null;
     }
     assert(note.content is TextContent);
 
