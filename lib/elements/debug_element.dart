@@ -29,4 +29,9 @@ class DebugElement extends PolymerElement with ChangeNotifierMixin {
         target.disabled = false;
       });
   }
+
+  void clear(Event e, var detail, ButtonElement target) {
+    window.localStorage.clear();
+    window.location.reload();
+  }
 }

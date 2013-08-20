@@ -5,10 +5,6 @@ class DebugController {
 
   DebugController(this.controller);
 
-  Future clear() {
-    throw new UnimplementedError('DebugVM.clear is not impld');
-  }
-
   Future populate() {
 
     return Future.forEach(PNP.keys, (String chapter) {
