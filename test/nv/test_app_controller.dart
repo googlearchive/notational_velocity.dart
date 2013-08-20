@@ -14,20 +14,18 @@ import 'package:nv/src/sync.dart';
 
 const _testTitle1 = 'Test Title 1';
 
-void main() {
+void main(Storage storage) {
   group('AppController', () {
 
     test('simple', () {
-      return _getDebugController()
+      return _getDebugController(storage)
           .then((AppController ac) => _testSimple(ac));
     });
 
   });
 }
 
-Future<AppController> _getDebugController() {
-  var storage = new StringStorage.memoryDelayed();
-
+Future<AppController> _getDebugController(Storage storage) {
   return MapSync.createAndLoad(storage, NOTE_CODEC)
     .then((MapSync<Note> ms) => new AppController(ms));
 }
