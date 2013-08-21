@@ -25,7 +25,20 @@ Future<AppController> _getDebugController() {
   var nestedStorage = new NestedStorage(rootStorage, 'nv_v0.0.1');
 
   return MapSync.createAndLoad(nestedStorage, NOTE_CODEC)
-    .then((MapSync<Note> ms) => new AppController(ms));
+    .then(_initAppController);
+}
+
+AppController _initAppController(MapSync<Note> noteMap) {
+
+  var controller = new AppController(noteMap);
+
+  window.onKeyDown
+    .where((KeyboardEvent e) => e.keyCode == KeyCode.ESC)
+    .listen((KeyboardEvent e) {
+      controller.resetSearch();
+    });
+
+  return controller;
 }
 
 

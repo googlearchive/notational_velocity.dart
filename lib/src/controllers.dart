@@ -1,6 +1,7 @@
 library nv.controllers;
 
 import 'dart:async';
+import 'package:bot/bot.dart';
 import 'package:observe/observe.dart';
 
 import 'config.dart';
@@ -13,11 +14,11 @@ import 'sync.dart';
 // TODO: prevent whitespace-only titles?
 
 class AppController extends ChangeNotifierBase {
-  static const _SEARCH_TERM = const Symbol('searchTerm');
 
   final MapSync<Note> _noteSync;
   final ObservableList<Note> _notes;
   final ReadOnlyObservableList<Note> notes;
+  final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
   bool _noteListDirty = false;
@@ -52,16 +53,26 @@ class AppController extends ChangeNotifierBase {
   String get searchTerm => _searchTerm;
 
   void set searchTerm(String value) {
-    _searchTerm = value;
-    _dirtyNoteList();
-    _notifyChange(_SEARCH_TERM);
+    value = (value == null) ? '' : value;
+    if(value != _searchTerm) {
+      _searchTerm = value;
+      _dirtyNoteList();
+      _notifyChange(const Symbol('searchTerm'));
+    }
   }
 
   bool get isUpdated => _noteSync.isUpdated;
 
+  Stream get onSearchReset => _searchResetHandle.stream;
+
   //
   // Methods
   //
+
+  void resetSearch() {
+    searchTerm = '';
+    _searchResetHandle.add(EventArgs.empty);
+  }
 
   Note openOrCreateNote(String title) {
 
