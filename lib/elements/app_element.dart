@@ -21,6 +21,9 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
     init.controllerFuture.then((AppController value) {
       assert(_controller == null);
       _controller = value;
+
+      _controller.onSearchReset.listen(_controller_onSearchReset);
+
       notifyChange(new PropertyChangeRecord(const Symbol('controller')));
     });
   }
@@ -52,6 +55,11 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   //
   // Implementation
   //
+
+  void _controller_onSearchReset(_) {
+    var searchInput = shadowRoot.query('#search_input');
+    searchInput.focus();
+  }
 
   void _editorTextChanged(PropertyChangeRecord record) {
     _saveCurrentNote();
