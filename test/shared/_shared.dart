@@ -1,8 +1,9 @@
 library test.nv.shared;
 
 import 'package:unittest/unittest.dart';
-import 'read_only_observable_list_tests.dart' as rol;
-import 'split_tests.dart' as split;
+
+import 'test_read_only_observable_list.dart' as rol;
+import 'test_split.dart' as split;
 
 void main() {
   group('ReadOnlyObservableList', rol.main);
