@@ -20,6 +20,7 @@ class AppController extends ChangeNotifierBase {
   final ReadOnlyObservableList<Note> notes;
 
   String _searchTerm = '';
+  bool _noteListDirty = false;
 
   factory AppController(MapSync<Note> noteStorage) {
     var notes = new ObservableList<Note>();
@@ -41,7 +42,7 @@ class AppController extends ChangeNotifierBase {
     filterPropertyChangeRecords(_noteSync, const Symbol('isUpdated'))
       .listen(_onNoteSyncIsUpdated);
 
-    _updateNotesList();
+    _dirtyNoteList();
   }
 
   //
@@ -52,6 +53,7 @@ class AppController extends ChangeNotifierBase {
 
   void set searchTerm(String value) {
     _searchTerm = value;
+    _dirtyNoteList();
     _notifyChange(_SEARCH_TERM);
   }
 
@@ -72,7 +74,7 @@ class AppController extends ChangeNotifierBase {
       var note = new Note.now(title, nc);
       _noteStorage[note.key] = note;
 
-      _updateNotesList();
+      _dirtyNoteList();
 
       return note;
     }
@@ -92,7 +94,7 @@ class AppController extends ChangeNotifierBase {
 
     _noteStorage[note.key] = note;
 
-    _updateNotesList();
+    _dirtyNoteList();
 
     return note;
   }
@@ -107,15 +109,43 @@ class AppController extends ChangeNotifierBase {
     _notifyChange(const Symbol('isUpdated'));
   }
 
-  void _updateNotesList() {
-    var sortedNotes = _noteStorage.values.toList()
+  void _dirtyNoteList() {
+    if(!_noteListDirty) {
+      _noteListDirty = true;
+      Timer.run(_updateNoteList);
+    }
+  }
+
+  void _updateNoteList() {
+    _noteListDirty = false;
+
+    var sortedNotes = _noteStorage.values
+        .where(_filterNote)
+        .toList()
         ..sort(_currentNoteSort);
 
     _notes.clear();
     _notes.addAll(sortedNotes);
+
+    // just making darn sure I haven't messed anything up here by re-dirtying
+    // the list during update
+    assert(!_noteListDirty);
   }
 
-  static int _currentNoteSort(Note a, Note b) {
+  bool _filterNote(Note instance) {
+    assert(searchTerm != null);
+
+    if(searchTerm.isEmpty) {
+      return true;
+    } else {
+      var term = searchTerm.trim().toLowerCase();
+      return instance.title.toLowerCase().contains(term);
+    }
+  }
+
+  // TODO: at some point, use user selected sort order, so this stays
+  //       an instance method
+  int _currentNoteSort(Note a, Note b) {
     // NOET: key => case insensitive sort
     return a.key.compareTo(b.key);
   }
