@@ -3,6 +3,7 @@
 <html>
   <head>
     <link rel="import" href="editor_element.html">
+    <link rel="import" href="note_row_element.html">
   </head>
   <body>
 
@@ -25,9 +26,8 @@
     </div>
 
     <div class='nv-notes list-group'>
-      <template repeat="{{ controller.notes }}">
-        <a href='#' on-click='handleNoteClick' data-noteTitle='{{ title }}'
-          class='nv-note list-group-item'>{{ title }}</a>
+       <template repeat="{{ controller.notes }}">
+          <note-row-element note='{{ }}'></note-row-element>
       </template>
     </div>
 

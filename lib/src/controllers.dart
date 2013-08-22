@@ -13,19 +13,58 @@ import 'sync.dart';
 // TODO: prevent titles with tabs and newlines?
 // TODO: prevent whitespace-only titles?
 
+class NoteController extends ChangeNotifierBase implements Note {
+  final Note note;
+  final AppController _app;
+
+  bool _isSelected = false;
+
+  NoteController(this.note, this._app) {
+    assert(note != null);
+    assert(_app != null);
+    _isSelected = (_app.selectedNote == note);
+  }
+
+  String get title => note.title;
+
+  String get key => note.key;
+
+  NoteContent get content => note.content;
+
+  DateTime get lastModified => note.lastModified;
+
+  bool get isSelected => _isSelected;
+
+  void requestSelect() {
+    _app._requestSelect(this);
+  }
+
+  void _updateIsSelected(bool value) {
+    if(value != _isSelected) {
+      _isSelected = value;
+      _notifyChange(const Symbol('isSelected'));
+    }
+  }
+
+  void _notifyChange(Symbol prop) {
+    notifyChange(new PropertyChangeRecord(prop));
+  }
+}
+
 class AppController extends ChangeNotifierBase {
 
   final MapSync<Note> _noteSync;
-  final ObservableList<Note> _notes;
-  final ReadOnlyObservableList<Note> notes;
+  final ObservableList<NoteController> _notes;
+  final ReadOnlyObservableList<NoteController> notes;
   final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
   bool _noteListDirty = false;
+  Note _selectedNote = null;
 
   factory AppController(MapSync<Note> noteStorage) {
-    var notes = new ObservableList<Note>();
-    var roNotes = new ReadOnlyObservableList<Note>(notes);
+    var notes = new ObservableList<NoteController>();
+    var roNotes = new ReadOnlyObservableList<NoteController>(notes);
 
     return new AppController._internal(noteStorage, notes, roNotes);
   }
@@ -50,6 +89,12 @@ class AppController extends ChangeNotifierBase {
   // Properties
   //
 
+  Note get selectedNote => _selectedNote;
+
+  bool get noteSelected => _selectedNote != null;
+
+  bool get hasNotes => notes.isNotEmpty;
+
   String get searchTerm => _searchTerm;
 
   void set searchTerm(String value) {
@@ -70,6 +115,8 @@ class AppController extends ChangeNotifierBase {
   //
 
   void resetSearch() {
+    // TODO: update selected note!
+
     searchTerm = '';
     _searchResetHandle.add(EventArgs.empty);
   }
@@ -93,26 +140,44 @@ class AppController extends ChangeNotifierBase {
     return value;
   }
 
-  Note updateNote(String title, NoteContent noteContent) {
-    // NOTE: title must *exactly* match an existing note
-    // This keeps us honest about our search model, etc
+  void updateSelectedNoteContent(String newContent) {
+    assert(_selectedNote != null);
 
-    var note = new Note.now(title, noteContent);
+    var textContent = new TextContent(newContent);
+
+    var note = new Note.now(_selectedNote.title, textContent);
 
     if(!_noteStorage.containsKey(note.key)) {
       throw new NVError('Provided title does not match existing note: ${note.title}');
     }
 
-    _noteStorage[note.key] = note;
+    _selectedNote = _noteStorage[note.key] = note;
 
     _dirtyNoteList();
-
-    return note;
   }
 
   //
   // Implementation
   //
+
+  void _requestSelect(NoteController nc) {
+    if(nc.note != _selectedNote) {
+      assert(_notes.contains(nc));
+
+      if(_selectedNote != null) {
+        // NOTE: the current selected note SHOULD be represented in the filter
+        var currentSelectedNoteController =
+            _notes.singleWhere((nc) => nc.note == _selectedNote);
+        currentSelectedNoteController._updateIsSelected(false);
+        _selectedNote = null;
+      }
+
+      _selectedNote = nc.note;
+      nc._updateIsSelected(true);
+      _notifyChange(const Symbol('selectedNote'));
+      _notifyChange(const Symbol('noteSelected'));
+    }
+  }
 
   Map<String, Note> get _noteStorage => _noteSync.map;
 
@@ -130,13 +195,30 @@ class AppController extends ChangeNotifierBase {
   void _updateNoteList() {
     _noteListDirty = false;
 
+    var foundSelected = false;
+
     var sortedNotes = _noteStorage.values
         .where(_filterNote)
+        .map((Note n) {
+          var nc = new NoteController(n, this);
+          if(nc.isSelected) {
+            assert(!foundSelected);
+            foundSelected = true;
+          }
+
+          return nc;
+        })
         .toList()
         ..sort(_currentNoteSort);
 
     _notes.clear();
     _notes.addAll(sortedNotes);
+
+    if(_selectedNote != null && !foundSelected) {
+      _selectedNote = null;
+      _notifyChange(const Symbol('selectedNote'));
+      _notifyChange(const Symbol('noteSelected'));
+    }
 
     // just making darn sure I haven't messed anything up here by re-dirtying
     // the list during update

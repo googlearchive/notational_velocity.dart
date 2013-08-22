@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+
+    <polymer-element name="note-row-element" attributes='note selectedNote'>
+<template>
+  <style>
+  </style>
+    <a href='#' on-click='handleClick'
+      class='{{ {"active": note.isSelected, "nv-note": true, "list-group-item": true } }}'
+      >{{ note.title }}</a>
+</template>
+
+      <script type="application/dart" src="note_row_element.dart"></script>
+    </polymer-element>
+
+  </body>
+</html>

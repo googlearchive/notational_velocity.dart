@@ -13,7 +13,6 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
   bool _childEventsWired = false;
   AppController _controller;
-  Note _currentNote;
 
   AppController get controller => _controller;
 
@@ -23,6 +22,9 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
       _controller = value;
 
       _controller.onSearchReset.listen(_controller_onSearchReset);
+
+      filterPropertyChangeRecords(_controller, const Symbol('selectedNote'))
+        .listen(_selectedNoteChanged);
 
       notifyChange(new PropertyChangeRecord(const Symbol('controller')));
     });
@@ -36,20 +38,11 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   void inserted() {
     assert(!_childEventsWired);
 
-    // TODO: hold on to the subscription. Tear down at some point?
+    // TODO: hold on to the subscriptions. Tear down at some point?
     filterPropertyChangeRecords(_editor, const Symbol('text'))
       .listen(_editorTextChanged);
 
     _childEventsWired = true;
-  }
-
-  //
-  // Event handlers
-  //
-
-  void handleNoteClick(Event e, var detail, Element target) {
-    e.preventDefault();
-    _noteClick(target.dataset['noteTitle']);
   }
 
   //
@@ -62,39 +55,28 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   }
 
   void _editorTextChanged(PropertyChangeRecord record) {
-    _saveCurrentNote();
-  }
-
-  void _saveCurrentNote() {
-    var title = _currentNote.title;
-    var noteContent = new TextContent(_editor.text);
-
-    var updatedNote = _controller.updateNote(title, noteContent);
-    assert(updatedNote.key == _currentNote.key);
-    _currentNote = updatedNote;
-  }
-
-  void _noteClick(String noteTitle) {
-    var note = controller.openOrCreateNote(noteTitle);
-    _loadNote(note);
-  }
-
-  void _loadNote(Note note) {
-    if(_currentNote != null) {
-      // Making sure that the current value is saved to the hash...right?
-      _saveCurrentNote();
-      _currentNote = null;
+    // only save the current note if the editor is enabled
+    if(_editor.enabled) {
+      _controller.updateSelectedNoteContent(_editor.text);
     }
-    assert(note.content is TextContent);
+  }
 
-    _currentNote = note;
+  void _selectedNoteChanged(PropertyChangeRecord record) {
+    if(_controller.noteSelected) {
 
-    TextContent content = note.content;
+      assert(_controller.selectedNote.content is TextContent);
 
-    var value = content.value;
+      TextContent content = _controller.selectedNote.content;
 
-    _editor.enabled = true;
-    _editor.text = value;
+      var value = content.value;
+
+      _editor.enabled = true;
+      _editor.text = value;
+    } else {
+      _editor.enabled = false;
+      // disabling editor should clear the next value
+      assert(_editor.text == '');
+    }
   }
 
   EditorInterface get _editor => shadowRoot.query('editor-element').xtag;
