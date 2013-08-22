@@ -2,6 +2,7 @@ library test.nv.app_controller;
 
 import 'dart:async';
 import 'package:unittest/unittest.dart';
+import 'package:observe/observe.dart';
 
 import 'package:nv/src/config.dart';
 import 'package:nv/src/controllers.dart';
@@ -19,6 +20,10 @@ void main(Storage storage) {
 
     test('simple', () {
       return _getDebugController(storage)
+          .then((AppController ac) {
+            // wait for updated
+            return _whenUpdated(ac);
+          })
           .then((AppController ac) => _testSimple(ac));
     });
 
@@ -55,7 +60,7 @@ Future _testSimple(AppController model) {
 
   expect(model.isUpdated, isFalse);
 
-  return firstPropChangeRecord(model, const Symbol('isUpdated'));
+  return _whenUpdated(model);
 }
 
 List<String> _permutateTitle(String title) {
@@ -65,6 +70,22 @@ List<String> _permutateTitle(String title) {
   expect(title.toUpperCase(), isNot(title.toLowerCase()));
 
   return [title, title.toLowerCase(), title.toUpperCase()];
+}
+
+Future<AppController> _whenUpdated(AppController controller) {
+  if(controller.isUpdated) {
+    return new Future.sync(() => null);
+  }
+
+  return filterPropertyChangeRecords(controller, const Symbol('isUpdated'))
+      .where((PropertyChangeRecord pcr) {
+        return controller.isUpdated;
+      })
+      .first
+      .then((PropertyChangeRecord pcr) {
+        assert(pcr.field == const Symbol('isUpdated'));
+        return controller;
+      });
 }
 
 Future _expectFirstRun(AppController controller) {

@@ -45,10 +45,6 @@ Stream<PropertyChangeRecord> filterPropertyChangeRecords(
     Observable source, Symbol matchingSymbol) =>
         source.changes.transform(new _PropChangeFilterTransform(matchingSymbol));
 
-Future<PropertyChangeRecord> firstPropChangeRecord(Observable source,
-    Symbol matchingSymbol) =>
-        filterPropertyChangeRecords(source, matchingSymbol).first;
-
 class _PropChangeFilterTransform extends StreamEventTransformer<List<ChangeRecord>, PropertyChangeRecord> {
   final Symbol targetProperty;
 
