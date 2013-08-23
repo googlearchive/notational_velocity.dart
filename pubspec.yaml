@@ -14,3 +14,4 @@ dev_dependencies:
   browser: '>=0.6.19'
   hop: '>=0.24.2'
   unittest: '>=0.6.19'
+  webdriver: '>=0.7.3'
