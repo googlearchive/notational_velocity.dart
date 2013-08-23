@@ -59,7 +59,7 @@ class AppController extends ChangeNotifierBase {
     }
   }
 
-  bool get isUpdated => _noteSync.isUpdated;
+  bool get isUpdated => !_noteListDirty && _noteSync.isUpdated;
 
   Stream get onSearchReset => _searchResetHandle.stream;
 
@@ -178,6 +178,7 @@ class AppController extends ChangeNotifierBase {
     // just making darn sure I haven't messed anything up here by re-dirtying
     // the list during update
     assert(!_noteListDirty);
+    _notifyChange(const Symbol('isUpdated'));
   }
 
   bool _filterNote(Note instance) {

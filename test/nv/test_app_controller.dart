@@ -29,32 +29,37 @@ Future _testSimple(AppController model) {
   final tc = new TextContent('first content!');
 
   model.searchTerm = _testTitle1;
-
-  var note = model.openOrCreate();
-  expect(note, isNotNull);
-
-  var nc = note.content;
-  expect(nc is TextContent, isTrue);
-  expect(nc.value, isEmpty);
-
-  model.updateSelectedNoteContent(tc.value);
-
-  var titleVariations = _permutateTitle(_testTitle1)
-    ..add('Test');
-
-  /*
-
-  TODO: need to futz w/ search logic here
-  for(var t in titleVariations) {
-    model.searchTerm = t;
-    var nc = model.openOrCreate();
-    expect(nc.title, _testTitle1);
-    expect(nc.content, tc);
-  }*/
-
   expect(model.isUpdated, isFalse);
 
-  return _whenUpdated(model);
+  return _whenUpdated(model)
+      .then((_) {
+
+        var note = model.openOrCreate();
+        expect(note, isNotNull);
+
+        var nc = note.content;
+        expect(nc is TextContent, isTrue);
+        expect(nc.value, isEmpty);
+
+        model.updateSelectedNoteContent(tc.value);
+
+        var titleVariations = _permutateTitle(_testTitle1)
+          ..add('Test');
+
+        /*
+
+        TODO: need to futz w/ search logic here
+        for(var t in titleVariations) {
+          model.searchTerm = t;
+          var nc = model.openOrCreate();
+          expect(nc.title, _testTitle1);
+          expect(nc.content, tc);
+        }*/
+
+        expect(model.isUpdated, isFalse);
+
+        return _whenUpdated(model);
+      });
 }
 
 List<String> _permutateTitle(String title) {
@@ -68,7 +73,7 @@ List<String> _permutateTitle(String title) {
 
 Future<AppController> _whenUpdated(AppController controller) {
   if(controller.isUpdated) {
-    return new Future.sync(() => null);
+    return new Future.sync(() => controller);
   }
 
   return filterPropertyChangeRecords(controller, const Symbol('isUpdated'))
