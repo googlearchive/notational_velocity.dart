@@ -13,5 +13,6 @@ dev_dependencies:
   bot_test: '>=0.1.2'
   browser: '>=0.6.19'
   hop: '>=0.24.2'
+  http_server: '>=0.6.19'
   unittest: '>=0.6.19'
   webdriver: '>=0.7.3'
