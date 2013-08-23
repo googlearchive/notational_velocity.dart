@@ -6,20 +6,6 @@ class DebugController {
   DebugController(this.controller);
 
   Future populate() {
-
-    return Future.forEach(PNP.keys, (String chapter) {
-      return new Future(() {
-        var note = controller.openOrCreateNote(chapter);
-
-        TextContent tc = note.content;
-
-        var chapterContent = PNP[chapter];
-
-        if(tc.value != chapterContent) {
-          tc = new TextContent(chapterContent);
-          controller.updateNote(chapter, tc);
-        }
-      });
-    });
+    throw new UnimplementedError('have not got populate back working yet...');
   }
 }
