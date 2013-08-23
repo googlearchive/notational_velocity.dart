@@ -18,21 +18,9 @@ const _testTitle1 = 'Test Title 1';
 void main(Storage storage) {
   group('AppController', () {
 
-    test('simple', () {
-      return _getDebugController(storage)
-          .then((AppController ac) {
-            // wait for updated
-            return _whenUpdated(ac);
-          })
-          .then((AppController ac) => _testSimple(ac));
-    });
+    _testAppController('simple', storage, _testSimple);
 
   });
-}
-
-Future<AppController> _getDebugController(Storage storage) {
-  return MapSync.createAndLoad(storage, NOTE_CODEC)
-    .then((MapSync<Note> ms) => new AppController(ms));
 }
 
 Future _testSimple(AppController model) {
@@ -105,5 +93,17 @@ Future _expectFirstRun(AppController controller) {
     TextContent tc = note.content;
     expect(tc.value, match);
   }
-
 }
+
+Future<AppController> _getDebugController(Storage storage) {
+  return MapSync.createAndLoad(storage, NOTE_CODEC)
+    .then((MapSync<Note> ms) => new AppController(ms))
+    .then(_whenUpdated);
+}
+
+void _testAppController(String name, Storage storage, testFunc(AppController ac)) {
+  test(name, () {
+    return _getDebugController(storage).then(testFunc);
+  });
+}
+
