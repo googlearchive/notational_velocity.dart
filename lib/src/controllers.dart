@@ -121,21 +121,23 @@ class AppController extends ChangeNotifierBase {
     _searchResetHandle.add(EventArgs.empty);
   }
 
-  Note openOrCreateNote(String title) {
+  Note openOrCreate() {
 
-    var key = title.toLowerCase();
+    var key = searchTerm.toLowerCase();
 
     var value = _noteStorage[key];
 
     if(value == null) {
       var nc = new TextContent('');
-      var note = new Note.now(title, nc);
-      _noteStorage[note.key] = note;
+      value = new Note.now(searchTerm, nc);
+      _noteStorage[value.key] = value;
 
       _dirtyNoteList();
-
-      return note;
     }
+
+    _selectedNote = value;
+
+    _dirtyNoteList();
 
     return value;
   }
