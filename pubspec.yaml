@@ -8,7 +8,7 @@ dependencies:
   bot: '>=0.23.0'
   js: '>=0.0.24'
   meta: '>=0.6.19'
-  polymer: '>=0.5.4'
+  polymer: '>=0.5.5'
 dev_dependencies:
   bot_test: '>=0.1.2'
   browser: '>=0.6.19'
