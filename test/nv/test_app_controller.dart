@@ -20,7 +20,20 @@ void main(Storage storage) {
 
     _testAppController('simple', storage, _testSimple);
 
+    _testAppController('initial search', storage, _initialSearch);
+
   });
+}
+
+Future _initialSearch(AppController ac) {
+  expect(ac.isUpdated, isTrue);
+  expect(ac.selectedNote, isNull);
+
+  expect(INITIAL_NOTES.keys, contains('About'));
+  expect(INITIAL_NOTES.keys.where((k) => k.toLowerCase().startsWith('a')),
+      hasLength(1), reason: 'should have only one item that begins w/ "A"');
+
+  // TODO: start hacking on partial completion of item, etc
 }
 
 Future _testSimple(AppController model) {
