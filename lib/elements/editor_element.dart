@@ -38,7 +38,7 @@ class EditorElement extends PolymerElement
   // Nested event handlers
   //
 
-  void handleContentEdit(Event e, var detail, Element target) {
+  void handleContentEdit(Event e, detail, Element target) {
     assert(_enabled);
     _notifyPropChange(const Symbol('text'));
   }
