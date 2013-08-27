@@ -1,5 +1,7 @@
 part of nv.shared;
 
+// TODO: throw better errors when mutation operation is attempted
+
 class ReadOnlyObservableList<E> extends ListBase<E> implements Observable {
   final ObservableList<E> _list;
 

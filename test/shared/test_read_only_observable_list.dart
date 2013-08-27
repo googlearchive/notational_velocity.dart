@@ -10,6 +10,8 @@ import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
 import '../src/observe_test_utils.dart';
 
+// TODO: test mutation operations throw appropriate errors
+
 typedef ReadOnlyObservableList<E> ROOLFactory<E>(ObservableList<E> source);
 
 void main() {
