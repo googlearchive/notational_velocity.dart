@@ -10,7 +10,17 @@ import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
 import '../src/observe_test_utils.dart';
 
+typedef ReadOnlyObservableList<E> ROOLFactory<E>(ObservableList<E> source);
+
 void main() {
+  sharedMain(_simpleFactory);
+}
+
+ReadOnlyObservableList<int> _simpleFactory(ObservableList<int> source) {
+  return new ReadOnlyObservableList(source);
+}
+
+void sharedMain(ROOLFactory factory) {
   // TODO(jmesserly): need all standard List API tests.
 
   StreamSubscription sub;
@@ -26,7 +36,7 @@ void main() {
 
     setUp(() {
       list = toObservable([1, 2, 3]);
-      rol = new ReadOnlyObservableList(list);
+      rol = factory(list);
       changes = null;
       sub = rol.changes.listen((records) {
         changes = records.where((r) => r.changes(_LENGTH)).toList();
@@ -87,7 +97,7 @@ void main() {
 
     setUp(() {
       list = toObservable([1, 2, 3]);
-      rol = new ReadOnlyObservableList(list);
+      rol = factory(list);
       changes = null;
       sub = rol.changes.listen((records) {
         changes = records.where((r) => r.changes(1)).toList();
@@ -164,7 +174,7 @@ void main() {
 
   observeTest('toString', () {
     var list = toObservable([1, 2, 3]);
-    var rol = new ReadOnlyObservableList(list);
+    var rol = factory(list);
     expect(rol.toString(), '[1, 2, 3]');
   });
 
@@ -176,7 +186,7 @@ void main() {
 
     setUp(() {
       list = toObservable([1, 2, 3, 1, 3, 4]);
-      rol = new ReadOnlyObservableList(list);
+      rol = factory(list);
       records = null;
       sub = rol.changes.listen((r) { records = r; });
     });
