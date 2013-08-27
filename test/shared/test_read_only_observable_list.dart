@@ -26,15 +26,18 @@ void sharedMain(ROOLFactory factory) {
   // TODO(jmesserly): need all standard List API tests.
 
   StreamSubscription sub;
+  ObservableList list;
+  ReadOnlyObservableList rol;
+  List<ChangeRecord> changes;
 
-  sharedTearDown() { sub.cancel(); }
+  void doChanges() {
+    list.deliverChanges();
+    rol.deliverChanges();
+  }
+
+  void sharedTearDown() { sub.cancel(); }
 
   group('observe length', () {
-
-    ObservableList list;
-    ReadOnlyObservableList rol;
-
-    List<ChangeRecord> changes;
 
     setUp(() {
       list = toObservable([1, 2, 3]);
@@ -50,7 +53,7 @@ void sharedMain(ROOLFactory factory) {
     observeTest('add changes length', () {
       list.add(4);
       expect(rol, [1, 2, 3, 4]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_lengthChange]);
     });
 
@@ -58,7 +61,7 @@ void sharedMain(ROOLFactory factory) {
       list.remove(2);
       expect(rol, orderedEquals([1, 3]));
 
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_lengthChange]);
     });
 
@@ -66,36 +69,33 @@ void sharedMain(ROOLFactory factory) {
       list.add(4);
       list.removeRange(1, 3);
       expect(rol, [1, 4]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('length= changes length', () {
       list.length = 5;
       expect(rol, [1, 2, 3, null, null]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('[]= does not change length', () {
       list[2] = 9000;
       expect(rol, [1, 2, 9000]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, []);
     });
 
     observeTest('clear changes length', () {
       list.clear();
       expect(rol, []);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_lengthChange]);
     });
   });
 
   group('observe index', () {
-    ObservableList list;
-    ReadOnlyObservableList rol;
-    List<ChangeRecord> changes;
 
     setUp(() {
       list = toObservable([1, 2, 3]);
@@ -111,21 +111,21 @@ void sharedMain(ROOLFactory factory) {
     observeTest('add does not change existing items', () {
       list.add(4);
       expect(rol, [1, 2, 3, 4]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, []);
     });
 
     observeTest('[]= changes item', () {
       list[1] = 777;
       expect(rol, [1, 777, 3]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_change(1, addedCount: 1, removedCount: 1)]);
     });
 
     observeTest('[]= on a different item does not fire change', () {
       list[2] = 9000;
       expect(rol, [1, 2, 9000]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, []);
     });
 
@@ -133,7 +133,7 @@ void sharedMain(ROOLFactory factory) {
       list[1] = 777;
       list[1] = 42;
       expect(rol, [1, 42, 3]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [
         _change(1, addedCount: 1, removedCount: 1),
       ]);
@@ -142,14 +142,14 @@ void sharedMain(ROOLFactory factory) {
     observeTest('set length without truncating item means no change', () {
       list.length = 2;
       expect(rol, [1, 2]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, []);
     });
 
     observeTest('truncate removes item', () {
       list.length = 1;
       expect(rol, [1]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [_change(1, removedCount: 2)]);
     });
 
@@ -157,7 +157,7 @@ void sharedMain(ROOLFactory factory) {
       list.length = 1;
       list.add(42);
       expect(rol, [1, 42]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [
         _change(1, removedCount: 2, addedCount: 1)
       ]);
@@ -167,7 +167,7 @@ void sharedMain(ROOLFactory factory) {
       list.length = 1;
       list.add(2);
       expect(rol, [1, 2]);
-      performMicrotaskCheckpoint();
+      doChanges();
       expectChanges(changes, [
         _change(1, removedCount: 2, addedCount: 1)
       ]);
@@ -182,15 +182,11 @@ void sharedMain(ROOLFactory factory) {
 
   group('change records', () {
 
-    List<ChangeRecord> records;
-    ObservableList list;
-    ReadOnlyObservableList rol;
-
     setUp(() {
       list = toObservable([1, 2, 3, 1, 3, 4]);
       rol = factory(list);
-      records = null;
-      sub = rol.changes.listen((r) { records = r; });
+      changes = null;
+      sub = rol.changes.listen((r) { changes = r; });
     });
 
     tearDown(sharedTearDown);
@@ -206,10 +202,10 @@ void sharedMain(ROOLFactory factory) {
       var copy = new List<int>();
       rol.forEach((i) { copy.add(i); });
       expect(copy, orderedEquals([1, 2, 3, 1, 3, 4]));
-      performMicrotaskCheckpoint();
+      doChanges();
 
       // no change from read-only operators
-      expectChanges(records, null);
+      expectChanges(changes, null);
     });
 
     observeTest('add', () {
@@ -217,8 +213,8 @@ void sharedMain(ROOLFactory factory) {
       list.add(6);
       expect(rol, orderedEquals([1, 2, 3, 1, 3, 4, 5, 6]));
 
-      performMicrotaskCheckpoint();
-      expectChanges(records, [
+      doChanges();
+      expectChanges(changes, [
         _lengthChange,
         _change(6, addedCount: 2)
       ]);
@@ -228,16 +224,16 @@ void sharedMain(ROOLFactory factory) {
       list[1] = list.last;
       expect(rol, orderedEquals([1, 4, 3, 1, 3, 4]));
 
-      performMicrotaskCheckpoint();
-      expectChanges(records, [ _change(1, addedCount: 1, removedCount: 1) ]);
+      doChanges();
+      expectChanges(changes, [ _change(1, addedCount: 1, removedCount: 1) ]);
     });
 
     observeTest('removeLast', () {
       expect(list.removeLast(), 4);
       expect(rol, orderedEquals([1, 2, 3, 1, 3]));
 
-      performMicrotaskCheckpoint();
-      expectChanges(records, [
+      doChanges();
+      expectChanges(changes, [
         _lengthChange,
         _change(5, removedCount: 1)
       ]);
@@ -247,8 +243,8 @@ void sharedMain(ROOLFactory factory) {
       list.removeRange(1, 4);
       expect(rol, orderedEquals([1, 3, 4]));
 
-      performMicrotaskCheckpoint();
-      expectChanges(records, [
+      doChanges();
+      expectChanges(changes, [
         _lengthChange,
         _change(1, removedCount: 3),
       ]);
@@ -258,8 +254,8 @@ void sharedMain(ROOLFactory factory) {
       list.sort((x, y) => x - y);
       expect(rol, orderedEquals([1, 1, 2, 3, 3, 4]));
 
-      performMicrotaskCheckpoint();
-      expectChanges(records, [
+      doChanges();
+      expectChanges(changes, [
         _change(1, addedCount: 5, removedCount: 5),
       ]);
     });
@@ -268,8 +264,8 @@ void sharedMain(ROOLFactory factory) {
       list.clear();
       expect(rol, []);
 
-      performMicrotaskCheckpoint();
-      expectChanges(records, [
+      doChanges();
+      expectChanges(changes, [
         _lengthChange,
         _change(0, removedCount: 6)
       ]);
