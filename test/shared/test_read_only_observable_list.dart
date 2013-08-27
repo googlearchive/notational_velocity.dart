@@ -13,8 +13,6 @@ import '../src/observe_test_utils.dart';
 void main() {
   // TODO(jmesserly): need all standard List API tests.
 
-  const _LENGTH = const Symbol('length');
-
   StreamSubscription sub;
 
   sharedTearDown() { sub.cancel(); }
@@ -271,5 +269,6 @@ const _LENGTH = const Symbol('length');
 
 final _lengthChange = new PropertyChangeRecord(_LENGTH);
 
-_change(index, {removedCount: 0, addedCount: 0}) => new ListChangeRecord(
-    index, removedCount: removedCount, addedCount: addedCount);
+ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
+    new ListChangeRecord(index, removedCount: removedCount,
+        addedCount: addedCount);
