@@ -47,14 +47,14 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('add changes length', () {
       list.add(4);
-      expect(list, [1, 2, 3, 4]);
+      expect(rol, [1, 2, 3, 4]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('removeObject', () {
       list.remove(2);
-      expect(list, orderedEquals([1, 3]));
+      expect(rol, orderedEquals([1, 3]));
 
       performMicrotaskCheckpoint();
       expectChanges(changes, [_lengthChange]);
@@ -63,28 +63,28 @@ void sharedMain(ROOLFactory factory) {
     observeTest('removeRange changes length', () {
       list.add(4);
       list.removeRange(1, 3);
-      expect(list, [1, 4]);
+      expect(rol, [1, 4]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('length= changes length', () {
       list.length = 5;
-      expect(list, [1, 2, 3, null, null]);
+      expect(rol, [1, 2, 3, null, null]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('[]= does not change length', () {
       list[2] = 9000;
-      expect(list, [1, 2, 9000]);
+      expect(rol, [1, 2, 9000]);
       performMicrotaskCheckpoint();
       expectChanges(changes, []);
     });
 
     observeTest('clear changes length', () {
       list.clear();
-      expect(list, []);
+      expect(rol, []);
       performMicrotaskCheckpoint();
       expectChanges(changes, [_lengthChange]);
     });
@@ -108,21 +108,21 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('add does not change existing items', () {
       list.add(4);
-      expect(list, [1, 2, 3, 4]);
+      expect(rol, [1, 2, 3, 4]);
       performMicrotaskCheckpoint();
       expectChanges(changes, []);
     });
 
     observeTest('[]= changes item', () {
       list[1] = 777;
-      expect(list, [1, 777, 3]);
+      expect(rol, [1, 777, 3]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [_change(1, addedCount: 1, removedCount: 1)]);
     });
 
     observeTest('[]= on a different item does not fire change', () {
       list[2] = 9000;
-      expect(list, [1, 2, 9000]);
+      expect(rol, [1, 2, 9000]);
       performMicrotaskCheckpoint();
       expectChanges(changes, []);
     });
@@ -130,7 +130,7 @@ void sharedMain(ROOLFactory factory) {
     observeTest('set multiple times results in one change', () {
       list[1] = 777;
       list[1] = 42;
-      expect(list, [1, 42, 3]);
+      expect(rol, [1, 42, 3]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [
         _change(1, addedCount: 1, removedCount: 1),
@@ -139,14 +139,14 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('set length without truncating item means no change', () {
       list.length = 2;
-      expect(list, [1, 2]);
+      expect(rol, [1, 2]);
       performMicrotaskCheckpoint();
       expectChanges(changes, []);
     });
 
     observeTest('truncate removes item', () {
       list.length = 1;
-      expect(list, [1]);
+      expect(rol, [1]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [_change(1, removedCount: 2)]);
     });
@@ -154,7 +154,7 @@ void sharedMain(ROOLFactory factory) {
     observeTest('truncate and add new item', () {
       list.length = 1;
       list.add(42);
-      expect(list, [1, 42]);
+      expect(rol, [1, 42]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [
         _change(1, removedCount: 2, addedCount: 1)
@@ -164,7 +164,7 @@ void sharedMain(ROOLFactory factory) {
     observeTest('truncate and add same item', () {
       list.length = 1;
       list.add(2);
-      expect(list, [1, 2]);
+      expect(rol, [1, 2]);
       performMicrotaskCheckpoint();
       expectChanges(changes, [
         _change(1, removedCount: 2, addedCount: 1)
@@ -213,7 +213,7 @@ void sharedMain(ROOLFactory factory) {
     observeTest('add', () {
       list.add(5);
       list.add(6);
-      expect(list, orderedEquals([1, 2, 3, 1, 3, 4, 5, 6]));
+      expect(rol, orderedEquals([1, 2, 3, 1, 3, 4, 5, 6]));
 
       performMicrotaskCheckpoint();
       expectChanges(records, [
@@ -224,7 +224,7 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('[]=', () {
       list[1] = list.last;
-      expect(list, orderedEquals([1, 4, 3, 1, 3, 4]));
+      expect(rol, orderedEquals([1, 4, 3, 1, 3, 4]));
 
       performMicrotaskCheckpoint();
       expectChanges(records, [ _change(1, addedCount: 1, removedCount: 1) ]);
@@ -232,7 +232,7 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('removeLast', () {
       expect(list.removeLast(), 4);
-      expect(list, orderedEquals([1, 2, 3, 1, 3]));
+      expect(rol, orderedEquals([1, 2, 3, 1, 3]));
 
       performMicrotaskCheckpoint();
       expectChanges(records, [
@@ -243,7 +243,7 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('removeRange', () {
       list.removeRange(1, 4);
-      expect(list, orderedEquals([1, 3, 4]));
+      expect(rol, orderedEquals([1, 3, 4]));
 
       performMicrotaskCheckpoint();
       expectChanges(records, [
@@ -254,7 +254,7 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('sort', () {
       list.sort((x, y) => x - y);
-      expect(list, orderedEquals([1, 1, 2, 3, 3, 4]));
+      expect(rol, orderedEquals([1, 1, 2, 3, 3, 4]));
 
       performMicrotaskCheckpoint();
       expectChanges(records, [
@@ -264,7 +264,7 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('clear', () {
       list.clear();
-      expect(list, []);
+      expect(rol, []);
 
       performMicrotaskCheckpoint();
       expectChanges(records, [
