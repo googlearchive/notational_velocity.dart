@@ -1,7 +1,7 @@
 part of nv.shared;
 
 class ReadOnlyObservableList<E> extends ListBase<E> implements Observable {
-  final ObservableList _list;
+  final ObservableList<E> _list;
 
   ReadOnlyObservableList(this._list) {
     assert(_list != null);
