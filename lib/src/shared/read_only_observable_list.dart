@@ -1,8 +1,9 @@
 part of nv.shared;
 
-// TODO: throw better errors when mutation operation is attempted
+class ReadOnlyObservableList<E> extends ListBase<E>
+  with ChangeNotifierMixin, _UnmodifiableListMixin<E>
+  implements ObservableList<E> {
 
-class ReadOnlyObservableList<E> extends ListBase<E> with ChangeNotifierMixin {
   final ObservableList<E> _list;
 
   ReadOnlyObservableList(this._list) {

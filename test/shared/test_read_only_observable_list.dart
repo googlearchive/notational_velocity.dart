@@ -12,7 +12,7 @@ import '../src/observe_test_utils.dart';
 
 // TODO: test mutation operations throw appropriate errors
 
-typedef ReadOnlyObservableList<E> ROOLFactory<E>(ObservableList<E> source);
+typedef ObservableList<E> ROOLFactory<E>(ObservableList<E> source);
 
 void main() {
   sharedMain(_simpleFactory);
@@ -27,7 +27,7 @@ void sharedMain(ROOLFactory factory) {
 
   StreamSubscription sub;
   ObservableList list;
-  ReadOnlyObservableList rol;
+  ObservableList rol;
   List<ChangeRecord> changes;
 
   void doChanges() {
@@ -52,45 +52,44 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('add changes length', () {
       list.add(4);
-      expect(rol, [1, 2, 3, 4]);
       doChanges();
+      expect(rol, [1, 2, 3, 4]);
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('removeObject', () {
       list.remove(2);
-      expect(rol, orderedEquals([1, 3]));
-
       doChanges();
+      expect(rol, orderedEquals([1, 3]));
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('removeRange changes length', () {
       list.add(4);
       list.removeRange(1, 3);
-      expect(rol, [1, 4]);
       doChanges();
+      expect(rol, [1, 4]);
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('length= changes length', () {
       list.length = 5;
-      expect(rol, [1, 2, 3, null, null]);
       doChanges();
+      expect(rol, [1, 2, 3, null, null]);
       expectChanges(changes, [_lengthChange]);
     });
 
     observeTest('[]= does not change length', () {
       list[2] = 9000;
-      expect(rol, [1, 2, 9000]);
       doChanges();
+      expect(rol, [1, 2, 9000]);
       expectChanges(changes, []);
     });
 
     observeTest('clear changes length', () {
       list.clear();
-      expect(rol, []);
       doChanges();
+      expect(rol, []);
       expectChanges(changes, [_lengthChange]);
     });
   });
@@ -110,30 +109,30 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('add does not change existing items', () {
       list.add(4);
-      expect(rol, [1, 2, 3, 4]);
       doChanges();
+      expect(rol, [1, 2, 3, 4]);
       expectChanges(changes, []);
     });
 
     observeTest('[]= changes item', () {
       list[1] = 777;
-      expect(rol, [1, 777, 3]);
       doChanges();
+      expect(rol, [1, 777, 3]);
       expectChanges(changes, [_change(1, addedCount: 1, removedCount: 1)]);
     });
 
     observeTest('[]= on a different item does not fire change', () {
       list[2] = 9000;
-      expect(rol, [1, 2, 9000]);
       doChanges();
+      expect(rol, [1, 2, 9000]);
       expectChanges(changes, []);
     });
 
     observeTest('set multiple times results in one change', () {
       list[1] = 777;
       list[1] = 42;
-      expect(rol, [1, 42, 3]);
       doChanges();
+      expect(rol, [1, 42, 3]);
       expectChanges(changes, [
         _change(1, addedCount: 1, removedCount: 1),
       ]);
@@ -141,23 +140,23 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('set length without truncating item means no change', () {
       list.length = 2;
-      expect(rol, [1, 2]);
       doChanges();
+      expect(rol, [1, 2]);
       expectChanges(changes, []);
     });
 
     observeTest('truncate removes item', () {
       list.length = 1;
-      expect(rol, [1]);
       doChanges();
+      expect(rol, [1]);
       expectChanges(changes, [_change(1, removedCount: 2)]);
     });
 
     observeTest('truncate and add new item', () {
       list.length = 1;
       list.add(42);
-      expect(rol, [1, 42]);
       doChanges();
+      expect(rol, [1, 42]);
       expectChanges(changes, [
         _change(1, removedCount: 2, addedCount: 1)
       ]);
@@ -166,8 +165,8 @@ void sharedMain(ROOLFactory factory) {
     observeTest('truncate and add same item', () {
       list.length = 1;
       list.add(2);
-      expect(rol, [1, 2]);
       doChanges();
+      expect(rol, [1, 2]);
       expectChanges(changes, [
         _change(1, removedCount: 2, addedCount: 1)
       ]);
@@ -211,9 +210,9 @@ void sharedMain(ROOLFactory factory) {
     observeTest('add', () {
       list.add(5);
       list.add(6);
+      doChanges();
       expect(rol, orderedEquals([1, 2, 3, 1, 3, 4, 5, 6]));
 
-      doChanges();
       expectChanges(changes, [
         _lengthChange,
         _change(6, addedCount: 2)
@@ -222,17 +221,17 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('[]=', () {
       list[1] = list.last;
+      doChanges();
       expect(rol, orderedEquals([1, 4, 3, 1, 3, 4]));
 
-      doChanges();
       expectChanges(changes, [ _change(1, addedCount: 1, removedCount: 1) ]);
     });
 
     observeTest('removeLast', () {
       expect(list.removeLast(), 4);
+      doChanges();
       expect(rol, orderedEquals([1, 2, 3, 1, 3]));
 
-      doChanges();
       expectChanges(changes, [
         _lengthChange,
         _change(5, removedCount: 1)
@@ -241,9 +240,9 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('removeRange', () {
       list.removeRange(1, 4);
+      doChanges();
       expect(rol, orderedEquals([1, 3, 4]));
 
-      doChanges();
       expectChanges(changes, [
         _lengthChange,
         _change(1, removedCount: 3),
@@ -252,9 +251,9 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('sort', () {
       list.sort((x, y) => x - y);
+      doChanges();
       expect(rol, orderedEquals([1, 1, 2, 3, 3, 4]));
 
-      doChanges();
       expectChanges(changes, [
         _change(1, addedCount: 5, removedCount: 5),
       ]);
@@ -262,9 +261,9 @@ void sharedMain(ROOLFactory factory) {
 
     observeTest('clear', () {
       list.clear();
+      doChanges();
       expect(rol, []);
 
-      doChanges();
       expectChanges(changes, [
         _lengthChange,
         _change(0, removedCount: 6)
