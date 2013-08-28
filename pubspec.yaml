@@ -15,4 +15,4 @@ dev_dependencies:
   hop: '>=0.24.3'
   http_server: '>=0.6.21'
   unittest: '>=0.6.21'
-  webdriver: '>=0.7.3'
+  webdriver: '>=0.7.4'
