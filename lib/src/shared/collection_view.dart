@@ -1,8 +1,5 @@
 part of nv.shared;
 
-typedef bool Predicate<E>(E item);
-typedef int Sorter<E>(E a, E b);
-
 class CollectionView<E> extends ListBase<E>
   with ChangeNotifierMixin, _UnmodifiableListMixin<E>
   implements ObservableList<E> {

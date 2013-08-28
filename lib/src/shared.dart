@@ -11,6 +11,9 @@ part 'shared/collection_view.dart';
 part 'shared/read_only_observable_list.dart';
 part 'shared/split.dart';
 
+typedef bool Predicate<E>(E item);
+typedef int Sorter<E>(E a, E b);
+
 class NVError extends Error {
   final String message;
 
