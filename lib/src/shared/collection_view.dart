@@ -22,14 +22,14 @@ class CollectionView<E> extends _UnmodifiableListBase<E>
 
   void set filter(Predicate<E> value) {
     _filter = value;
-    _dirty();
+    _dirty(true);
   }
 
   Sorter<E> get sorter => _sorter;
 
   void set sorter(Sorter<E> value) {
     _sorter = value;
-    _dirty();
+    _dirty(false);
   }
 
   //
@@ -61,14 +61,18 @@ class CollectionView<E> extends _UnmodifiableListBase<E>
 
   bool get _isDirty => _hasSortOrFilter && _view == null;
 
-  void _dirty() {
+  void _dirty(changesLength) {
     _view = null;
-    // raise gratuitus prop change here...I guess
+    notifyChange(new ListChangeRecord(0, removedCount: _list.length,
+        addedCount: _list.length));
+    if(changesLength) {
+      notifyChange(new PropertyChangeRecord(const Symbol('length')));
+    }
   }
 
   void _list_changes(List<ChangeRecord> changes) {
     if(_hasSortOrFilter) {
-      _dirty();
+      _dirty(true);
     } else {
       changes.forEach(notifyChange);
     }
