@@ -71,7 +71,7 @@ class _PropChangeFilterTransform extends StreamEventTransformer<List<ChangeRecor
  * Borrowed, with great annoyance from dart:_collection
  * 0.6.21.3_r26639
  */
-abstract class _UnmodifiableListMixin<E> {
+abstract class _UnmodifiableListBase<E> extends ListBase<E> {
 
   void operator []=(int index, E value) {
     throw new UnsupportedError(

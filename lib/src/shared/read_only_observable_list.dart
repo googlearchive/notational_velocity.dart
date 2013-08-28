@@ -1,8 +1,7 @@
 part of nv.shared;
 
-class ReadOnlyObservableList<E> extends ListBase<E>
-  with ChangeNotifierMixin, _UnmodifiableListMixin<E>
-  implements ObservableList<E> {
+class ReadOnlyObservableList<E> extends _UnmodifiableListBase<E>
+  with ChangeNotifierMixin implements ObservableList<E> {
 
   final ObservableList<E> _list;
 
