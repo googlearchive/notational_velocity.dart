@@ -50,6 +50,27 @@ void main() {
     expect(cv, orderedEquals(_luggage));
   });
 
+  _testLuggage('sort and filter', (ol, cv) {
+    _validate(ol, cv);
+
+    cv.sorter = _sortDescending;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([5,4,3,2,1]));
+
+    cv.filter = _isOdd;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([5,3,1]));
+
+    cv.sorter = null;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([1,3,5]));
+
+    cv.filter = null;
+    _validate(ol, cv);
+    expect(cv, orderedEquals(_luggage));
+  });
+
+
   // TODO: sort & filter
   // TODO: change source collection
   // TODO: validate events
@@ -59,9 +80,13 @@ bool _isEven(int value) => value % 2 == 0;
 
 bool _isOdd(int value) => !_isEven(value);
 
-int _sortEvenFirst(int a, int b) => _nestedSort(a, b, [_sortEvenFirstSimple, (x, y) => x.compareTo(y)]);
+int _sortEvenFirst(int a, int b) => _nestedSort(a, b, const [_sortEvenFirstSimple, _sortAscending]);
 
-int _sortOddFirst(int a, int b) => _nestedSort(a, b, [_sortOddFirstSimple, (x, y) => x.compareTo(y)]);
+int _sortOddFirst(int a, int b) => _nestedSort(a, b, const [_sortOddFirstSimple, _sortAscending]);
+
+int _sortAscending(int a, int b) => a.compareTo(b);
+
+int _sortDescending(int a, int b) => b.compareTo(a);
 
 int _sortEvenFirstSimple(int a, int b) {
   int aEven = _isEven(a) ? 0 : 1;
