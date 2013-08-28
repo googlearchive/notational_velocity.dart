@@ -207,6 +207,35 @@ void sharedMain(ROOLFactory factory) {
       expectChanges(changes, null);
     });
 
+    observeTest('remove, removeAt', () {
+      list.remove(1);
+      doChanges();
+      expect(rol, orderedEquals([2, 3, 1, 3, 4]));
+
+      expectChanges(changes, [
+        _lengthChange,
+        _change(0, removedCount: 1, addedCount: 0)
+      ]);
+
+      list.remove(1);
+      doChanges();
+      expect(rol, orderedEquals([2, 3, 3, 4]));
+
+      expectChanges(changes, [
+        _lengthChange,
+        _change(2, removedCount: 1, addedCount: 0)
+      ]);
+
+      list.removeAt(1);
+      doChanges();
+      expect(rol, orderedEquals([2, 3, 4]));
+
+      expectChanges(changes, [
+        _lengthChange,
+        _change(1, removedCount: 1, addedCount: 0)
+      ]);
+    });
+
     observeTest('add', () {
       list.add(5);
       list.add(6);
