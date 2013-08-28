@@ -8,11 +8,12 @@ import 'dart:async';
 import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
-//import '../src/observe_test_utils.dart';
 import 'test_read_only_observable_list.dart' as test_rool;
+import 'test_collection_view.dart' as test_cv;
 
 void main() {
   test_rool.sharedMain(_simpleFactory);
+  test_cv.sharedMain(_simpleFactory);
 }
 
 void _collectionViewTests() {

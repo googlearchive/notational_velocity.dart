@@ -1,38 +1,43 @@
-// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
-library cv_tests;
+library test.nv.shared.collection_view;
 
 import 'dart:async';
 import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
-//import '../src/observe_test_utils.dart';
 import 'test_read_only_observable_list.dart' as test_rool;
 
 void main() {
   test_rool.sharedMain(_simpleFactory);
-  _collectionViewTests();
+  sharedMain((cv) => cv);
 }
 
-void _collectionViewTests() {
+typedef ObservableList<E> CVtoOLFoctary<E>(CollectionView<E> source);
+
+void sharedMain(CVtoOLFoctary<int> factory) {
 
   ObservableList<int> ol;
-  CollectionView<int> cv;
+  CollectionView<int> collView;
+  ObservableList<int> finalView;
+
   StreamSubscription sub;
   List<ChangeRecord> changes;
 
   void doChanges() {
     ol.deliverChanges();
-    cv.deliverChanges();
+    collView.deliverChanges();
+    finalView.deliverChanges();
+  }
+
+  void validate() {
+    _validateRaw(ol, collView.sorter, collView.filter, finalView);
   }
 
   setUp(() {
     ol = new ObservableList.from(_luggage);
-    cv = new CollectionView(ol);
+    collView = new CollectionView(ol);
+    finalView = factory(collView);
     changes = null;
-    sub = cv.changes.listen((records) {
+    sub = finalView.changes.listen((records) {
       changes = records;
     });
   });
@@ -42,90 +47,90 @@ void _collectionViewTests() {
   });
 
   test('trivial', () {
-    _validate(ol, cv);
+    validate();
   });
 
   test('simple filter', () {
-    _validate(ol, cv);
+    validate();
 
-    cv.filter = _isEven;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([2,4]));
+    collView.filter = _isEven;
+    validate();
+    expect(finalView, orderedEquals([2,4]));
 
-    cv.filter = _isOdd;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([1,3,5]));
+    collView.filter = _isOdd;
+    validate();
+    expect(finalView, orderedEquals([1,3,5]));
 
-    cv.filter = null;
-    _validate(ol, cv);
-    expect(cv, orderedEquals(_luggage));
+    collView.filter = null;
+    validate();
+    expect(finalView, orderedEquals(_luggage));
   });
 
   test('simple sort', () {
-    _validate(ol, cv);
+    validate();
 
-    cv.sorter = _sortEvenFirst;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([2,4,1,3,5]));
+    collView.sorter = _sortEvenFirst;
+    validate();
+    expect(finalView, orderedEquals([2,4,1,3,5]));
 
-    cv.sorter = _sortOddFirst;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([1,3,5,2,4]));
+    collView.sorter = _sortOddFirst;
+    validate();
+    expect(finalView, orderedEquals([1,3,5,2,4]));
 
-    cv.sorter = null;
-    _validate(ol, cv);
-    expect(cv, orderedEquals(_luggage));
+    collView.sorter = null;
+    validate();
+    expect(finalView, orderedEquals(_luggage));
   });
 
   test('sort and filter', () {
-    _validate(ol, cv);
+    validate();
 
-    cv.sorter = _sortDescending;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([5,4,3,2,1]));
+    collView.sorter = _sortDescending;
+    validate();
+    expect(finalView, orderedEquals([5,4,3,2,1]));
 
-    cv.filter = _isOdd;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([5,3,1]));
+    collView.filter = _isOdd;
+    validate();
+    expect(finalView, orderedEquals([5,3,1]));
 
-    cv.sorter = null;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([1,3,5]));
+    collView.sorter = null;
+    validate();
+    expect(finalView, orderedEquals([1,3,5]));
 
-    cv.filter = null;
-    _validate(ol, cv);
-    expect(cv, orderedEquals(_luggage));
+    collView.filter = null;
+    validate();
+    expect(finalView, orderedEquals(_luggage));
   });
 
   test('sort and filter', () {
-    _validate(ol, cv);
+    validate();
 
-    cv.sorter = _sortDescending;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([5,4,3,2,1]));
+    collView.sorter = _sortDescending;
+    validate();
+    expect(finalView, orderedEquals([5,4,3,2,1]));
 
     ol.add(6);
     doChanges();
 
-    _validate(ol, cv);
-    expect(cv, orderedEquals([6,5,4,3,2,1]));
+    validate();
+    expect(finalView, orderedEquals([6,5,4,3,2,1]));
 
-    cv.filter = _isOdd;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([5,3,1]));
+    collView.filter = _isOdd;
+    validate();
+    expect(finalView, orderedEquals([5,3,1]));
 
     ol.add(7);
     doChanges();
-    _validate(ol, cv);
-    expect(cv, orderedEquals([7,5,3,1]));
+    validate();
+    expect(finalView, orderedEquals([7,5,3,1]));
 
-    cv.sorter = null;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([1,3,5,7]));
+    collView.sorter = null;
+    validate();
+    expect(finalView, orderedEquals([1,3,5,7]));
 
-    cv.filter = null;
-    _validate(ol, cv);
-    expect(cv, orderedEquals([1,2,3,4,5,6,7]));
+    collView.filter = null;
+    validate();
+    expect(finalView, orderedEquals([1,2,3,4,5,6,7]));
   });
 
   // TODO: validate events
@@ -161,16 +166,16 @@ int _nestedSort(dynamic a, dynamic b, List<Sorter> sorters) {
   return 0;
 }
 
-void _validate(List<int> source, CollectionView<int> cv) {
-  var testList = source.where(_getFilter(cv)).toList();
-  if(cv.sorter != null) {
-    testList.sort(cv.sorter);
+void _validateRaw(List<int> source, Sorter<int> sorter, Predicate<int> filter, List<int> target) {
+  var testList = source.where(_getFilter(filter)).toList();
+  if(sorter != null) {
+    testList.sort(sorter);
   }
-  expect(cv, orderedEquals(testList));
+  expect(target, orderedEquals(testList));
 }
 
-Predicate<int> _getFilter(CollectionView<int> cv) {
-  return (cv.filter == null) ? (int foo) => true : cv.filter;
+Predicate<int> _getFilter(Predicate<int> filter) {
+  return (filter == null) ? (int foo) => true : filter;
 }
 
 ObservableList<int> _simpleFactory(ObservableList<int> source) {
