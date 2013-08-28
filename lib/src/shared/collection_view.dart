@@ -65,7 +65,9 @@ class CollectionView<E> extends ListBase<E>
     }
   }
 
-  bool get _isDirty => (_filter != null || _sorter != null) && _view == null;
+  bool get _hasSortOrFilter => _filter != null || _sorter != null;
+
+  bool get _isDirty => _hasSortOrFilter && _view == null;
 
   void _dirty() {
     _view = null;
@@ -73,7 +75,10 @@ class CollectionView<E> extends ListBase<E>
   }
 
   void _list_changes(List<ChangeRecord> changes) {
-    // if no sort/filter then just pass 'em along
-    changes.forEach(notifyChange);
+    if(_hasSortOrFilter) {
+      _dirty();
+    } else {
+      changes.forEach(notifyChange);
+    }
   }
 }

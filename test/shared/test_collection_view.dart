@@ -13,12 +13,39 @@ import 'test_read_only_observable_list.dart' as test_rool;
 
 void main() {
   test_rool.sharedMain(_simpleFactory);
+  _collectionViewTests();
+}
 
-  _testLuggage('trivial', (ol, cv) {
+void _collectionViewTests() {
+
+  ObservableList<int> ol;
+  CollectionView<int> cv;
+  StreamSubscription sub;
+  List<ChangeRecord> changes;
+
+  void doChanges() {
+    ol.deliverChanges();
+    cv.deliverChanges();
+  }
+
+  setUp(() {
+    ol = new ObservableList.from(_luggage);
+    cv = new CollectionView(ol);
+    changes = null;
+    sub = cv.changes.listen((records) {
+      changes = records;
+    });
+  });
+
+  tearDown(() {
+    sub.cancel();
+  });
+
+  test('trivial', () {
     _validate(ol, cv);
   });
 
-  _testLuggage('simple filter', (ol, cv) {
+  test('simple filter', () {
     _validate(ol, cv);
 
     cv.filter = _isEven;
@@ -34,7 +61,7 @@ void main() {
     expect(cv, orderedEquals(_luggage));
   });
 
-  _testLuggage('simple sort', (ol, cv) {
+  test('simple sort', () {
     _validate(ol, cv);
 
     cv.sorter = _sortEvenFirst;
@@ -50,7 +77,7 @@ void main() {
     expect(cv, orderedEquals(_luggage));
   });
 
-  _testLuggage('sort and filter', (ol, cv) {
+  test('sort and filter', () {
     _validate(ol, cv);
 
     cv.sorter = _sortDescending;
@@ -70,9 +97,37 @@ void main() {
     expect(cv, orderedEquals(_luggage));
   });
 
+  test('sort and filter', () {
+    _validate(ol, cv);
 
-  // TODO: sort & filter
-  // TODO: change source collection
+    cv.sorter = _sortDescending;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([5,4,3,2,1]));
+
+    ol.add(6);
+    doChanges();
+
+    _validate(ol, cv);
+    expect(cv, orderedEquals([6,5,4,3,2,1]));
+
+    cv.filter = _isOdd;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([5,3,1]));
+
+    ol.add(7);
+    doChanges();
+    _validate(ol, cv);
+    expect(cv, orderedEquals([7,5,3,1]));
+
+    cv.sorter = null;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([1,3,5,7]));
+
+    cv.filter = null;
+    _validate(ol, cv);
+    expect(cv, orderedEquals([1,2,3,4,5,6,7]));
+  });
+
   // TODO: validate events
 }
 
@@ -104,14 +159,6 @@ int _nestedSort(dynamic a, dynamic b, List<Sorter> sorters) {
     }
   }
   return 0;
-}
-
-void _testLuggage(String name, Future testMethod(ObservableList<int> ol, CollectionView<int> cv)) {
-  test(name, () {
-    var ol = new ObservableList.from(_luggage);
-    var cv = new CollectionView(ol);
-    return testMethod(ol, cv);
-  });
 }
 
 void _validate(List<int> source, CollectionView<int> cv) {
