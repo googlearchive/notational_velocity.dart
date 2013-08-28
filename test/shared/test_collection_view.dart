@@ -54,14 +54,17 @@ void sharedMain(CVtoOLFoctary<int> factory) {
     validate();
 
     collView.filter = _isEven;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([2,4]));
 
     collView.filter = _isOdd;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([1,3,5]));
 
     collView.filter = null;
+    doChanges();
     validate();
     expect(finalView, orderedEquals(_luggage));
   });
@@ -70,14 +73,17 @@ void sharedMain(CVtoOLFoctary<int> factory) {
     validate();
 
     collView.sorter = _sortEvenFirst;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([2,4,1,3,5]));
 
     collView.sorter = _sortOddFirst;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([1,3,5,2,4]));
 
     collView.sorter = null;
+    doChanges();
     validate();
     expect(finalView, orderedEquals(_luggage));
   });
@@ -86,18 +92,22 @@ void sharedMain(CVtoOLFoctary<int> factory) {
     validate();
 
     collView.sorter = _sortDescending;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([5,4,3,2,1]));
 
     collView.filter = _isOdd;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([5,3,1]));
 
     collView.sorter = null;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([1,3,5]));
 
     collView.filter = null;
+    doChanges();
     validate();
     expect(finalView, orderedEquals(_luggage));
   });
@@ -106,6 +116,7 @@ void sharedMain(CVtoOLFoctary<int> factory) {
     validate();
 
     collView.sorter = _sortDescending;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([5,4,3,2,1]));
 
@@ -116,6 +127,7 @@ void sharedMain(CVtoOLFoctary<int> factory) {
     expect(finalView, orderedEquals([6,5,4,3,2,1]));
 
     collView.filter = _isOdd;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([5,3,1]));
 
@@ -125,10 +137,12 @@ void sharedMain(CVtoOLFoctary<int> factory) {
     expect(finalView, orderedEquals([7,5,3,1]));
 
     collView.sorter = null;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([1,3,5,7]));
 
     collView.filter = null;
+    doChanges();
     validate();
     expect(finalView, orderedEquals([1,2,3,4,5,6,7]));
   });
