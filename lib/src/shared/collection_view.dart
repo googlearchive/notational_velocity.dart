@@ -21,19 +21,15 @@ class CollectionView<E> extends _UnmodifiableListBase<E>
   Predicate<E> get filter => _filter;
 
   void set filter(Predicate<E> value) {
-    if(value != _filter) {
-      _filter = value;
-      _dirty();
-    }
+    _filter = value;
+    _dirty();
   }
 
   Sorter<E> get sorter => _sorter;
 
   void set sorter(Sorter<E> value) {
-    if(value != _sorter) {
-      _sorter = value;
-      _dirty();
-    }
+    _sorter = value;
+    _dirty();
   }
 
   //
