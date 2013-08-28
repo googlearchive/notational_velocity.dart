@@ -8,6 +8,7 @@ import 'package:observe/observe.dart';
 import 'package:meta/meta.dart';
 
 part 'shared/collection_view.dart';
+part 'shared/mapped_list_view.dart';
 part 'shared/read_only_observable_list.dart';
 part 'shared/split.dart';
 
