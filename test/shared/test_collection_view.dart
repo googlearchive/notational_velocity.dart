@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
-import 'test_read_only_observable_list.dart' as test_rool;
+import 'test_observable_list_view.dart' as test_rool;
 
 void main() {
   test_rool.sharedMain(_simpleFactory);

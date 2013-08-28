@@ -18,8 +18,8 @@ void main() {
   sharedMain(_simpleFactory);
 }
 
-ReadOnlyObservableList<int> _simpleFactory(ObservableList<int> source) {
-  return new ReadOnlyObservableList(source);
+ObservableListView<int> _simpleFactory(ObservableList<int> source) {
+  return new ObservableListView(source);
 }
 
 void sharedMain(ROOLFactory factory) {

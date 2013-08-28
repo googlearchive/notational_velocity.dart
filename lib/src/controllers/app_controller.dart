@@ -8,7 +8,7 @@ class AppController extends ChangeNotifierBase {
 
   final MapSync<Note> _noteSync;
   final ObservableList<NoteController> _notes;
-  final ReadOnlyObservableList<NoteController> notes;
+  final ObservableListView<NoteController> notes;
   final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
@@ -17,7 +17,7 @@ class AppController extends ChangeNotifierBase {
 
   factory AppController(MapSync<Note> noteStorage) {
     var notes = new ObservableList<NoteController>();
-    var roNotes = new ReadOnlyObservableList<NoteController>(notes);
+    var roNotes = new ObservableListView<NoteController>(notes);
 
     return new AppController._internal(noteStorage, notes, roNotes);
   }
