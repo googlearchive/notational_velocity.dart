@@ -8,6 +8,11 @@ class CollectionView<E> extends _UnmodifiableListBase<E> {
   Predicate<E> _filter = null;
   Sorter<E> _sorter = null;
 
+  bool _pendingLengthRest = false;
+  bool _pendingItemReset = false;
+
+  bool get _pendingReset => _pendingLengthRest || _pendingItemReset;
+
   CollectionView(this._list) {
     assert(_list != null);
     _list.changes.listen(_list_changes);
@@ -29,6 +34,18 @@ class CollectionView<E> extends _UnmodifiableListBase<E> {
   void set sorter(Sorter<E> value) {
     _sorter = value;
     _dirty(false);
+  }
+
+  @override
+  bool deliverChanges() {
+    if(_pendingLengthRest) {
+      notifyChange(new PropertyChangeRecord(const Symbol('length')));
+    }
+    if(_pendingItemReset) {
+      notifyChange(new ListChangeRecord(0, removedCount: _list.length,
+          addedCount: _list.length));
+    }
+    return super.deliverChanges();
   }
 
   //
@@ -61,16 +78,19 @@ class CollectionView<E> extends _UnmodifiableListBase<E> {
   bool get _isDirty => _hasSortOrFilter && _view == null;
 
   void _dirty(changesLength) {
-    _view = null;
-    notifyChange(new ListChangeRecord(0, removedCount: _list.length,
-        addedCount: _list.length));
-    if(changesLength) {
-      notifyChange(new PropertyChangeRecord(const Symbol('length')));
+    _pendingItemReset = true;
+    _pendingLengthRest = changesLength;
+    if(_view != null) {
+      _view = null;
+      runAsync(deliverChanges);
     }
   }
 
   void _list_changes(List<ChangeRecord> changes) {
-    if(_hasSortOrFilter) {
+    // if there is a sort or filter
+    // or we're already pending a rest of items or length
+    // just double down on the existing 'pending'
+    if(_hasSortOrFilter || _pendingItemReset || _pendingLengthRest) {
       _dirty(true);
     } else {
       changes.forEach(notifyChange);
