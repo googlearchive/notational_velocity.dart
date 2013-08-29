@@ -3,8 +3,13 @@ part of nv.shared;
 typedef bool Matcher<S, T>(S source, T target);
 typedef T Mapper<S, T>(S source);
 
-// TODO: RECYCLE Items!
-// TODO: Be smart about minimal changes
+/*
+ * Well, hmm. So this impl will do an okay job of not calling mapper too often
+ * but we're paying the hash lookup cost on every indexer access
+ *
+ * So...we could throw memory at it...or get more clever
+ * ...but this works for now
+ */
 
 class MappedListView<S, T> extends _UnmodifiableListBase<T> {
 
@@ -12,7 +17,7 @@ class MappedListView<S, T> extends _UnmodifiableListBase<T> {
   final Matcher<S, T> _matcher;
   final Mapper<S, T> _mapper;
 
-  List<T> _content;
+  final Map<S, T> _cache = new Map<S, T>();
   bool _isDirty = true;
 
   MappedListView(this._source, this._matcher, this._mapper) {
@@ -20,24 +25,30 @@ class MappedListView<S, T> extends _UnmodifiableListBase<T> {
     _source.changes.listen(_list_changes);
   }
 
-  int get length => _view.length;
+  int get length => _source.length;
 
-  T operator[](int index) => _view[index];
+  T operator[](int index) {
+    var sourceValue = _source[index];
+    return _cache.putIfAbsent(sourceValue, () => _mapper(sourceValue));
+  }
 
   //
   // Implementation
   //
 
-  List<T> get _view {
-    if(_isDirty) {
-      _content = _source.map(_mapper).toList(growable: false);
-      _isDirty = false;
-    }
-    return _content;
-  }
-
   void _list_changes(List<ChangeRecord> changes) {
-    _isDirty = true;
+    var listChanges = changes
+        .where((cr) => cr is ListChangeRecord)
+        .toList();
+
+    if(listChanges.isNotEmpty) {
+      ListChangeRecord change = listChanges.single;
+      if(change.removedCount > 0) {
+        // TODO: in theory, we could be more careful here, but for now
+        _cache.clear();
+      }
+    }
+
     changes.forEach(notifyChange);
   }
 }
