@@ -6,8 +6,7 @@ typedef T Mapper<S, T>(S source);
 // TODO: RECYCLE Items!
 // TODO: Be smart about minimal changes
 
-class MappedListView<S, T> extends _UnmodifiableListBase<T>
-  with ChangeNotifierMixin implements ObservableList<T> {
+class MappedListView<S, T> extends _UnmodifiableListBase<T> {
 
   final ObservableList<S> _source;
   final Matcher<S, T> _matcher;
