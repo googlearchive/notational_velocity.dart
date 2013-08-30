@@ -11,9 +11,9 @@ typedef T Mapper<S, T>(S source);
  * ...but this works for now
  */
 
-class MappedListView<S, T> extends _UnmodifiableListBase<T> {
+class MappedListView<S, T> extends ChangeNotifierList<T> {
 
-  final ObservableList<S> _source;
+  final List<S> _source;
   final Matcher<S, T> _matcher;
   final Mapper<S, T> _mapper;
 
@@ -22,7 +22,7 @@ class MappedListView<S, T> extends _UnmodifiableListBase<T> {
 
   MappedListView(this._source, this._matcher, this._mapper) {
     assert(_source != null);
-    _source.changes.listen(_list_changes);
+    (_source as Observable).changes.listen(_list_changes);
   }
 
   int get length => _source.length;

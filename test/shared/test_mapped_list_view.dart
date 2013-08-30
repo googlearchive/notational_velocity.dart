@@ -1,6 +1,5 @@
 library test.nv.shared.mapped_list_view;
 
-import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
 import 'test_observable_list_view.dart' as test_rool;
@@ -17,7 +16,7 @@ void main() {
   });
 }
 
-ObservableList<int> _simpleFactory(ObservableList<int> source) {
+ChangeNotifierList<int> _simpleFactory(List<int> source) {
   return new MappedListView<int, int>(source, _idMatcher, _idMapper);
 }
 

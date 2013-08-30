@@ -1,6 +1,6 @@
 part of nv.shared;
 
-class CollectionView<E> extends _UnmodifiableListBase<E> {
+class CollectionView<E> extends ChangeNotifierList<E> {
 
   final ObservableList<E> _list;
   List<E> _view;

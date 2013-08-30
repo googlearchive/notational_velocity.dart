@@ -7,7 +7,7 @@ part of nv.shared;
  *
  * Does not allow modification of underlying data.
  */
-class ObservableListView<E> extends _UnmodifiableListBase<E> {
+class ObservableListView<E> extends ChangeNotifierList<E> {
 
   final ObservableList<E> _list;
 

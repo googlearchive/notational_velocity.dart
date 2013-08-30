@@ -11,13 +11,13 @@ void main() {
   sharedMain((cv) => cv);
 }
 
-typedef ObservableList<E> CVtoOLFoctary<E>(CollectionView<E> source);
+typedef ChangeNotifierList<E> CVtoOLFoctary<E>(CollectionView<E> source);
 
 void sharedMain(CVtoOLFoctary<int> factory) {
 
   ObservableList<int> ol;
   CollectionView<int> collView;
-  ObservableList<int> finalView;
+  ChangeNotifierList<int> finalView;
 
   StreamSubscription sub;
   List<ChangeRecord> changes;
@@ -192,7 +192,7 @@ Predicate<int> _getFilter(Predicate<int> filter) {
   return (filter == null) ? (int foo) => true : filter;
 }
 
-ObservableList<int> _simpleFactory(ObservableList<int> source) {
+ChangeNotifierList<int> _simpleFactory(ObservableList<int> source) {
   return new CollectionView(source);
 }
 
