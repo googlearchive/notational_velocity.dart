@@ -15,14 +15,6 @@ part 'shared/split.dart';
 typedef bool Predicate<E>(E item);
 typedef int Sorter<E>(E a, E b);
 
-void printStack() {
-  try {
-    throw 'foo';
-  } catch (e, s) {
-    print(s);
-  }
-}
-
 class NVError extends Error {
   final String message;
 
