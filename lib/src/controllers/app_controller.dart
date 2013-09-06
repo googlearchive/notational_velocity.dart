@@ -4,26 +4,34 @@ part of nv.controllers;
 // TODO: prevent titles with tabs and newlines?
 // TODO: prevent whitespace-only titles?
 
+class NoteListController {
+  final ObservableList<Note> notes;
+  final CollectionView<Note> _cv;
+  final MappedListView<Note, NoteController> view;
+
+  factory NoteListController(ObservableList<Note> notes, Mapper<Note, NoteController> mapper) {
+
+    var cv = new CollectionView(notes);
+    var mlv = new MappedListView<Note, NoteController>(cv, mapper);
+    return new NoteListController._(notes, cv, mlv);
+  }
+
+  NoteListController._(this.notes, this._cv, this.view);
+}
+
 class AppController extends ChangeNotifierBase {
 
   final MapSync<Note> _noteSync;
-  final ObservableList<NoteController> _notes;
-  final ObservableListView<NoteController> notes;
+  NoteListController _notes;
   final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
-  bool _noteListDirty = false;
   Note _selectedNote = null;
 
-  factory AppController(MapSync<Note> noteStorage) {
-    var notes = new ObservableList<NoteController>();
-    var roNotes = new ObservableListView<NoteController>(notes);
-
-    return new AppController._internal(noteStorage, notes, roNotes);
-  }
-
-  AppController._internal(this._noteSync, this._notes, this.notes) {
+  AppController(this._noteSync) {
     assert(_noteSync.isLoaded);
+
+    _notes = new NoteListController(new ObservableList<Note>(), (n) => new NoteController(n, this));
 
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
@@ -42,11 +50,13 @@ class AppController extends ChangeNotifierBase {
   // Properties
   //
 
+  ChangeNotifierList<NoteController> get notes => _notes.view;
+
   Note get selectedNote => _selectedNote;
 
   bool get noteSelected => _selectedNote != null;
 
-  bool get hasNotes => notes.isNotEmpty;
+  bool get hasNotes => _notes.view.isNotEmpty;
 
   String get searchTerm => _searchTerm;
 
@@ -58,8 +68,6 @@ class AppController extends ChangeNotifierBase {
       _notifyChange(const Symbol('searchTerm'));
     }
   }
-
-  bool get isUpdated => !_noteListDirty && _noteSync.isUpdated;
 
   Stream get onSearchReset => _searchResetHandle.stream;
 
@@ -117,12 +125,12 @@ class AppController extends ChangeNotifierBase {
 
   void _requestSelect(NoteController nc) {
     if(nc.note != _selectedNote) {
-      assert(_notes.contains(nc));
+      assert(_notes.view.contains(nc));
 
       if(_selectedNote != null) {
         // NOTE: the current selected note SHOULD be represented in the filter
         var currentSelectedNoteController =
-            _notes.singleWhere((nc) => nc.note == _selectedNote);
+            _notes.view.singleWhere((nc) => nc.note == _selectedNote);
         currentSelectedNoteController._updateIsSelected(false);
         _selectedNote = null;
       }
@@ -134,50 +142,18 @@ class AppController extends ChangeNotifierBase {
     }
   }
 
+  void _dirtyNoteList() {
+
+    var expectedNotes = _noteStorage.values.toList(growable: true);
+    _notes.notes.removeWhere((note) => !expectedNotes.contains(note));
+    expectedNotes.removeWhere((note) => _notes.notes.contains(note));
+
+    _notes.notes.addAll(expectedNotes);
+  }
+
   Map<String, Note> get _noteStorage => _noteSync.map;
 
   void _onNoteSyncIsUpdated(PropertyChangeRecord record) {
-    _notifyChange(const Symbol('isUpdated'));
-  }
-
-  void _dirtyNoteList() {
-    if(!_noteListDirty) {
-      _noteListDirty = true;
-      Timer.run(_updateNoteList);
-    }
-  }
-
-  void _updateNoteList() {
-    _noteListDirty = false;
-
-    var foundSelected = false;
-
-    var sortedNotes = _noteStorage.values
-        .where(_filterNote)
-        .map((Note n) {
-          var nc = new NoteController(n, this);
-          if(nc.isSelected) {
-            assert(!foundSelected);
-            foundSelected = true;
-          }
-
-          return nc;
-        })
-        .toList()
-        ..sort(_currentNoteSort);
-
-    _notes.clear();
-    _notes.addAll(sortedNotes);
-
-    if(_selectedNote != null && !foundSelected) {
-      _selectedNote = null;
-      _notifyChange(const Symbol('selectedNote'));
-      _notifyChange(const Symbol('noteSelected'));
-    }
-
-    // just making darn sure I haven't messed anything up here by re-dirtying
-    // the list during update
-    assert(!_noteListDirty);
     _notifyChange(const Symbol('isUpdated'));
   }
 

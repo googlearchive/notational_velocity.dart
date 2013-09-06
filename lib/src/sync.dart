@@ -145,7 +145,7 @@ class MapSync<E> extends ChangeNotifierBase implements Loadable {
   static const _IS_UPDATED = const Symbol('isUpdated');
 }
 
-class _SyncMap<E> extends HashMap<String, E> {
+class _SyncMap<E> extends LinkedHashMap<String, E> {
   final EventHandle<String> _keyChanged = new EventHandle<String>();
 
   @override

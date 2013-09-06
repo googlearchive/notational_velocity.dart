@@ -17,8 +17,7 @@ void main() {
 }
 
 ChangeNotifierList<int> _simpleFactory(List<int> source) {
-  return new MappedListView<int, int>(source, _idMatcher, _idMapper);
+  return new MappedListView<int, int>(source, _idMapper);
 }
 
-bool _idMatcher(int a, int b) => a == b;
 int _idMapper(int a) => a;

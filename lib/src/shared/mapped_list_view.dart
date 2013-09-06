@@ -1,6 +1,5 @@
 part of nv.shared;
 
-typedef bool Matcher<S, T>(S source, T target);
 typedef T Mapper<S, T>(S source);
 
 /*
@@ -13,16 +12,15 @@ typedef T Mapper<S, T>(S source);
 
 class MappedListView<S, T> extends ChangeNotifierList<T> {
 
-  final List<S> _source;
-  final Matcher<S, T> _matcher;
+  final ObservableList<S> _source;
   final Mapper<S, T> _mapper;
 
   final Map<S, T> _cache = new Map<S, T>();
   bool _isDirty = true;
 
-  MappedListView(this._source, this._matcher, this._mapper) {
+  MappedListView(this._source, this._mapper) {
     assert(_source != null);
-    (_source as Observable).changes.listen(_list_changes);
+    _source.changes.listen(_list_changes);
   }
 
   int get length => _source.length;
