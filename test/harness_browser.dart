@@ -7,7 +7,7 @@ import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 import 'harness_shared.dart' as shared;
 
-main() {
+void main() {
   groupSep = ' - ';
   useHtmlEnhancedConfiguration();
 
@@ -15,5 +15,4 @@ main() {
     'localStorage': new StringStorage(window.localStorage),
     'sessionStorage': new StringStorage(window.sessionStorage)
   });
-
 }

@@ -1,14 +1,14 @@
 library harness_console;
 
 import 'package:unittest/unittest.dart';
-import 'package:unittest/vm_config.dart';
+import 'package:unittest/compact_vm_config.dart';
 
 import 'test_dump_render_tree.dart' as drt;
 import 'harness_shared.dart' as shared;
 
 
-main() {
-  testCore(new VMConfiguration());
+void main() {
+  testCore(new CompactVMConfiguration());
 }
 
 void testCore(Configuration config) {
