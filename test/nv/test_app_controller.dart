@@ -26,7 +26,6 @@ void main(Storage storage) {
 }
 
 Future _initialSearch(AppController ac) {
-  expect(ac.isUpdated, isTrue);
   expect(ac.selectedNote, isNull);
 
   expect(INITIAL_NOTES.keys, contains('About'));
@@ -42,7 +41,6 @@ Future _testSimple(AppController model) {
   final tc = new TextContent('first content!');
 
   model.searchTerm = _testTitle1;
-  expect(model.isUpdated, isFalse);
 
   return _whenUpdated(model)
       .then((_) {
@@ -69,8 +67,6 @@ Future _testSimple(AppController model) {
           expect(nc.content, tc);
         }*/
 
-        expect(model.isUpdated, isFalse);
-
         return _whenUpdated(model);
       });
 }
@@ -85,19 +81,13 @@ List<String> _permutateTitle(String title) {
 }
 
 Future<AppController> _whenUpdated(AppController controller) {
-  if(controller.isUpdated) {
-    return new Future.sync(() => controller);
-  }
-
-  return filterPropertyChangeRecords(controller, const Symbol('isUpdated'))
-      .where((PropertyChangeRecord pcr) {
-        return controller.isUpdated;
-      })
-      .first
-      .then((PropertyChangeRecord pcr) {
-        assert(pcr.field == const Symbol('isUpdated'));
-        return controller;
-      });
+  return new Future(() {
+    if(controller.notes.deliverChanges()) {
+      return _whenUpdated(controller);
+    } else {
+      return controller;
+    }
+  });
 }
 
 Future _expectFirstRun(AppController controller) {
