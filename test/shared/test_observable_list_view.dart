@@ -12,7 +12,7 @@ import '../src/observe_test_utils.dart';
 
 // TODO: test mutation operations throw appropriate errors
 
-typedef ChangeNotifierList<E> ROOLFactory<E>(List<E> source);
+typedef ObservableList<E> ROOLFactory<E>(ObservableList<E> source);
 
 void main() {
   sharedMain(_simpleFactory);
@@ -27,7 +27,7 @@ void sharedMain(ROOLFactory factory) {
 
   StreamSubscription sub;
   ObservableList list;
-  ChangeNotifierList rol;
+  ObservableList rol;
   List<ChangeRecord> changes;
 
   void doChanges() {

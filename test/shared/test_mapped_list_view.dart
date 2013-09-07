@@ -1,5 +1,6 @@
 library test.nv.shared.mapped_list_view;
 
+import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
 import 'test_observable_list_view.dart' as test_rool;
@@ -10,13 +11,14 @@ void main() {
     group('wrapping ReadOnlyObservableList', () {
       test_rool.sharedMain(_simpleFactory);
     });
+
     group('wrapping CollectionView', () {
       test_cv.sharedMain(_simpleFactory);
     });
   });
 }
 
-ChangeNotifierList<int> _simpleFactory(List<int> source) {
+ObservableList<int> _simpleFactory(ObservableList<int> source) {
   return new MappedListView<int, int>(source, _idMapper);
 }
 

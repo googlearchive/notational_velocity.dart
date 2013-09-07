@@ -11,13 +11,13 @@ void main() {
   sharedMain((cv) => cv);
 }
 
-typedef ChangeNotifierList<E> CVtoOLFoctary<E>(CollectionView<E> source);
+typedef ObservableList<E> CVtoOLFactory<E>(ObservableList<E> source);
 
-void sharedMain(CVtoOLFoctary<int> factory) {
+void sharedMain(CVtoOLFactory<int> factory) {
 
   ObservableList<int> ol;
   CollectionView<int> collView;
-  ChangeNotifierList<int> finalView;
+  ObservableList<int> finalView;
 
   StreamSubscription sub;
   List<ChangeRecord> changes;
