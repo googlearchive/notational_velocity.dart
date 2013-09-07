@@ -68,6 +68,24 @@ class _PropChangeFilterTransform extends StreamEventTransformer<List<ChangeRecor
   }
 }
 
+abstract class DebugPrint {
+  static int _counter = 0;
+
+  int _id;
+
+  int get debugId {
+    if(_id == null) {
+      _id = _counter++;
+    }
+    return _id;
+  }
+
+  void prnt(msg) {
+    print([debugId, msg]);
+  }
+
+}
+
 abstract class ChangeNotifierList<E> extends ListBase<E>
   with ChangeNotifierMixin implements ObservableList<E> {
 
