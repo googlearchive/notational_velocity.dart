@@ -8,7 +8,6 @@ import 'package:bot/bot.dart';
 import 'package:meta/meta.dart';
 import 'package:observe/observe.dart';
 
-import 'package:nv/src/shared.dart';
 import 'package:nv/src/storage.dart';
 
 // 1) Assume underlying storage is "owned" by the created instance.
