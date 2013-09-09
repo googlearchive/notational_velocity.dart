@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 part 'shared/collection_view.dart';
 part 'shared/mapped_list_view.dart';
 part 'shared/observable_list_view.dart';
+part 'shared/selection_manager.dart';
 part 'shared/split.dart';
 
 typedef bool Predicate<E>(E item);
@@ -25,25 +26,6 @@ class NVError extends Error {
 
   @override
   String toString() => 'NVError: $message';
-}
-
-class LoadState {
-  final String _msg;
-
-  static const LoadState UNLOADED = const LoadState._('unloaded');
-  static const LoadState LOADING = const LoadState._('loading');
-  static const LoadState LOADED = const LoadState._('loaded');
-
-  const LoadState._(this._msg);
-
-  @override
-  String toString() => _msg;
-}
-
-abstract class Loadable implements Observable {
-  Future load();
-  LoadState get loadState;
-  bool get isLoaded;
 }
 
 Stream<PropertyChangeRecord> filterPropertyChangeRecords(

@@ -145,6 +145,25 @@ class MapSync<E> extends ChangeNotifierBase implements Loadable {
   static const _IS_UPDATED = const Symbol('isUpdated');
 }
 
+class LoadState {
+  final String _msg;
+
+  static const LoadState UNLOADED = const LoadState._('unloaded');
+  static const LoadState LOADING = const LoadState._('loading');
+  static const LoadState LOADED = const LoadState._('loaded');
+
+  const LoadState._(this._msg);
+
+  @override
+  String toString() => _msg;
+}
+
+abstract class Loadable implements Observable {
+  Future load();
+  LoadState get loadState;
+  bool get isLoaded;
+}
+
 class _SyncMap<E> extends LinkedHashMap<String, E> {
   final EventHandle<String> _keyChanged = new EventHandle<String>();
 
