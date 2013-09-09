@@ -1,6 +1,6 @@
 library test.nv.note_list_view_model;
 
-import 'dart:async';
+/*
 import 'package:unittest/unittest.dart';
 import 'package:observe/observe.dart';
 
@@ -12,10 +12,8 @@ import 'package:nv/src/serialization.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/src/sync.dart';
 
-const _testTitle1 = 'Test Title 1';
-
 void main() {
-  group('NoteListViewModel', () {
+  test('filter', () {
 
   });
 }
@@ -24,3 +22,4 @@ void _basicTest() {
 
 
 }
+*/
