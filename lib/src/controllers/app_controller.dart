@@ -4,25 +4,10 @@ part of nv.controllers;
 // TODO: prevent titles with tabs and newlines?
 // TODO: prevent whitespace-only titles?
 
-class NoteListController {
-  final ObservableList<Note> notes;
-  final CollectionView<Note> _cv;
-  final MappedListView<Note, NoteController> view;
-
-  factory NoteListController(ObservableList<Note> notes, Mapper<Note, NoteController> mapper) {
-
-    var cv = new CollectionView(notes);
-    var mlv = new MappedListView<Note, NoteController>(cv, mapper);
-    return new NoteListController._(notes, cv, mlv);
-  }
-
-  NoteListController._(this.notes, this._cv, this.view);
-}
-
 class AppController extends ChangeNotifierBase {
 
   final MapSync<Note> _noteSync;
-  NoteListController _notes;
+  NoteListViewModel _notes;
   final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
@@ -31,7 +16,7 @@ class AppController extends ChangeNotifierBase {
   AppController(this._noteSync) {
     assert(_noteSync.isLoaded);
 
-    _notes = new NoteListController(new ObservableList<Note>(), (n) => new NoteController(n, this));
+    _notes = new NoteListViewModel(new ObservableList<Note>(), (n) => new NoteController(n, this));
 
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {

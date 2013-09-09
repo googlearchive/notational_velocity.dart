@@ -11,3 +11,4 @@ import 'sync.dart';
 
 part 'controllers/app_controller.dart';
 part 'controllers/note_controller.dart';
+part 'controllers/note_list_view_model.dart';
