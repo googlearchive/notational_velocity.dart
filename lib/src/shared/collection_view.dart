@@ -40,10 +40,12 @@ class CollectionView<E> extends ChangeNotifierList<E> {
   bool deliverChanges() {
     if(_pendingLengthRest) {
       notifyChange(new PropertyChangeRecord(const Symbol('length')));
+      _pendingLengthRest = false;
     }
     if(_pendingItemReset) {
       notifyChange(new ListChangeRecord(0, removedCount: _list.length,
           addedCount: _list.length));
+      _pendingItemReset = false;
     }
     return super.deliverChanges();
   }

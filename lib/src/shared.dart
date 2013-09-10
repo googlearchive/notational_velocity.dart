@@ -51,6 +51,8 @@ class _PropChangeFilterTransform extends StreamEventTransformer<List<ChangeRecor
 }
 
 abstract class DebugPrint {
+  static Object context = null;
+
   static int _counter = 0;
 
   int _id;
@@ -62,8 +64,16 @@ abstract class DebugPrint {
     return _id;
   }
 
-  void prnt(msg) {
-    print([debugId, msg]);
+  void debugPrint(msg) {
+
+    var items = [];
+    if(context != null) {
+      items.add(context);
+    }
+
+    items.addAll([debugId, this.runtimeType, msg]);
+
+    print(items);
   }
 
 }

@@ -16,10 +16,4 @@ void main() {
     'sessionStorage': new StringStorage(window.sessionStorage),
     'chrome Storage':new chrome.PackagedStorage()
   });
-
-  // Need bug here!!
-  // Test only fails in Dartium...hmm...
-  filterTests((TestCase tc) {
-    return !tc.description.contains('wrapping CollectionView');
-  });
 }

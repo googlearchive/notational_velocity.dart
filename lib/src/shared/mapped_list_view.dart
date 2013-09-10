@@ -35,16 +35,14 @@ class MappedListView<S, T> extends ChangeNotifierList<T> {
   //
 
   void _list_changes(List<ChangeRecord> changes) {
-    var listChanges = changes
+    var anyRemoves = changes
         .where((cr) => cr is ListChangeRecord)
-        .toList();
+        .where((ListChangeRecord lcr) => lcr.removedCount > 0)
+        .isNotEmpty;
 
-    if(listChanges.isNotEmpty) {
-      ListChangeRecord change = listChanges.single;
-      if(change.removedCount > 0) {
-        // TODO: in theory, we could be more careful here, but for now
-        _cache.clear();
-      }
+    if(anyRemoves) {
+      // TODO: in theory, we could be more careful here, but for now
+      _cache.clear();
     }
 
     changes.forEach(notifyChange);

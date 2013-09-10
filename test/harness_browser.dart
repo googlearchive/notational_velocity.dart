@@ -15,10 +15,4 @@ void main() {
     'localStorage': new StringStorage(window.localStorage),
     'sessionStorage': new StringStorage(window.sessionStorage)
   });
-
-  // Need bug here!!
-  // Test only fails in Dartium...hmm...
-  filterTests((TestCase tc) {
-    return !tc.description.contains('wrapping CollectionView');
-  });
 }
