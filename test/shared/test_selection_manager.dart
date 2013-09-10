@@ -1,32 +1,101 @@
 library test.nv.shared.selection_manager;
 
+import 'dart:async';
 import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
 
 void main() {
-  test("no initial selection", () {
-    SelectionManager<int> manager = _getManager();
+  SelectionManager<int> manager;
+  StreamSubscription sub;
+  List<ChangeRecord> changes;
 
+  setUp(() {
+    var ol = new ObservableList.from([1,2,3,4,5]);
+    manager = new SelectionManager(ol);
+    sub = manager.changes.listen((List<ChangeRecord> val) {
+      changes = val;
+    });
+  });
+
+  tearDown(() {
+    sub.cancel();
+    sub = null;
+    changes = null;
+    manager = null;
+  });
+
+  bool deliverChanges() {
+    var sourceChanged = manager.source.deliverChanges();
+    var managerChanged = manager.deliverChanges();
+    expect(managerChanged == true || sourceChanged == false, isTrue);
+    return managerChanged;
+  }
+
+  test("no initial selection", () {
     _expectNoSelection(manager);
   });
 
-  // initially, no item is selected
+  test('no selection, reflect changes in source', () {
+    _expectNoSelection(manager);
 
-  // mark item selected by calling item method
+    manager.source.add(6);
+    manager.source.removeAt(0);
 
-  // mark another item selected by calling list method
+    expect(deliverChanges(), isTrue);
 
-  // select same item again -> no events
+    _expectNoSelection(manager);
+    expect(changes, hasLength(2));
 
-  // remove item from source list -> watch for events
+    manager.source.clear();
+    expect(deliverChanges(), isTrue);
+    _expectNoSelection(manager);
+
+    // length and list change
+    expect(changes, hasLength(2));
+  });
+
+  test('selection dance', () {
+
+    _expectNoSelection(manager);
+
+    manager.selectedIndex = 0;
+
+    expect(manager.selectedIndex, 0);
+    expect(manager.selectedItem, 1);
+    expect(manager.hasSelection, isTrue);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
+
+    // initially, no item is selected
+
+    // mark item selected by calling item method
+
+    // mark another item selected by calling list method
+
+    // select same item again -> no events
+
+    // remove item from source list -> watch for events
+  });
+}
+
+void _expectPropChanges(List<ChangeRecord> changes, List<Symbol> propNames) {
+  expect(changes, isNotNull);
+  for(var propName in propNames) {
+    var match = changes.singleWhere((ChangeRecord cr) {
+      return cr is PropertyChangeRecord &&
+          (cr as PropertyChangeRecord).field == propName;
+    });
+  }
 }
 
 void _expectNoSelection(SelectionManager manager) {
   _expectAlignment(manager);
 
   expect(manager.selectedItem, isNull);
-  expect(manager.selectedIndex, isNull);
+  expect(manager.selectedIndex, equals(-1));
   expect(manager.hasSelection, isFalse);
   expect(manager.any((s) => s.isSelected), isFalse);
 }
@@ -50,13 +119,4 @@ void _expectAlignment(SelectionManager manager) {
   for(var i = 0; i < manager.length; i++) {
     expect(manager[i].value, equals(manager.source[i]));
   }
-}
-
-SelectionManager<int> _getManager([Iterable<int> source = const [1,2,3,4,5]]) {
-  if(source == null) {
-    source = [];
-  }
-
-  var ol = new ObservableList.from(source);
-  return new SelectionManager<int>(ol);
 }

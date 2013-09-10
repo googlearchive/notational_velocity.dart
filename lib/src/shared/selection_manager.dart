@@ -1,20 +1,32 @@
 part of nv.shared;
 
 class SelectionManager<E> extends MappedListView<E, Selectable<E>> {
-  final ObservableList<E> source;
+  ObservableList<E> get source => super._source;
 
   E _selectedItem;
-  int _selectedIndex;
+  int _selectedIndex = -1;
 
   SelectionManager(ObservableList<E> source) :
-    this.source = source,
     super(source, (e) => new Selectable<E>._(e));
 
   E get selectedItem => _selectedItem;
 
+  void set selectedItem(E value) {
+    var index = _source.indexOf(value);
+
+  }
+
   int get selectedIndex => _selectedIndex;
 
-  bool get hasSelection => _selectedIndex != null;
+  void set selectedIndex(int index) {
+    if(index != null) {
+      assert(index >= 0);
+      assert(index < source.length);
+    }
+
+  }
+
+  bool get hasSelection => _selectedIndex >= 0;
 }
 
 class Selectable<E> extends ChangeNotifierBase {
