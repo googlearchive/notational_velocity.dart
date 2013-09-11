@@ -5,6 +5,8 @@ import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
 
+import '../src/observe_test_utils.dart';
+
 void main() {
   SelectionManager<int> manager;
   StreamSubscription sub;
@@ -161,6 +163,49 @@ void main() {
     _expectPropChanges(changes, []);
 
   });
+  test('no selection with collection changes', () {
+
+    _expectNoSelection(manager);
+
+    manager.source.add(6);
+    deliverChanges();
+
+    expectChanges(changes, [_lengthChange, _change(5, addedCount: 1)]);
+    _expectNoSelectionChanges(changes);
+    _expectNoSelection(manager);
+
+    manager.source.remove(6);
+    deliverChanges();
+
+    expectChanges(changes, [_lengthChange, _change(5, removedCount: 1)]);
+    _expectNoSelectionChanges(changes);
+    _expectNoSelection(manager);
+
+    manager.source.insert(0, 0);
+    deliverChanges();
+
+    expectChanges(changes, [_lengthChange, _change(0, addedCount: 1)]);
+    _expectNoSelectionChanges(changes);
+    _expectNoSelection(manager);
+
+    manager.source[0] = 10;
+    deliverChanges();
+
+    // silly double check
+    expect(manager[0].value, 10);
+
+    expectChanges(changes, [_change(0, addedCount: 1, removedCount: 1)]);
+    _expectNoSelectionChanges(changes);
+    _expectNoSelection(manager);
+
+    manager.source.removeAt(0);
+    deliverChanges();
+
+    expectChanges(changes, [_lengthChange, _change(0, removedCount: 1)]);
+    _expectNoSelectionChanges(changes);
+    _expectNoSelection(manager);
+
+  });
 }
 
 void _expectPropChanges(List<ChangeRecord> changes, List<Symbol> propNames) {
@@ -185,6 +230,23 @@ void _expectNoSelection(SelectionManager manager) {
   expect(manager.any((s) => s.isSelected), isFalse);
 }
 
+void _expectNoSelectionChanges(List<ChangeRecord> changes) {
+  var safeChanges = (changes == null) ? [] : changes;
+
+  var propChangeSymbols = safeChanges
+      .where((ChangeRecord cr) => cr is PropertyChangeRecord)
+      .map((PropertyChangeRecord pcr) => pcr.field)
+      .toList();
+
+  const selectChangeFields = const [const Symbol('hasSelection'),
+                                    const Symbol('selectedIndex'),
+                                    const Symbol('selectedItem')];
+
+  selectChangeFields.forEach((field) {
+    expect(propChangeSymbols, isNot(contains(field)));
+  });
+}
+
 void _expectSelection(SelectionManager manager) {
   _expectAlignment(manager);
 
@@ -205,3 +267,11 @@ void _expectAlignment(SelectionManager manager) {
     expect(manager[i].value, equals(manager.source[i]));
   }
 }
+
+const _LENGTH = const Symbol('length');
+
+final _lengthChange = new PropertyChangeRecord(_LENGTH);
+
+ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
+    new ListChangeRecord(index, removedCount: removedCount,
+        addedCount: addedCount);
