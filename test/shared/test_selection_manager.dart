@@ -70,6 +70,16 @@ void main() {
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                  'selectedItem']);
 
+    manager.selectedItem = 5;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 4);
+    expect(manager.selectedItem, 5);
+    expect(manager.hasSelection, isTrue);
+
+    _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
+
 
     // initially, no item is selected
 
