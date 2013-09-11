@@ -61,6 +61,8 @@ void main() {
 
     manager.selectedIndex = 0;
 
+    deliverChanges();
+
     expect(manager.selectedIndex, 0);
     expect(manager.selectedItem, 1);
     expect(manager.hasSelection, isTrue);
@@ -82,13 +84,14 @@ void main() {
 }
 
 void _expectPropChanges(List<ChangeRecord> changes, List<Symbol> propNames) {
-  expect(changes, isNotNull);
-  for(var propName in propNames) {
-    var match = changes.singleWhere((ChangeRecord cr) {
-      return cr is PropertyChangeRecord &&
-          (cr as PropertyChangeRecord).field == propName;
-    });
-  }
+  var propChangeSymbols = changes
+      .where((ChangeRecord cr) => cr is PropertyChangeRecord)
+      .map((PropertyChangeRecord pcr) => pcr.field)
+      .toList();
+
+  var propSymbols = propNames.map((n) => new Symbol(n)).toList();
+
+  expect(propChangeSymbols, unorderedEquals(propSymbols));
 }
 
 void _expectNoSelection(SelectionManager manager) {

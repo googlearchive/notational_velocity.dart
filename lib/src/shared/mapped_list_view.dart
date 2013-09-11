@@ -10,15 +10,14 @@ typedef T Mapper<S, T>(S source);
  * ...but this works for now
  */
 
-class MappedListView<S, T> extends ChangeNotifierList<T> {
+abstract class _MappedListViewBase<S, T> extends ChangeNotifierList<T> {
 
   final ObservableList<S> _source;
-  final Mapper<S, T> _mapper;
 
   final Map<S, T> _cache = new Map<S, T>();
   bool _isDirty = true;
 
-  MappedListView(this._source, this._mapper) {
+  _MappedListViewBase(this._source) {
     assert(_source != null);
     _source.changes.listen(_list_changes);
   }
@@ -27,12 +26,14 @@ class MappedListView<S, T> extends ChangeNotifierList<T> {
 
   T operator[](int index) {
     var sourceValue = _source[index];
-    return _cache.putIfAbsent(sourceValue, () => _mapper(sourceValue));
+    return _cache.putIfAbsent(sourceValue, () => _wrap(sourceValue));
   }
 
   //
   // Implementation
   //
+
+  T _wrap(S sourceItem);
 
   void _list_changes(List<ChangeRecord> changes) {
     var anyRemoves = changes
@@ -47,4 +48,18 @@ class MappedListView<S, T> extends ChangeNotifierList<T> {
 
     changes.forEach(notifyChange);
   }
+}
+
+
+class MappedListView<S, T> extends _MappedListViewBase<S, T> {
+
+  final Mapper<S, T> _mapper;
+
+  MappedListView(ObservableList<S> source, this._mapper) : super(source);
+
+  //
+  // Implementation
+  //
+
+  T _wrap(S item) => _mapper(item);
 }

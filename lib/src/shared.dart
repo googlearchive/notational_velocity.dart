@@ -81,6 +81,10 @@ abstract class DebugPrint {
 abstract class ChangeNotifierList<E> extends ListBase<E>
   with ChangeNotifierMixin implements ObservableList<E> {
 
+  void _notifyPropChange(Symbol field) {
+    notifyChange(new PropertyChangeRecord(field));
+  }
+
   void operator []=(int index, E value) {
     throw new UnsupportedError(
         "Cannot modify an unmodifiable list");
