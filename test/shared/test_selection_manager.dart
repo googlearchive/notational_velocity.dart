@@ -26,6 +26,8 @@ void main() {
   });
 
   bool deliverChanges() {
+    changes = null;
+
     var sourceChanged = manager.source.deliverChanges();
     var managerChanged = manager.deliverChanges();
     expect(managerChanged == true || sourceChanged == false, isTrue);
@@ -122,22 +124,40 @@ void main() {
                                    'selectedItem']);
     });
 
+    //
+    // Back to a valid selection
+    //
+    manager.selectedItem = 3;
 
+    deliverChanges();
 
-    // initially, no item is selected
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedItem, 3);
+    expect(manager.hasSelection, isTrue);
 
-    // mark item selected by calling item method
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
 
-    // mark another item selected by calling list method
+    //
+    // Select the same item by value, no changes
+    //
+    manager.selectedItem = 3;
 
-    // select same item again -> no events
+    deliverChanges();
 
-    // remove item from source list -> watch for events
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedItem, 3);
+    expect(manager.hasSelection, isTrue);
+
+    _expectPropChanges(changes, []);
+
   });
 }
 
 void _expectPropChanges(List<ChangeRecord> changes, List<Symbol> propNames) {
-  var propChangeSymbols = changes
+  var safeChanges = (changes == null) ? [] : changes;
+
+  var propChangeSymbols = safeChanges
       .where((ChangeRecord cr) => cr is PropertyChangeRecord)
       .map((PropertyChangeRecord pcr) => pcr.field)
       .toList();

@@ -22,7 +22,7 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     assert(value >= -1);
     assert(value < source.length);
 
-    // TODO: if index has not changed?
+    if(value == _selectedIndex) return;
 
     var oldSelection = hasSelection;
     if(oldSelection) {
