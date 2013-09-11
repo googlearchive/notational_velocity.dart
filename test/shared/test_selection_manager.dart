@@ -151,6 +151,19 @@ void main() {
 
     _expectPropChanges(changes, []);
 
+    //
+    // Select the same item by index, no change
+    //
+    manager.selectedIndex = 2;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    expect(manager.hasSelection, isTrue);
+
+    _expectPropChanges(changes, []);
+
   });
 }
 
