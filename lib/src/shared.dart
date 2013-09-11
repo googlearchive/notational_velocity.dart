@@ -78,8 +78,22 @@ abstract class DebugPrint {
 
 }
 
+void printStack() {
+  try {
+    throw new UnimplementedError('yay!');
+  } catch (e, s) {
+    print(s);
+  }
+}
+
 abstract class ChangeNotifierList<E> extends ListBase<E>
-  with ChangeNotifierMixin implements ObservableList<E> {
+  with ChangeNotifierMixin, DebugPrint implements ObservableList<E> {
+
+  bool deliverChanges() {
+    debugPrint('delivering changes');
+    printStack();
+    return super.deliverChanges();
+  }
 
   void _notifyPropChange(Symbol field) {
     notifyChange(new PropertyChangeRecord(field));

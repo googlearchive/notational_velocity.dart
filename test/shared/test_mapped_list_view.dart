@@ -4,6 +4,9 @@ import 'dart:async';
 import 'package:observe/observe.dart';
 import 'package:nv/src/shared.dart';
 import 'package:unittest/unittest.dart';
+
+import '../src/observe_test_utils.dart';
+
 import 'test_observable_list_view.dart' as test_rool;
 import 'test_collection_view.dart' as test_cv;
 
@@ -40,12 +43,12 @@ void main() {
       mlv = null;
     });
 
-    test('two adds', () {
+    observeTest('two adds', () {
       ol.add(6);
       ol.removeAt(0);
 
-      ol.deliverChanges();
-      mlv.deliverChanges();
+      performMicrotaskCheckpoint();
+
       expect(mlv, orderedEquals(ol.map(_mapper)));
       expect(changes, hasLength(2));
     });
