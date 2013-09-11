@@ -94,6 +94,35 @@ void main() {
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                  'selectedItem']);
 
+    //
+    // Select a valid item, Select an item not in the list -> no selection
+    //
+    [null, -1, 0, 6].forEach((invalidSelectedItem) {
+
+      manager.selectedItem = 3;
+
+      deliverChanges();
+
+      expect(manager.selectedIndex, 2);
+      expect(manager.selectedItem, 3);
+      expect(manager.hasSelection, isTrue);
+
+      _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                   'selectedItem']);
+
+      manager.selectedItem = invalidSelectedItem;
+
+      deliverChanges();
+
+      expect(manager.selectedIndex, -1);
+      expect(manager.selectedItem, null);
+      expect(manager.hasSelection, isFalse);
+
+      _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                   'selectedItem']);
+    });
+
+
 
     // initially, no item is selected
 
