@@ -16,12 +16,12 @@ void main() {
     sub = manager.changes.listen((List<ChangeRecord> val) {
       changes = val;
     });
+    changes = null;
   });
 
   tearDown(() {
     sub.cancel();
     sub = null;
-    changes = null;
     manager = null;
   });
 
