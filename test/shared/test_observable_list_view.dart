@@ -12,17 +12,17 @@ import '../src/observe_test_utils.dart';
 
 // TODO: test mutation operations throw appropriate errors
 
-typedef ObservableList<E> ROOLFactory<E>(ObservableList<E> source);
+typedef ObservableList<E> OLWrapperFactory<E>(ObservableList<E> source);
 
 void main() {
-  sharedMain(_simpleFactory);
+  sharedMain(_observableListViewFactory);
 }
 
-ObservableListView<int> _simpleFactory(ObservableList<int> source) {
+ObservableListView<int> _observableListViewFactory(ObservableList<int> source) {
   return new ObservableListView(source);
 }
 
-void sharedMain(ROOLFactory factory) {
+void sharedMain(OLWrapperFactory factory) {
   // TODO(jmesserly): need all standard List API tests.
 
   StreamSubscription sub;
