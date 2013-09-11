@@ -80,6 +80,20 @@ void main() {
 
     _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
 
+    //
+    // Setting selected item to nothing
+    //
+    manager.selectedIndex = -1;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, -1);
+    expect(manager.selectedItem, null);
+    expect(manager.hasSelection, isFalse);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
 
     // initially, no item is selected
 

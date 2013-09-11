@@ -29,8 +29,8 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
       this[_selectedIndex]._updateIsSelectedValue(false);
     }
 
+    _selectedIndex = value;
     if(value > -1) {
-      _selectedIndex = value;
       this[_selectedIndex]._updateIsSelectedValue(true);
     }
 
