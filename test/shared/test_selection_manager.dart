@@ -57,7 +57,7 @@ void main() {
     expect(changes, hasLength(2));
   });
 
-  test('selection dance', () {
+  test('simple selection changes', () {
 
     _expectNoSelection(manager);
 
@@ -67,7 +67,7 @@ void main() {
 
     expect(manager.selectedIndex, 0);
     expect(manager.selectedValue, 1);
-    expect(manager.hasSelection, isTrue);
+    _expectSelection(manager);
 
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                  'selectedItem']);
@@ -78,7 +78,7 @@ void main() {
 
     expect(manager.selectedIndex, 4);
     expect(manager.selectedValue, 5);
-    expect(manager.hasSelection, isTrue);
+    _expectSelection(manager);
 
     _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
 
@@ -89,9 +89,7 @@ void main() {
 
     deliverChanges();
 
-    expect(manager.selectedIndex, -1);
-    expect(manager.selectedValue, null);
-    expect(manager.hasSelection, isFalse);
+    _expectNoSelection(manager);
 
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                  'selectedItem']);
@@ -107,7 +105,7 @@ void main() {
 
       expect(manager.selectedIndex, 2);
       expect(manager.selectedValue, 3);
-      expect(manager.hasSelection, isTrue);
+      _expectSelection(manager);
 
       _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                    'selectedItem']);
@@ -116,9 +114,7 @@ void main() {
 
       deliverChanges();
 
-      expect(manager.selectedIndex, -1);
-      expect(manager.selectedValue, null);
-      expect(manager.hasSelection, isFalse);
+      _expectNoSelection(manager);
 
       _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                    'selectedItem']);
@@ -133,7 +129,7 @@ void main() {
 
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
-    expect(manager.hasSelection, isTrue);
+    _expectSelection(manager);
 
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                  'selectedItem']);
@@ -147,7 +143,7 @@ void main() {
 
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
-    expect(manager.hasSelection, isTrue);
+    _expectSelection(manager);
 
     _expectPropChanges(changes, []);
 
@@ -160,7 +156,7 @@ void main() {
 
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
-    expect(manager.hasSelection, isTrue);
+    _expectSelection(manager);
 
     _expectPropChanges(changes, []);
 
