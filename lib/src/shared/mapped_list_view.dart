@@ -26,14 +26,14 @@ abstract class _MappedListViewBase<S, T> extends ChangeNotifierList<T> {
 
   T operator[](int index) {
     var sourceValue = _source[index];
-    return _cache.putIfAbsent(sourceValue, () => _wrap(sourceValue));
+    return _cache.putIfAbsent(sourceValue, () => _wrap(index, sourceValue));
   }
 
   //
   // Implementation
   //
 
-  T _wrap(S sourceItem);
+  T _wrap(int index, S value);
 
   void _list_changes(List<ChangeRecord> changes) {
     var anyRemoves = changes
@@ -61,5 +61,5 @@ class MappedListView<S, T> extends _MappedListViewBase<S, T> {
   // Implementation
   //
 
-  T _wrap(S item) => _mapper(item);
+  T _wrap(int index, T value) => _mapper(value);
 }

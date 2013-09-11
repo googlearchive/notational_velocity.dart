@@ -47,7 +47,10 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   // Impl
   //
 
-  Selectable<E> _wrap(E item) => new Selectable<E>._(item, this._requestSelect);
+  Selectable<E> _wrap(int index, E item) {
+    return new Selectable<E>._(item, this._requestSelect)
+        .._isSelected = (index == _selectedIndex);
+  }
 
   void _requestSelect(Selectable<E> item, bool value) {
     throw new UnimplementedError('not impld');

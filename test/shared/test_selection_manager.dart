@@ -163,6 +163,42 @@ void main() {
     _expectPropChanges(changes, []);
 
   });
+
+  test('selection with collection changes', () {
+
+    _expectNoSelection(manager);
+
+    //
+    // Select the middle value and verify
+    //
+    manager.selectedValue = 3;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
+    // remove item after selection: no change
+    manager.source.remove(5);
+    deliverChanges();
+
+    expectChanges(changes, [_lengthChange, _change(4, removedCount: 1)]);
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+    _expectNoSelectionChanges(changes);
+
+    // add item after selection: no change
+
+    // replace item after selection: no change
+
+
+  });
+
   test('no selection with collection changes', () {
 
     _expectNoSelection(manager);
