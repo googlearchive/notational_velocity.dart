@@ -8,9 +8,9 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   SelectionManager(ObservableList<E> source) :
     super(source);
 
-  E get selectedItem => hasSelection ? this[_selectedIndex].value : null;
+  E get selectedValue => hasSelection ? this[_selectedIndex].value : null;
 
-  void set selectedItem(E value) {
+  void set selectedValue(E value) {
     var index = _source.indexOf(value);
     selectedIndex = index;
   }

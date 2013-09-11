@@ -66,18 +66,18 @@ void main() {
     deliverChanges();
 
     expect(manager.selectedIndex, 0);
-    expect(manager.selectedItem, 1);
+    expect(manager.selectedValue, 1);
     expect(manager.hasSelection, isTrue);
 
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                  'selectedItem']);
 
-    manager.selectedItem = 5;
+    manager.selectedValue = 5;
 
     deliverChanges();
 
     expect(manager.selectedIndex, 4);
-    expect(manager.selectedItem, 5);
+    expect(manager.selectedValue, 5);
     expect(manager.hasSelection, isTrue);
 
     _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
@@ -90,7 +90,7 @@ void main() {
     deliverChanges();
 
     expect(manager.selectedIndex, -1);
-    expect(manager.selectedItem, null);
+    expect(manager.selectedValue, null);
     expect(manager.hasSelection, isFalse);
 
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
@@ -101,23 +101,23 @@ void main() {
     //
     [null, -1, 0, 6].forEach((invalidSelectedItem) {
 
-      manager.selectedItem = 3;
+      manager.selectedValue = 3;
 
       deliverChanges();
 
       expect(manager.selectedIndex, 2);
-      expect(manager.selectedItem, 3);
+      expect(manager.selectedValue, 3);
       expect(manager.hasSelection, isTrue);
 
       _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
                                    'selectedItem']);
 
-      manager.selectedItem = invalidSelectedItem;
+      manager.selectedValue = invalidSelectedItem;
 
       deliverChanges();
 
       expect(manager.selectedIndex, -1);
-      expect(manager.selectedItem, null);
+      expect(manager.selectedValue, null);
       expect(manager.hasSelection, isFalse);
 
       _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
@@ -127,12 +127,12 @@ void main() {
     //
     // Back to a valid selection
     //
-    manager.selectedItem = 3;
+    manager.selectedValue = 3;
 
     deliverChanges();
 
     expect(manager.selectedIndex, 2);
-    expect(manager.selectedItem, 3);
+    expect(manager.selectedValue, 3);
     expect(manager.hasSelection, isTrue);
 
     _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
@@ -141,12 +141,12 @@ void main() {
     //
     // Select the same item by value, no changes
     //
-    manager.selectedItem = 3;
+    manager.selectedValue = 3;
 
     deliverChanges();
 
     expect(manager.selectedIndex, 2);
-    expect(manager.selectedItem, 3);
+    expect(manager.selectedValue, 3);
     expect(manager.hasSelection, isTrue);
 
     _expectPropChanges(changes, []);
@@ -170,7 +170,7 @@ void _expectPropChanges(List<ChangeRecord> changes, List<Symbol> propNames) {
 void _expectNoSelection(SelectionManager manager) {
   _expectAlignment(manager);
 
-  expect(manager.selectedItem, isNull);
+  expect(manager.selectedValue, isNull);
   expect(manager.selectedIndex, equals(-1));
   expect(manager.hasSelection, isFalse);
   expect(manager.any((s) => s.isSelected), isFalse);
@@ -183,11 +183,11 @@ void _expectSelection(SelectionManager manager) {
   var index = manager.selectedIndex;
   expect(index, isNotNull);
   expect(index >= 0, isTrue);
-  expect(manager.selectedItem, equals(manager[index].value));
+  expect(manager.selectedValue, equals(manager[index].value));
   expect(manager[index].isSelected, isTrue);
 
   var singleSelected = manager.singleWhere((s) => s.isSelected);
-  expect(singleSelected.value, equals(manager.selectedItem));
+  expect(singleSelected.value, equals(manager.selectedValue));
 }
 
 void _expectAlignment(SelectionManager manager) {
