@@ -4,6 +4,7 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   ObservableList<E> get source => super._source;
 
   int _selectedIndex = -1;
+  Selectable<E> _cachedSelectedItem;
 
   SelectionManager(ObservableList<E> source) :
     super(source);
@@ -26,12 +27,20 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
 
     var oldSelection = hasSelection;
     if(oldSelection) {
+      assert(_cachedSelectedItem != null);
+      assert(_cachedSelectedItem.isSelected);
+
+      // again, being very paranoid
+      assert(_cachedSelectedItem == this[_selectedIndex]);
+      _cachedSelectedItem = null;
       this[_selectedIndex]._updateIsSelectedValue(false);
     }
 
     _selectedIndex = value;
     if(value > -1) {
-      this[_selectedIndex]._updateIsSelectedValue(true);
+      assert(_cachedSelectedItem == null);
+      _cachedSelectedItem = this[_selectedIndex];
+      _cachedSelectedItem._updateIsSelectedValue(true);
     }
 
     _notifyPropChange(const Symbol('selectedIndex'));
@@ -47,13 +56,71 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   // Impl
   //
 
+  @override
   Selectable<E> _wrap(int index, E item) {
-    return new Selectable<E>._(item, this._requestSelect)
-        .._isSelected = (index == _selectedIndex);
+    var entry = new Selectable<E>._(item, this._requestSelect);
+
+    if(index == _selectedIndex) {
+      entry._isSelected = (index == _selectedIndex);
+      _cachedSelectedItem = entry;
+    }
+
+    return entry;
   }
 
   void _requestSelect(Selectable<E> item, bool value) {
     throw new UnimplementedError('not impld');
+  }
+
+  @override
+  void _list_changes(List<ChangeRecord> changes) {
+    super._list_changes(changes);
+
+    // fix up selection
+    if(hasSelection) {
+      assert(_cachedSelectedItem != null);
+      assert(_cachedSelectedItem.isSelected);
+
+      // NOTE: the core cache has likely been cleared
+      if(_cachedSelectedItem.value == source[_selectedIndex]) {
+        // the selection hasn't changed locations...this is easy
+
+        var currentWrapper = this[_selectedIndex];
+
+        // this will likely fail in some cases
+        // ponder pre-populating super._cache w/ the old instance
+        assert(identical(_cachedSelectedItem, currentWrapper));
+
+        return;
+      }
+
+      E cachedSelectedValue = _cachedSelectedItem.value;
+      var newSelectedIndex = source.indexOf(cachedSelectedValue);
+
+      // paranoid
+      assert(newSelectedIndex != _selectedIndex);
+
+      if(newSelectedIndex == -1) {
+        // we've lost the selected item
+        // should deal with this at some point :-)
+        throw new UnimplementedError('need to handle removing selected item');
+      } else {
+        // The selection is still exists, perhaps moved
+
+        // first, super._cache for the selected item should equal our existing
+        // item or be null...
+
+        var cachedSelectedItem = super._cache.putIfAbsent(cachedSelectedValue,
+            () => _cachedSelectedItem);
+
+        assert(cachedSelectedItem == _cachedSelectedItem);
+
+        // Now 'manually' update the selectedIndex and fire the prop change
+        _selectedIndex = newSelectedIndex;
+        _notifyPropChange(const Symbol('selectedIndex'));
+      }
+
+    }
   }
 }
 

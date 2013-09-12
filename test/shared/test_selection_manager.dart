@@ -61,6 +61,8 @@ void main() {
 
   test('simple selection changes', () {
 
+    // TODO: need to test changing selection by calling property on the item
+
     _expectNoSelection(manager);
 
     manager.selectedIndex = 0;
@@ -164,7 +166,7 @@ void main() {
 
   });
 
-  test('selection with collection changes', () {
+  test('collection changes after selection', () {
 
     _expectNoSelection(manager);
 
@@ -193,10 +195,91 @@ void main() {
     _expectNoSelectionChanges(changes);
 
     // add item after selection: no change
+    manager.source.add(5);
+    deliverChanges();
+
+    expectChanges(changes, [_lengthChange, _change(4, addedCount: 1)]);
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+    _expectNoSelectionChanges(changes);
 
     // replace item after selection: no change
+    manager.source[4] = 7;
+    deliverChanges();
 
+    expect(manager[4].value, 7);
 
+    expectChanges(changes, [_change(4, addedCount: 1, removedCount: 1)]);
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+    _expectNoSelectionChanges(changes);
+
+  });
+
+  test('collection changes before selection', () {
+
+    _expectNoSelection(manager);
+
+    //
+    // Select the middle value and verify
+    //
+    manager.selectedValue = 3;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
+    // replace item before selection, no change
+    manager.source[0] = 8;
+    deliverChanges();
+
+    expect(manager[0].value, 8);
+
+    expectChanges(changes, [_change(0, addedCount: 1, removedCount: 1)]);
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+    _expectNoSelectionChanges(changes);
+
+    //
+    // NON-TRIVIAL changes ahead
+    //
+
+    // remove item before selection: no change
+    expect(manager[0].value, 8);
+    manager.source.remove(8);
+    deliverChanges();
+
+    expect(manager[0].value, 2);
+    expect(manager[1].value, 3);
+    expect(manager[1].isSelected, isTrue);
+
+    expectChanges(changes, [_lengthChange, _change(0, removedCount: 1),
+                            _selectedIndexChange]);
+    expect(manager.selectedValue, 3);
+    expect(manager.selectedIndex, 1);
+    _expectSelection(manager);
+
+    // add item before selection
+    manager.source.insert(0, 9);
+    deliverChanges();
+
+    expect(manager[0].value, 9);
+    expect(manager[2].value, 3);
+    expect(manager[2].isSelected, isTrue);
+
+    expectChanges(changes, [_lengthChange, _change(0, addedCount: 1),
+                            _selectedIndexChange]);
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
   });
 
   test('no selection with collection changes', () {
@@ -275,7 +358,7 @@ void _expectNoSelectionChanges(List<ChangeRecord> changes) {
       .toList();
 
   const selectChangeFields = const [const Symbol('hasSelection'),
-                                    const Symbol('selectedIndex'),
+                                    _SELECTED_INDEX,
                                     const Symbol('selectedItem')];
 
   selectChangeFields.forEach((field) {
@@ -305,8 +388,10 @@ void _expectAlignment(SelectionManager manager) {
 }
 
 const _LENGTH = const Symbol('length');
+const _SELECTED_INDEX = const Symbol('selectedIndex');
 
 final _lengthChange = new PropertyChangeRecord(_LENGTH);
+final _selectedIndexChange = new PropertyChangeRecord(_SELECTED_INDEX);
 
 ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
     new ListChangeRecord(index, removedCount: removedCount,
