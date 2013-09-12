@@ -389,12 +389,22 @@ void main() {
   test('remove the selected item', () {
     _expectNoSelection(manager);
 
+    var targetItem = manager[2];
+
+    List<ChangeRecord> itemChanges;
+    targetItem.changes.listen((val) {
+      itemChanges = val;
+    });
+
     //
     // Select the middle value and verify
     //
     manager.selectedValue = 3;
 
     deliverChanges();
+    targetItem.deliverChanges();
+
+    expectChanges(itemChanges, [_isSelectedChange]);
 
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
@@ -406,11 +416,13 @@ void main() {
     //
     // Remove the selected item
     //
-    var itemToRemove = manager[2];
-    expect(itemToRemove.isSelected, isTrue);
+    expect(targetItem.isSelected, isTrue);
     manager.source.removeAt(2);
 
     deliverChanges();
+    targetItem.deliverChanges();
+
+    expectChanges(itemChanges, [_isSelectedChange]);
 
     expect(manager[2].value, 4);
     expect(manager[2].isSelected, isFalse);
@@ -421,9 +433,9 @@ void main() {
     _expectNoSelection(manager);
 
     // The now removed item should act like orphan-like
-    expect(itemToRemove.isSelected, isNull);
+    expect(targetItem.isSelected, isNull);
     expect(() {
-      itemToRemove.isSelected = true;
+      targetItem.isSelected = true;
     }, throws);
   });
 }
@@ -479,11 +491,13 @@ const _LENGTH = const Symbol('length');
 const _SELECTED_INDEX = const Symbol('selectedIndex');
 const _HAS_SELECTION = const Symbol('hasSelection');
 const _SELECTED_VALUE = const Symbol('selectedValue');
+const _IS_SELECTED = const Symbol('isSelected');
 
 final _lengthChange = new PropertyChangeRecord(_LENGTH);
 final _selectedIndexChange = new PropertyChangeRecord(_SELECTED_INDEX);
 final _hasSelectionChange = new PropertyChangeRecord(_HAS_SELECTION);
 final _selectedValueChange = new PropertyChangeRecord(_SELECTED_VALUE);
+final _isSelectedChange = new PropertyChangeRecord(_IS_SELECTED);
 
 ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
     new ListChangeRecord(index, removedCount: removedCount,
