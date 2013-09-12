@@ -119,6 +119,10 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
 
         // Now 'manually' update the selectedIndex and fire the prop change
         _selectedIndex = -1;
+
+        // freeze!
+        _cachedSelectedItem._updateIsSelectedValue(null);
+
         _cachedSelectedItem = null;
         _notifyPropChange(const Symbol('selectedIndex'));
         _notifyPropChange(const Symbol('selectedValue'));
@@ -156,6 +160,9 @@ class Selectable<E> extends ChangeNotifierBase {
   bool get isSelected => _isSelected;
 
   void set isSelected(bool value) {
+    if(_isSelected == null) {
+      throw new InvalidOperationError('Item was removed from SelectionManager.');
+    }
     _requestSelect(this, value);
   }
 
@@ -171,8 +178,12 @@ class Selectable<E> extends ChangeNotifierBase {
     // generally, the caller should be smart enough to not do no-ops, right?
     assert(value != _isSelected);
 
+    // value should only be 'frozen' once
+    assert(_isSelected != null);
+
+    var oldValue = _isSelected;
     _isSelected = value;
-    notifyPropertyChange(const Symbol('isSelected'), !value, value);
+    notifyPropertyChange(const Symbol('isSelected'), oldValue, _isSelected);
   }
 
 }

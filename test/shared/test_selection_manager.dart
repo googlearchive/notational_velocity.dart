@@ -406,7 +406,8 @@ void main() {
     //
     // Remove the selected item
     //
-    expect(manager[2].isSelected, isTrue);
+    var itemToRemove = manager[2];
+    expect(itemToRemove.isSelected, isTrue);
     manager.source.removeAt(2);
 
     deliverChanges();
@@ -418,6 +419,12 @@ void main() {
                             _selectedIndexChange, _selectedValueChange,
                             _hasSelectionChange]);
     _expectNoSelection(manager);
+
+    // The now removed item should act like orphan-like
+    expect(itemToRemove.isSelected, isNull);
+    expect(() {
+      itemToRemove.isSelected = true;
+    }, throws);
   });
 }
 
