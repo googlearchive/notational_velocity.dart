@@ -59,10 +59,72 @@ void main() {
     expect(changes, hasLength(2));
   });
 
-  test('simple selection changes', () {
+  test('selection changes via Selectable.isSelected', () {
+    _expectNoSelection(manager);
 
-    // TODO: need to test changing selection by calling property on the item
+    manager[0].isSelected = true;
 
+    deliverChanges();
+
+    expect(manager.selectedIndex, 0);
+    expect(manager.selectedValue, 1);
+    _expectSelection(manager);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
+    manager[4].isSelected = true;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 4);
+    expect(manager.selectedValue, 5);
+    _expectSelection(manager);
+
+    _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
+
+    //
+    // Setting selected item to nothing
+    //
+    expect(manager[4].isSelected, isTrue);
+    manager[4].isSelected = false;
+
+    deliverChanges();
+
+    _expectNoSelection(manager);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
+    //
+    // Back to a valid selection
+    //
+    manager[2].isSelected = true;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+
+    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
+                                 'selectedItem']);
+
+    //
+    // Select the same item by value, no changes
+    //
+    manager[2].isSelected = true;
+
+    deliverChanges();
+
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+
+    _expectPropChanges(changes, []);
+  });
+
+  test('selection changes via selectedIndex & selectedValue', () {
     _expectNoSelection(manager);
 
     manager.selectedIndex = 0;

@@ -69,7 +69,21 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   }
 
   void _requestSelect(Selectable<E> item, bool value) {
-    throw new UnimplementedError('not impld');
+    var itemIndex = this.indexOf(item);
+
+    // TODO: should throw a real exception in this case
+    assert(itemIndex >= 0);
+
+    if(value && itemIndex != _selectedIndex) {
+      // requesting to select the non-current item
+      this.selectedIndex = itemIndex;
+    } else if(!value && itemIndex == _selectedIndex) {
+      // requesting to unselect the current item
+      this.selectedIndex = -1;
+    } else {
+      // it appears that the user is requesting a no-op, right?
+      assert(item.isSelected == value);
+    }
   }
 
   @override
