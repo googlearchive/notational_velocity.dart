@@ -7,8 +7,8 @@ import 'package:observe/observe.dart';
 import 'package:nv/src/config.dart';
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
-
 import 'package:nv/src/serialization.dart';
+import 'package:nv/src/shared.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/src/sync.dart';
 
@@ -92,12 +92,12 @@ Future<AppController> _whenUpdated(AppController controller) {
 Future _expectFirstRun(AppController controller) {
   expect(controller.notes, hasLength(INITIAL_NOTES.length));
 
-  for(var note in controller.notes) {
-    var match = INITIAL_NOTES[note.title];
+  for(Selectable<Note> note in controller.notes) {
+    var match = INITIAL_NOTES[note.value.title];
     expect(match, isNotNull);
-    expect(note.content is TextContent, isTrue);
+    expect(note.value.content is TextContent, isTrue);
 
-    TextContent tc = note.content;
+    TextContent tc = note.value.content;
     expect(tc.value, match);
   }
 }

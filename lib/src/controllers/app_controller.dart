@@ -16,7 +16,7 @@ class AppController extends ChangeNotifierBase {
   AppController(this._noteSync) {
     assert(_noteSync.isLoaded);
 
-    _notes = new NoteListViewModel(new ObservableList<Note>(), (n) => new NoteController(n, this));
+    _notes = new NoteListViewModel(new ObservableList<Note>());
 
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
@@ -35,7 +35,7 @@ class AppController extends ChangeNotifierBase {
   // Properties
   //
 
-  ChangeNotifierList<NoteController> get notes => _notes.view;
+  SelectionManager<Note> get notes => _notes.view;
 
   Note get selectedNote => _selectedNote;
 
@@ -107,25 +107,6 @@ class AppController extends ChangeNotifierBase {
   //
   // Implementation
   //
-
-  void _requestSelect(NoteController nc) {
-    if(nc.note != _selectedNote) {
-      assert(_notes.view.contains(nc));
-
-      if(_selectedNote != null) {
-        // NOTE: the current selected note SHOULD be represented in the filter
-        var currentSelectedNoteController =
-            _notes.view.singleWhere((nc) => nc.note == _selectedNote);
-        currentSelectedNoteController._updateIsSelected(false);
-        _selectedNote = null;
-      }
-
-      _selectedNote = nc.note;
-      nc._updateIsSelected(true);
-      _notifyChange(const Symbol('selectedNote'));
-      _notifyChange(const Symbol('noteSelected'));
-    }
-  }
 
   void _dirtyNoteList() {
 

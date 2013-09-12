@@ -3,13 +3,13 @@ part of nv.controllers;
 class NoteListViewModel {
   final ObservableList<Note> notes;
   final CollectionView<Note> _cv;
-  final MappedListView<Note, NoteController> view;
+  final SelectionManager<Note> view;
 
-  factory NoteListViewModel(ObservableList<Note> notes, Mapper<Note, NoteController> mapper) {
+  factory NoteListViewModel(ObservableList<Note> notes) {
 
     var cv = new CollectionView(notes);
-    var mlv = new MappedListView<Note, NoteController>(cv, mapper);
-    return new NoteListViewModel._(notes, cv, mlv);
+    var sm = new SelectionManager<Note>(cv);
+    return new NoteListViewModel._(notes, cv, sm);
   }
 
   NoteListViewModel._(this.notes, this._cv, this.view);

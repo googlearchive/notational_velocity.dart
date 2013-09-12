@@ -2,18 +2,18 @@ import 'dart:html';
 import 'package:polymer/polymer.dart';
 
 import 'package:nv/src/models.dart';
-import 'package:nv/src/controllers.dart';
+import 'package:nv/src/shared.dart';
 
 @CustomTag('note-row-element')
 class NoteRowElement extends PolymerElement with ChangeNotifierMixin {
   bool get applyAuthorStyles => true;
 
-  NoteController _note;
+  Selectable<Note> _note;
   Note _selectedNote;
 
-  NoteController get note => _note;
+  Selectable<Note> get note => _note;
 
-  void set note(NoteController value) {
+  void set note(Selectable<Note> value) {
     _note = value;
     _notifyPropChange(const Symbol('note'));
   }
@@ -27,7 +27,7 @@ class NoteRowElement extends PolymerElement with ChangeNotifierMixin {
 
   void handleClick(Event e, var detail, Element target) {
     e.preventDefault();
-    _note.requestSelect();
+    _note.isSelected = true;
   }
 
   void _notifyPropChange(Symbol field) {
