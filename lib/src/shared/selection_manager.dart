@@ -44,7 +44,7 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     }
 
     _notifyPropChange(const Symbol('selectedIndex'));
-    _notifyPropChange(const Symbol('selectedItem'));
+    _notifyPropChange(const Symbol('selectedValue'));
     if(oldSelection != hasSelection) {
       _notifyPropChange(const Symbol('hasSelection'));
     }
@@ -115,9 +115,14 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
       assert(newSelectedIndex != _selectedIndex);
 
       if(newSelectedIndex == -1) {
-        // we've lost the selected item
-        // should deal with this at some point :-)
-        throw new UnimplementedError('need to handle removing selected item');
+        // TODO: should we 'freeze' the now obsolete Selectable? Something?
+
+        // Now 'manually' update the selectedIndex and fire the prop change
+        _selectedIndex = -1;
+        _cachedSelectedItem = null;
+        _notifyPropChange(const Symbol('selectedIndex'));
+        _notifyPropChange(const Symbol('selectedValue'));
+        _notifyPropChange(const Symbol('hasSelection'));
       } else {
         // The selection is still exists, perhaps moved
 

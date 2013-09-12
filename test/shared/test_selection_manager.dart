@@ -70,8 +70,7 @@ void main() {
     expect(manager.selectedValue, 1);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange, _hasSelectionChange]);
 
     manager[4].isSelected = true;
 
@@ -81,7 +80,7 @@ void main() {
     expect(manager.selectedValue, 5);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange]);
 
     //
     // Setting selected item to nothing
@@ -93,8 +92,7 @@ void main() {
 
     _expectNoSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange, _hasSelectionChange]);
 
     //
     // Back to a valid selection
@@ -107,8 +105,7 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange, _hasSelectionChange]);
 
     //
     // Select the same item by value, no changes
@@ -121,7 +118,7 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, []);
+    expectChanges(changes, null);
   });
 
   test('selection changes via selectedIndex & selectedValue', () {
@@ -135,8 +132,8 @@ void main() {
     expect(manager.selectedValue, 1);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
 
     manager.selectedValue = 5;
 
@@ -146,7 +143,8 @@ void main() {
     expect(manager.selectedValue, 5);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['selectedIndex', 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange]);
+
 
     //
     // Setting selected item to nothing
@@ -157,8 +155,8 @@ void main() {
 
     _expectNoSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
 
     //
     // Select a valid item, Select an item not in the list -> no selection
@@ -173,8 +171,8 @@ void main() {
       expect(manager.selectedValue, 3);
       _expectSelection(manager);
 
-      _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                   'selectedItem']);
+      expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                              _hasSelectionChange]);
 
       manager.selectedValue = invalidSelectedItem;
 
@@ -182,8 +180,8 @@ void main() {
 
       _expectNoSelection(manager);
 
-      _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                   'selectedItem']);
+      expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                              _hasSelectionChange]);
     });
 
     //
@@ -197,8 +195,8 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
 
     //
     // Select the same item by value, no changes
@@ -211,7 +209,7 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, []);
+    expectChanges(changes, null);
 
     //
     // Select the same item by index, no change
@@ -224,7 +222,7 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, []);
+    expectChanges(changes, null);
 
   });
 
@@ -243,8 +241,8 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
 
     // remove item after selection: no change
     manager.source.remove(5);
@@ -295,8 +293,8 @@ void main() {
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
 
-    _expectPropChanges(changes, ['hasSelection', 'selectedIndex',
-                                 'selectedItem']);
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
 
     // replace item before selection, no change
     manager.source[0] = 8;
@@ -387,19 +385,40 @@ void main() {
     _expectNoSelection(manager);
 
   });
-}
 
-void _expectPropChanges(List<ChangeRecord> changes, List<Symbol> propNames) {
-  var safeChanges = (changes == null) ? [] : changes;
+  test('remove the selected item', () {
+    _expectNoSelection(manager);
 
-  var propChangeSymbols = safeChanges
-      .where((ChangeRecord cr) => cr is PropertyChangeRecord)
-      .map((PropertyChangeRecord pcr) => pcr.field)
-      .toList();
+    //
+    // Select the middle value and verify
+    //
+    manager.selectedValue = 3;
 
-  var propSymbols = propNames.map((n) => new Symbol(n)).toList();
+    deliverChanges();
 
-  expect(propChangeSymbols, unorderedEquals(propSymbols));
+    expect(manager.selectedIndex, 2);
+    expect(manager.selectedValue, 3);
+    _expectSelection(manager);
+
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
+
+    //
+    // Remove the selected item
+    //
+    expect(manager[2].isSelected, isTrue);
+    manager.source.removeAt(2);
+
+    deliverChanges();
+
+    expect(manager[2].value, 4);
+    expect(manager[2].isSelected, isFalse);
+
+    expectChanges(changes, [_lengthChange, _change(2, removedCount: 1),
+                            _selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange]);
+    _expectNoSelection(manager);
+  });
 }
 
 void _expectNoSelection(SelectionManager manager) {
@@ -419,9 +438,9 @@ void _expectNoSelectionChanges(List<ChangeRecord> changes) {
       .map((PropertyChangeRecord pcr) => pcr.field)
       .toList();
 
-  const selectChangeFields = const [const Symbol('hasSelection'),
+  const selectChangeFields = const [_HAS_SELECTION,
                                     _SELECTED_INDEX,
-                                    const Symbol('selectedItem')];
+                                    _SELECTED_VALUE];
 
   selectChangeFields.forEach((field) {
     expect(propChangeSymbols, isNot(contains(field)));
@@ -451,9 +470,13 @@ void _expectAlignment(SelectionManager manager) {
 
 const _LENGTH = const Symbol('length');
 const _SELECTED_INDEX = const Symbol('selectedIndex');
+const _HAS_SELECTION = const Symbol('hasSelection');
+const _SELECTED_VALUE = const Symbol('selectedValue');
 
 final _lengthChange = new PropertyChangeRecord(_LENGTH);
 final _selectedIndexChange = new PropertyChangeRecord(_SELECTED_INDEX);
+final _hasSelectionChange = new PropertyChangeRecord(_HAS_SELECTION);
+final _selectedValueChange = new PropertyChangeRecord(_SELECTED_VALUE);
 
 ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
     new ListChangeRecord(index, removedCount: removedCount,
