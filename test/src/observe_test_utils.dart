@@ -6,7 +6,11 @@ library observe.test.observe_test_utils;
 
 import 'package:unittest/unittest.dart';
 
-// TODO(jmesserly): use matchers when we have a way to compare ChangeRecords.
-// For now just use the toString.
-expectChanges(actual, expected, {reason}) =>
-    expect('$actual', '$expected', reason: reason);
+void expectChanges(Iterable actual, Iterable expected, {String reason}) {
+  if(actual == null && expected == null) return;
+
+  var actualStrings = actual.map((e) => e.toString()).toList();
+  var expectedStrings = expected.map((e) => e.toString()).toList();
+
+  expect(actualStrings, orderedEquals(expectedStrings), reason: reason);
+}
