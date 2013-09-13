@@ -26,6 +26,8 @@ class AppController extends ChangeNotifierBase {
   AppController._core(this._noteSync, this._notes, this._cv, this.notes) {
     assert(_noteSync.isLoaded);
 
+    _cv.sorter = _currentNoteSort;
+
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
         _noteStorage[title.toLowerCase()] = new Note.now(title, new TextContent(content));
@@ -55,6 +57,8 @@ class AppController extends ChangeNotifierBase {
   }
 
   Stream get onSearchReset => _searchResetHandle.stream;
+
+  bool get isUpdated => _noteSync.isUpdated;
 
   //
   // Methods
