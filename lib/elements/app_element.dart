@@ -23,7 +23,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
       _controller.onSearchReset.listen(_controller_onSearchReset);
 
-      filterPropertyChangeRecords(_controller, const Symbol('selectedNote'))
+      filterPropertyChangeRecords(_controller.notes, const Symbol('selectedValue'))
         .listen(_selectedNoteChanged);
 
       notifyChange(new PropertyChangeRecord(const Symbol('controller')));
