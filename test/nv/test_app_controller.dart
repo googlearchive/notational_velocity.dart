@@ -25,7 +25,7 @@ void main(Storage storage) {
 }
 
 Future _initialSearch(AppController ac) {
-  expect(ac.selectedNote, isNull);
+  expect(ac.notes.hasSelection, isFalse);
 
   expect(INITIAL_NOTES.keys, contains('About'));
   expect(INITIAL_NOTES.keys.where((k) => k.toLowerCase().startsWith('a')),
@@ -34,24 +34,26 @@ Future _initialSearch(AppController ac) {
   // TODO: start hacking on partial completion of item, etc
 }
 
-Future _testSimple(AppController model) {
-  _expectFirstRun(model);
+Future _testSimple(AppController controller) {
+  _expectFirstRun(controller);
 
   final tc = new TextContent('first content!');
 
-  model.searchTerm = _testTitle1;
+  controller.searchTerm = _testTitle1;
 
-  return _whenUpdated(model)
+  return _whenUpdated(controller)
       .then((_) {
 
-        var note = model.openOrCreate();
+        expect(controller.notes.hasSelection, isFalse);
+
+        var note = controller.openOrCreate();
         expect(note, isNotNull);
 
         var nc = note.content;
         expect(nc is TextContent, isTrue);
         expect(nc.value, isEmpty);
 
-        model.updateSelectedNoteContent(tc.value);
+        controller.updateSelectedNoteContent(tc.value);
 
         var titleVariations = _permutateTitle(_testTitle1)
           ..add('Test');
@@ -66,7 +68,7 @@ Future _testSimple(AppController model) {
           expect(nc.content, tc);
         }*/
 
-        return _whenUpdated(model);
+        return _whenUpdated(controller);
       });
 }
 

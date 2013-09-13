@@ -7,16 +7,24 @@ part of nv.controllers;
 class AppController extends ChangeNotifierBase {
 
   final MapSync<Note> _noteSync;
-  NoteListViewModel _notes;
+  final ObservableList<Note> _notes;
+  final CollectionView<Note> _cv;
+  final SelectionManager<Note> notes;
   final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
-  Note _selectedNote = null;
 
-  AppController(this._noteSync) {
+  factory AppController(MapSync<Note> noteSync) {
+
+    var notes = new ObservableList<Note>();
+    var cv = new CollectionView<Note>(notes);
+    var sm = new SelectionManager<Note>(cv);
+
+    return new AppController._core(noteSync, notes, cv, sm);
+  }
+
+  AppController._core(this._noteSync, this._notes, this._cv, this.notes) {
     assert(_noteSync.isLoaded);
-
-    _notes = new NoteListViewModel(new ObservableList<Note>());
 
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
@@ -35,14 +43,6 @@ class AppController extends ChangeNotifierBase {
   // Properties
   //
 
-  SelectionManager<Note> get notes => _notes.view;
-
-  Note get selectedNote => _selectedNote;
-
-  bool get noteSelected => _selectedNote != null;
-
-  bool get hasNotes => _notes.view.isNotEmpty;
-
   String get searchTerm => _searchTerm;
 
   void set searchTerm(String value) {
@@ -50,7 +50,7 @@ class AppController extends ChangeNotifierBase {
     if(value != _searchTerm) {
       _searchTerm = value;
       _dirtyNoteList();
-      _notifyChange(const Symbol('searchTerm'));
+      _notifyPropChange(const Symbol('searchTerm'));
     }
   }
 
@@ -81,25 +81,23 @@ class AppController extends ChangeNotifierBase {
       _dirtyNoteList();
     }
 
-    _selectedNote = value;
-
-    _dirtyNoteList();
+    notes.selectedValue = value;
 
     return value;
   }
 
   void updateSelectedNoteContent(String newContent) {
-    assert(_selectedNote != null);
+    assert(notes.hasSelection);
 
     var textContent = new TextContent(newContent);
 
-    var note = new Note.now(_selectedNote.title, textContent);
+    var note = new Note.now(notes.selectedValue.title, textContent);
 
     if(!_noteStorage.containsKey(note.key)) {
       throw new NVError('Provided title does not match existing note: ${note.title}');
     }
 
-    _selectedNote = _noteStorage[note.key] = note;
+    notes.selectedValue = _noteStorage[note.key] = note;
 
     _dirtyNoteList();
   }
@@ -111,16 +109,16 @@ class AppController extends ChangeNotifierBase {
   void _dirtyNoteList() {
 
     var expectedNotes = _noteStorage.values.toList(growable: true);
-    _notes.notes.removeWhere((note) => !expectedNotes.contains(note));
-    expectedNotes.removeWhere((note) => _notes.notes.contains(note));
+    _notes.removeWhere((note) => !expectedNotes.contains(note));
+    expectedNotes.removeWhere((note) => _notes.contains(note));
 
-    _notes.notes.addAll(expectedNotes);
+    _notes.addAll(expectedNotes);
   }
 
   Map<String, Note> get _noteStorage => _noteSync.map;
 
   void _onNoteSyncIsUpdated(PropertyChangeRecord record) {
-    _notifyChange(const Symbol('isUpdated'));
+    _notifyPropChange(const Symbol('isUpdated'));
   }
 
   bool _filterNote(Note instance) {
@@ -141,7 +139,7 @@ class AppController extends ChangeNotifierBase {
     return a.key.compareTo(b.key);
   }
 
-  void _notifyChange(Symbol prop) {
+  void _notifyPropChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
   }
 }

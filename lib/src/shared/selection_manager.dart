@@ -40,7 +40,13 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     if(value > -1) {
       assert(_cachedSelectedItem == null);
       _cachedSelectedItem = this[_selectedIndex];
-      _cachedSelectedItem._updateIsSelectedValue(true);
+
+      // It's possible the item has never been accessed, which means the
+      // previous call to this[_selectedIndex] created a new item...which is
+      // created selected! No need to update value...fire events, etc
+      if(!_cachedSelectedItem.isSelected) {
+        _cachedSelectedItem._updateIsSelectedValue(true);
+      }
     }
 
     _notifyPropChange(const Symbol('selectedIndex'));
@@ -174,15 +180,15 @@ class Selectable<E> extends ChangeNotifierBase {
    * Called by the owning SelectionManager to actually change the selected value
    * and fire events
    */
-  void _updateIsSelectedValue(bool value) {
+  void _updateIsSelectedValue(bool selectionVal) {
     // generally, the caller should be smart enough to not do no-ops, right?
-    assert(value != _isSelected);
+    assert(selectionVal != _isSelected);
 
     // value should only be 'frozen' once
     assert(_isSelected != null);
 
     var oldValue = _isSelected;
-    _isSelected = value;
+    _isSelected = selectionVal;
     notifyPropertyChange(const Symbol('isSelected'), oldValue, _isSelected);
   }
 

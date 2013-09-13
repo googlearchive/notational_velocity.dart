@@ -62,11 +62,13 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   }
 
   void _selectedNoteChanged(PropertyChangeRecord record) {
-    if(_controller.noteSelected) {
+    var notes = _controller.notes;
 
-      assert(_controller.selectedNote.content is TextContent);
+    if(notes.hasSelection) {
 
-      TextContent content = _controller.selectedNote.content;
+      assert(notes.selectedValue.content is TextContent);
+
+      TextContent content = notes.selectedValue.content;
 
       var value = content.value;
 

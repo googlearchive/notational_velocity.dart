@@ -438,6 +438,22 @@ void main() {
       targetItem.isSelected = true;
     }, throws);
   });
+
+  test('add item and select, without deliver changes', () {
+    _expectNoSelection(manager);
+
+    manager.source.add(10);
+    manager.selectedValue = 10;
+
+    deliverChanges();
+
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange, _lengthChange,
+                            _change(5, addedCount: 1)]);
+    expect(manager.selectedIndex, 5);
+    expect(manager.selectedValue, 10);
+    _expectSelection(manager);
+  });
 }
 
 void _expectNoSelection(SelectionManager manager) {
