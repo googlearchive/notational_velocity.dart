@@ -1,5 +1,8 @@
 part of nv.shared;
 
+// TODO: need a callback in _MappedListViewBase to handle clean-up of disposed
+// wrappers?
+
 class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   ObservableList<E> get source => super._source;
 
