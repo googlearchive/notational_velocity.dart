@@ -4,10 +4,10 @@ Future _slowRunner(int milliseconds, task()) =>
     new Future.delayed(new Duration(milliseconds: milliseconds), task);
 
 Future _syncRunner(task()) =>
-    new Future(task);
+    new Future.sync(task);
 
 Future _asyncRunner(task()) =>
-    new Future.sync(task);
+    new Future(task);
 
 typedef Future FutureRunner(task());
 
