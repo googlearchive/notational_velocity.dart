@@ -54,7 +54,7 @@ class CollectionView<E> extends ChangeNotifierList<E> {
   // Implementation
   //
 
-  Predicate<int> get _effectivefilter {
+  Predicate<E> get _effectivefilter {
     return (_filter == null) ? (E foo) => true : _filter;
   }
 
