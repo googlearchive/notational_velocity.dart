@@ -33,6 +33,15 @@ abstract class _MappedListViewBase<S, T> extends ChangeNotifierList<T> {
   // Implementation
   //
 
+  /**
+   * Like operator[], but returns null if the item isn't cached
+   * Used by subclasses
+   */
+  T _getCachedValueAtIndex(int index) {
+    var sourceValue = _source[index];
+    return _cache[sourceValue];
+  }
+
   T _wrap(int index, S value);
 
   void _list_changes(List<ChangeRecord> changes) {

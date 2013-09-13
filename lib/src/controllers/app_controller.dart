@@ -99,9 +99,11 @@ class AppController extends ChangeNotifierBase {
       throw new NVError('Provided title does not match existing note: ${note.title}');
     }
 
-    notes.selectedValue = _noteStorage[note.key] = note;
+    _noteStorage[note.key] = note;
 
     _dirtyNoteList();
+
+    notes.selectedValue = note;
   }
 
   //

@@ -31,9 +31,16 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
       assert(_cachedSelectedItem.isSelected);
 
       // again, being very paranoid
-      assert(_cachedSelectedItem == this[_selectedIndex]);
+      var cacheAtIndex = super._getCachedValueAtIndex(_selectedIndex);
+      if(cacheAtIndex != _cachedSelectedItem) {
+        // assume that the vaulue for _cachedSelectedItem has been removed
+        assert(!source.contains(_cachedSelectedItem.value));
+        _cachedSelectedItem._updateIsSelectedValue(null);
+      } else {
+        assert(_cachedSelectedItem == cacheAtIndex);
+        cacheAtIndex._updateIsSelectedValue(false);
+      }
       _cachedSelectedItem = null;
-      this[_selectedIndex]._updateIsSelectedValue(false);
     }
 
     _selectedIndex = value;

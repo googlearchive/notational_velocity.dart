@@ -454,6 +454,31 @@ void main() {
     expect(manager.selectedValue, 10);
     _expectSelection(manager);
   });
+
+  test('select A, remove A, add B, select B, without deliver changes', () {
+
+    _expectNoSelection(manager);
+
+    manager.selectedIndex = 2;
+    expect(manager.selectedValue, 3);
+
+    var removedVal = manager.source.removeAt(2);
+    expect(removedVal, 3);
+    expect(manager.source, hasLength(4));
+
+    manager.source.add(10);
+    manager.selectedValue = 10;
+
+    deliverChanges();
+
+    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
+                            _hasSelectionChange, _selectedIndexChange,
+                            _selectedValueChange,
+                            _change(2, removedCount: 1),
+                            _change(4, addedCount: 1)]);
+    expect(manager.selectedIndex, 4);
+    expect(manager.selectedValue, 10);
+  });
 }
 
 void _expectNoSelection(SelectionManager manager) {
