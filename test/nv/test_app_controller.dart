@@ -2,7 +2,6 @@ library test.nv.app_controller;
 
 import 'dart:async';
 import 'package:unittest/unittest.dart';
-import 'package:observe/observe.dart';
 
 import 'package:nv/src/config.dart';
 import 'package:nv/src/controllers.dart';
@@ -20,6 +19,22 @@ void main(Storage storage) {
     _testAppController('simple', storage, _testSimple);
 
     _testAppController('initial search', storage, _initialSearch);
+
+    _testAppController('select item, edit, sort=stable', storage,
+        (AppController ac) {
+      _expectFirstRun(ac);
+
+      expect(ac.notes, hasLength(INITIAL_NOTES.length));
+
+      var expectedSortedTitles = INITIAL_NOTES.keys.toList()
+          ..sort();
+
+      var controllerTitles = ac.notes
+          .map((Selectable<Note> s) => s.value.title)
+          .toList();
+
+      expect(controllerTitles, orderedEquals(expectedSortedTitles));
+    });
 
   });
 }
@@ -82,13 +97,11 @@ List<String> _permutateTitle(String title) {
 }
 
 Future<AppController> _whenUpdated(AppController controller) {
-  return new Future(() {
-    if(controller.notes.deliverChanges()) {
-      return _whenUpdated(controller);
-    } else {
-      return controller;
-    }
-  });
+  if(controller.isUpdated) {
+    return new Future.value(controller);
+  }
+
+  return new Future(() => _whenUpdated(controller));
 }
 
 Future _expectFirstRun(AppController controller) {
