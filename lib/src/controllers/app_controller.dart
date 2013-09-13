@@ -87,6 +87,8 @@ class AppController extends ChangeNotifierBase {
   }
 
   void updateSelectedNoteContent(String newContent) {
+    _log('updateSelectedNoteContent');
+
     assert(notes.hasSelection);
 
     var textContent = new TextContent(newContent);

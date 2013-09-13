@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:polymer/polymer.dart';
 import 'package:nv/init.dart' as init;
@@ -6,6 +7,8 @@ import 'package:nv/elements/interfaces.dart';
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
 import 'package:nv/src/shared.dart';
+
+final _libLogger = new Logger('nv.AppElement');
 
 @CustomTag('app-element')
 class AppElement extends PolymerElement with ChangeNotifierMixin {
@@ -62,6 +65,8 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   }
 
   void _selectedNoteChanged(PropertyChangeRecord record) {
+    _libLogger.info('_selectedNoteChanged');
+
     var notes = _controller.notes;
 
     if(notes.hasSelection) {
