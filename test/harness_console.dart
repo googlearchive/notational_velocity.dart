@@ -1,5 +1,7 @@
 library harness_console;
 
+import 'package:bot_io/bot_io.dart';
+import 'package:logging/logging.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/compact_vm_config.dart';
 
@@ -17,4 +19,15 @@ void testCore(Configuration config) {
 
   shared.main( {} );
   drt.main();
+
+  //
+  // Logging
+  //
+  Logger.root.onRecord
+    .where((LogRecord record) => record.loggerName != 'hop')
+    .listen((LogRecord record) {
+      var output = '${record.level}\t${record.loggerName}\t${record.message}';
+      output = AnsiColor.CYAN.wrap(output);
+      print(output);
+    });
 }
