@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 class Note {
   final String title;
-  final NoteContent content;
+  final String content;
   final DateTime lastModified;
 
   Note(this.title, this.lastModified, this.content) {
@@ -14,7 +14,7 @@ class Note {
     assert(lastModified != null);
   }
 
-  factory Note.now(String title, NoteContent content) =>
+  factory Note.now(String title, String content) =>
       new Note(title, new DateTime.now(), content);
 
   String get key => title.toLowerCase();
@@ -30,26 +30,4 @@ class Note {
 
   @override
   String toString() => 'Note: $title';
-}
-
-abstract class NoteContent {
-
-}
-
-class TextContent extends NoteContent {
-  final String value;
-
-  TextContent(this.value) {
-    assert(value != null);
-  }
-
-  bool operator ==(other) =>
-      other is TextContent && other.value == this.value;
-
-  int get hashCode => value.hashCode;
-
-  String toString() =>
-      (value.length > 30) ? "${value.substring(0, 27)}..." : value;
-
-  static const _MAX_TO_STRING_LENGTH = 30;
 }

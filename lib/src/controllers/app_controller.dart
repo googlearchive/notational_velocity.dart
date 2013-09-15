@@ -30,7 +30,7 @@ class AppController extends ChangeNotifierBase {
 
     if(_noteStorage.isEmpty) {
       INITIAL_NOTES.forEach((String title, String content) {
-        _noteStorage[title.toLowerCase()] = new Note.now(title, new TextContent(content));
+        _noteStorage[title.toLowerCase()] = new Note.now(title, content);
       });
     }
 
@@ -78,8 +78,7 @@ class AppController extends ChangeNotifierBase {
     var value = _noteStorage[key];
 
     if(value == null) {
-      var nc = new TextContent('');
-      value = new Note.now(searchTerm, nc);
+      value = new Note.now(searchTerm, '');
       _noteStorage[value.key] = value;
 
       _dirtyNoteList();
@@ -102,14 +101,12 @@ class AppController extends ChangeNotifierBase {
 
     assert(notes.hasSelection);
 
-    var currentContent = notes.selectedValue.content as TextContent;
-    if(currentContent.value == newContent) {
+    var currentContent = notes.selectedValue.content;
+    if(currentContent == newContent) {
       return new Future<bool>.value(false);
     }
 
-    var textContent = new TextContent(newContent);
-
-    var note = new Note.now(notes.selectedValue.title, textContent);
+    var note = new Note.now(notes.selectedValue.title, newContent);
 
     if(!_noteStorage.containsKey(note.key)) {
       throw new NVError('Provided title does not match existing note: ${note.title}');

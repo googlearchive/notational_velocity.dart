@@ -36,7 +36,7 @@ Note _fromJson(dynamic json) {
   assert(json[_VERSION] == _currentSerialVersion);
 
   var lastModified = DateTime.parse(json[_LAST_MODIFIED]);
-  var content = _noteContentFromJson(json[_CONTENT]);
+  var content = json[_CONTENT];
 
   return new Note(json[_TITLE], lastModified, content);
 }
@@ -47,23 +47,7 @@ dynamic _toJson(Note note) {
   map[_VERSION] = _currentSerialVersion;
   map[_TITLE] = note.title;
   map[_LAST_MODIFIED] = note.lastModified.toString();
-  map[_CONTENT] = _jsonFromNoteContent(note.content);
+  map[_CONTENT] = note.content;
 
   return map;
-}
-
-dynamic _jsonFromNoteContent(NoteContent content) {
-  if(content is TextContent) {
-    return (content as TextContent).value;
-  } else {
-    throw new UnimplementedError('cannot the provided NoteContent');
-  }
-}
-
-NoteContent _noteContentFromJson(dynamic json) {
-  if(json is String) {
-    return new TextContent(json);
-  } else {
-    throw new UnimplementedError('cannot create NoteContent from the provided value');
-  }
 }

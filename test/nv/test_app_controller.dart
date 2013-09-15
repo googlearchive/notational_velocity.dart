@@ -38,17 +38,15 @@ void main(Storage storageFactory()) {
       // select the top item
       ac.notes.selectedIndex = 0;
 
-      var content = ac.notes.selectedValue.content as TextContent;
+      var content = ac.notes.selectedValue.content;
 
-      var newValue = content.value + 'v2';
+      var newValue = content + 'v2';
 
       return ac.updateSelectedNoteContent(newValue)
           .then((bool updated) {
             expect(updated, isTrue);
 
-            var content = ac.notes.selectedValue.content as TextContent;
-
-            expect(content.value, newValue);
+            expect(ac.notes.selectedValue.content , newValue);
           });
     });
 
@@ -68,7 +66,7 @@ Future _initialSearch(AppController ac) {
 Future _testSimple(AppController controller) {
   _expectFirstRun(controller);
 
-  final tc = new TextContent('first content!');
+  final tc = 'first content!';
 
   controller.searchTerm = _testTitle1;
 
@@ -84,10 +82,9 @@ Future _testSimple(AppController controller) {
         expect(controller.notes.selectedValue, note);
 
         var nc = note.content;
-        expect(nc is TextContent, isTrue);
-        expect(nc.value, isEmpty);
+        expect(nc, isEmpty);
 
-        controller.updateSelectedNoteContent(tc.value);
+        controller.updateSelectedNoteContent(tc);
 
         var titleVariations = _permutateTitle(_testTitle1)
           ..add('Test');
@@ -129,10 +126,8 @@ Future _expectFirstRun(AppController controller) {
   for(Selectable<Note> note in controller.notes) {
     var match = INITIAL_NOTES[note.value.title];
     expect(match, isNotNull);
-    expect(note.value.content is TextContent, isTrue);
 
-    TextContent tc = note.value.content;
-    expect(tc.value, match);
+    expect(note.value.content, match);
   }
 }
 

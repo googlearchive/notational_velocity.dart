@@ -5,7 +5,6 @@ import 'package:polymer/polymer.dart';
 import 'package:nv/init.dart' as init;
 import 'package:nv/elements/interfaces.dart';
 import 'package:nv/src/controllers.dart';
-import 'package:nv/src/models.dart';
 import 'package:nv/src/shared.dart';
 
 final _libLogger = new Logger('nv.AppElement');
@@ -71,11 +70,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
     if(notes.hasSelection) {
 
-      assert(notes.selectedValue.content is TextContent);
-
-      TextContent content = notes.selectedValue.content;
-
-      var value = content.value;
+      var value = notes.selectedValue.content;
 
       _editor.enabled = true;
       _editor.text = value;
