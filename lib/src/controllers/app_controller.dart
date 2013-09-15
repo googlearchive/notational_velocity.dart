@@ -71,7 +71,7 @@ class AppController extends ChangeNotifierBase {
     _searchResetHandle.add(EventArgs.empty);
   }
 
-  Note openOrCreate() {
+  Future<Note> openOrCreate() {
 
     var key = searchTerm.toLowerCase();
 
@@ -85,9 +85,16 @@ class AppController extends ChangeNotifierBase {
       _dirtyNoteList();
     }
 
-    notes.selectedValue = value;
+    // Returning a future so that any changes by _dirtyNoteList
+    // Can propogate to notes
+    return new Future<Note>(() {
 
-    return value;
+      assert(notes.source.contains(value));
+      notes.selectedValue = value;
+      assert(notes.selectedValue == value);
+
+      return value;
+    });
   }
 
   void updateSelectedNoteContent(String newContent) {
@@ -115,7 +122,6 @@ class AppController extends ChangeNotifierBase {
   //
 
   void _dirtyNoteList() {
-
     var expectedNotes = _noteStorage.values.toList(growable: true);
     _notes.removeWhere((note) => !expectedNotes.contains(note));
     expectedNotes.removeWhere((note) => _notes.contains(note));

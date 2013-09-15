@@ -61,8 +61,11 @@ Future _testSimple(AppController controller) {
 
         expect(controller.notes.hasSelection, isFalse);
 
-        var note = controller.openOrCreate();
+        return controller.openOrCreate();
+      })
+      .then((Note note) {
         expect(note, isNotNull);
+        expect(controller.notes.selectedValue, note);
 
         var nc = note.content;
         expect(nc is TextContent, isTrue);
