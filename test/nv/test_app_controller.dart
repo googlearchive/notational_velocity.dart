@@ -20,7 +20,7 @@ void main(Storage storageFactory()) {
 
     _testAppController('initial search', storageFactory, _initialSearch);
 
-    _testAppController('select item, edit, sort=stable', storageFactory,
+    _testAppController('select item, edit: sort = stable', storageFactory,
         (AppController ac) {
       _expectFirstRun(ac);
 
@@ -34,6 +34,22 @@ void main(Storage storageFactory()) {
           .toList();
 
       expect(controllerTitles, orderedEquals(expectedSortedTitles));
+
+      // select the top item
+      ac.notes.selectedIndex = 0;
+
+      var content = ac.notes.selectedValue.content as TextContent;
+
+      var newValue = content.value + 'v2';
+
+      return ac.updateSelectedNoteContent(newValue)
+          .then((bool updated) {
+            expect(updated, isTrue);
+
+            var content = ac.notes.selectedValue.content as TextContent;
+
+            expect(content.value, newValue);
+          });
     });
 
   });

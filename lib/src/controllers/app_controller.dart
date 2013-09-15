@@ -97,10 +97,15 @@ class AppController extends ChangeNotifierBase {
     });
   }
 
-  void updateSelectedNoteContent(String newContent) {
+  Future<bool> updateSelectedNoteContent(String newContent) {
     _log('updateSelectedNoteContent');
 
     assert(notes.hasSelection);
+
+    var currentContent = notes.selectedValue.content as TextContent;
+    if(currentContent.value == newContent) {
+      return new Future<bool>.value(false);
+    }
 
     var textContent = new TextContent(newContent);
 
@@ -114,7 +119,12 @@ class AppController extends ChangeNotifierBase {
 
     _dirtyNoteList();
 
-    notes.selectedValue = note;
+    return new Future<bool>(() {
+      // async to allow view to update
+      notes.selectedValue = note;
+      assert(notes.hasSelection);
+      return true;
+    });
   }
 
   //
