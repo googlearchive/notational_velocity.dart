@@ -1,6 +1,5 @@
 library test.nv.storage;
 
-import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/debug.dart';
@@ -9,36 +8,40 @@ import 'test_app_controller.dart' as app_controller;
 import 'test_sync.dart' as sync;
 import '../src/store_sync_test_util.dart';
 
-void testStorage(Map<String, Storage> stores) {
-  var allStores = new Map.from(stores);
+typedef Storage StorageFactory();
 
-  allStores['memory - sync'] = new StringStorage.memorySync();
-  allStores['memory - async'] = new StringStorage.memoryAsync();
-  allStores['memory - delayed - 10'] = new StringStorage.memoryDelayed(10);
+void testStorage(Map<String, StorageFactory> factories) {
+  var allStores = new Map.from(factories);
+
+  allStores['memory - sync'] = () => new StringStorage.memorySync();
+  allStores['memory - async'] = () => new StringStorage.memoryAsync();
+  allStores['memory - delayed - 10'] = () => new StringStorage.memoryDelayed(10);
 
   group('Storage', () {
-    allStores.forEach((String storeName, Storage store) {
+    allStores.forEach((String storeName, StorageFactory factory) {
       group(storeName, () {
 
-        setUp(() {
-          return store.clear();
-        });
-
-        _testCore(store);
-        _testNested(store);
-        sync.main(store);
-        app_controller.main(store);
+        _testCore(factory);
+        _testNested(factory);
+        sync.main(factory);
+        app_controller.main(factory);
       });
     });
   });
 
 }
 
-void _testNested(Storage storage) {
+void _testNested(StorageFactory factory) {
   group('nested', () {
-    _testCore(new NestedStorage(storage, 'test1'));
+    Storage nestedFactory() {
+      var storage = factory();
+      return new NestedStorage(storage, 'test1');
+    };
+
+    _testCore(nestedFactory);
 
     test('independant', () {
+      var storage = factory();
       var n1 = new NestedStorage(storage, 't1');
       var n11 = new NestedStorage(n1, 't11');
       var n2 = new NestedStorage(storage, 't2');
@@ -65,12 +68,13 @@ void _testNested(Storage storage) {
   });
 }
 
-void _testCore(Storage storage) {
+void _testCore(StorageFactory factory) {
   test('store pnp', () {
-      return storage.addAll(PNP)
-        .then((_) {
-          return matchesMapValues(storage, PNP);
-        });
+    var storage = factory();
+    return storage.addAll(PNP)
+      .then((_) {
+        return matchesMapValues(storage, PNP);
+      });
   });
 
   test('add many and clear', () {
@@ -78,6 +82,7 @@ void _testCore(Storage storage) {
     final validValuesAndNull = new Map.from(VALID_VALUES);
     validValuesAndNull['null'] = null;
 
+    var storage = factory();
     return storage.addAll(validValuesAndNull)
       .then((_) {
         return matchesValidValues(storage);
@@ -89,6 +94,7 @@ void _testCore(Storage storage) {
   });
 
   test('addAll, getKeys', () {
+    var storage = factory();
     return storage.getKeys()
         .then((List<String> keys) {
           expect(keys, isEmpty);
@@ -99,6 +105,7 @@ void _testCore(Storage storage) {
   });
 
   test('setting null == removing', () {
+    var storage = factory();
     return storage.exists('a')
         .then((bool exists) {
           expect(exists, isFalse);
@@ -131,6 +138,7 @@ void _testCore(Storage storage) {
 
       test(description, () {
 
+        var storage = factory();
         return storage.get(key)
             .then((value) {
               expect(value, isNull);

@@ -13,14 +13,14 @@ import 'package:nv/src/sync.dart';
 
 const _testTitle1 = 'Test Title 1';
 
-void main(Storage storage) {
+void main(Storage storageFactory()) {
   group('AppController', () {
 
-    _testAppController('simple', storage, _testSimple);
+    _testAppController('simple', storageFactory, _testSimple);
 
-    _testAppController('initial search', storage, _initialSearch);
+    _testAppController('initial search', storageFactory, _initialSearch);
 
-    _testAppController('select item, edit, sort=stable', storage,
+    _testAppController('select item, edit, sort=stable', storageFactory,
         (AppController ac) {
       _expectFirstRun(ac);
 
@@ -123,8 +123,9 @@ Future<AppController> _getDebugController(Storage storage) {
     .then(_whenUpdated);
 }
 
-void _testAppController(String name, Storage storage, testFunc(AppController ac)) {
+void _testAppController(String name, Storage storageFactory(), testFunc(AppController ac)) {
   test(name, () {
+    var storage = storageFactory();
     return _getDebugController(storage).then(testFunc);
   });
 }

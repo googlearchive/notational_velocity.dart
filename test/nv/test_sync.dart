@@ -8,10 +8,13 @@ import 'package:nv/src/sync.dart';
 
 import '../src/store_sync_test_util.dart';
 
-void main(Storage store) {
+typedef Storage StorageFactory();
+
+void main(StorageFactory factory) {
   group('MapSync', () {
 
     test('create', () {
+      var store = factory();
 
       return store.addAll(VALID_VALUES)
           .then((_) => MapSync.createAndLoad(store))
@@ -21,7 +24,7 @@ void main(Storage store) {
           });
     });
 
-    _testMapSync('simple set', store, (MapSync mapSync) {
+    _testMapSync('simple set', factory, (Storage store, MapSync mapSync) {
 
       expect(mapSync.map, isEmpty);
 
@@ -51,7 +54,7 @@ void main(Storage store) {
 
     });
 
-    _testMapSync('simple remove', store, (MapSync mapSync) {
+    _testMapSync('simple remove', factory, (Storage store, MapSync mapSync) {
 
       expect(mapSync.map, isEmpty);
 
@@ -101,8 +104,9 @@ Future _expectSyncMapWithChange(Storage store, MapSync mapSync, void action(), M
       .whenComplete(sub.cancel);
 }
 
-void _testMapSync(String testName, Storage store, runner(MapSync store)) {
+void _testMapSync(String testName, StorageFactory factory, void runner(Storage store, MapSync mapSync)) {
   test(testName, () {
-    return MapSync.createAndLoad(store).then(runner);
+    var store = factory();
+    return MapSync.createAndLoad(store).then((MapSync mapSync) => runner(store, mapSync));
   });
 }
