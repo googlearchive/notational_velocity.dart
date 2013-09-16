@@ -7,6 +7,7 @@ import 'package:bot/bot.dart';
 import 'package:observe/observe.dart';
 import 'package:meta/meta.dart';
 
+part 'shared/background_update.dart';
 part 'shared/collection_view.dart';
 part 'shared/mapped_list_view.dart';
 part 'shared/observable_list_view.dart';
