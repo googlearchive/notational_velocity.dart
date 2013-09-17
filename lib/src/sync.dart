@@ -2,7 +2,6 @@ library nv.sync;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:collection';
 
 import 'package:bot/bot.dart';
 import 'package:meta/meta.dart';
@@ -163,10 +162,22 @@ abstract class Loadable implements Observable {
   bool get isLoaded;
 }
 
-class _SyncMap<E> extends LinkedHashMap<String, E> {
+class _SyncMap<E> implements Map<String, E> {
+  final Map<String, E> _map = new Map<String, E>();
   final EventHandle<String> _keyChanged = new EventHandle<String>();
 
-  @override
+  bool get isEmpty => _map.isEmpty;
+
+  E operator[](String key) => _map[key];
+
+  Iterable<E> get values => _map.values;
+
+  Iterable<String> get keys => _map.keys;
+
+  int get length => _map.length;
+
+  bool containsKey(String key) => _map.containsKey(key);
+
   void operator []=(String key, E value) {
     // TODO: check for an actual change at some point?
 
@@ -174,24 +185,12 @@ class _SyncMap<E> extends LinkedHashMap<String, E> {
     _keyChanged.add(key);
   }
 
-  @override
-  void clear() {
-    throw new UnimplementedError('not implemented clear yet');
-  }
-
-  @override
-  E putIfAbsent(String key, E ifAbsent()) {
-    throw new UnimplementedError('putIfAbsent');
-  }
-
-  @override
   E remove(Object key) {
-    var value = super.remove(key);
+    var value = _map.remove(key);
     _keyChanged.add(key);
     return value;
   }
 
-  @override
   void addAll(Map<String, E> other) {
     other.forEach((k, v) {
       this[k] = v;
@@ -205,7 +204,7 @@ class _SyncMap<E> extends LinkedHashMap<String, E> {
   //
 
   void _set(String key, E value) {
-    super[key] = value;
+    _map[key] = value;
   }
 }
 
