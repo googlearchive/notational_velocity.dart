@@ -6,6 +6,8 @@ environment:
   sdk: '>=0.7.3+1'
 dependencies:
   bot: '>=0.23.0'
+  crypto: '>=0.7.3+1'
+  fixnum: '>=0.7.3+1'
   js: '>=0.0.24'
   meta: '>=0.7.3+1'
   polymer: '>=0.7.3+1'

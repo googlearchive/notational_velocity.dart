@@ -3,7 +3,11 @@ library nv.shared;
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:math' as math;
+import 'dart:typed_data' as typed;
 import 'package:bot/bot.dart';
+import 'package:crypto/crypto.dart' as crypto;
+import 'package:fixnum/fixnum.dart' as fixed;
 import 'package:observe/observe.dart';
 import 'package:meta/meta.dart';
 
@@ -13,6 +17,7 @@ part 'shared/mapped_list_view.dart';
 part 'shared/observable_list_view.dart';
 part 'shared/selection_manager.dart';
 part 'shared/split.dart';
+part 'shared/kuid.dart';
 
 typedef bool Predicate<E>(E item);
 typedef int Sorter<E>(E a, E b);
