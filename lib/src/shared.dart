@@ -15,6 +15,7 @@ part 'shared/background_update.dart';
 part 'shared/collection_view.dart';
 part 'shared/mapped_list_view.dart';
 part 'shared/observable_list_view.dart';
+part 'shared/observable_set.dart';
 part 'shared/selection_manager.dart';
 part 'shared/split.dart';
 part 'shared/kuid.dart';
