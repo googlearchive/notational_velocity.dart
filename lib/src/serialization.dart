@@ -1,6 +1,7 @@
 library nv.serialization;
 
 import 'dart:convert';
+import 'package:meta/meta.dart';
 import 'models.dart';
 
 const _currentSerialVersion = 0;
@@ -8,25 +9,27 @@ const _currentSerialVersion = 0;
 const _TITLE = 'title', _LAST_MODIFIED = 'lastModified', _CONTENT = 'content',
   _VERSION = 'version';
 
-// TODO: would love these to be const: https://codereview.chromium.org/22979003/
-final _n2j = new _NoteToJsonConverter();
-final _j2n = new _JsonToNoteConverter();
-
 const NOTE_CODEC = const NoteCodec();
 
 class NoteCodec extends Codec<Note, Object> {
   const NoteCodec();
 
-  Converter<Note, Object> get encoder => _n2j;
+  Converter<Note, Object> get encoder => const _NoteToJsonConverter();
 
-  Converter<Object, Note> get decoder => _j2n;
+  Converter<Object, Note> get decoder => const _JsonToNoteConverter();
 }
 
 class _NoteToJsonConverter extends Converter<Note, Object> {
+  const _NoteToJsonConverter();
+
+  @override
   Object convert(Note note) => _toJson(note);
 }
 
 class _JsonToNoteConverter extends Converter<Object, Note> {
+  const _JsonToNoteConverter();
+
+  @override
   Note convert(Object json) => _fromJson(json);
 }
 
