@@ -248,7 +248,7 @@ void main() {
     manager.source.remove(5);
     deliverChanges();
 
-    expectChanges(changes, [_lengthChange, _change(4, removedCount: 1)]);
+    expectChanges(changes, [lengthChange, change(4, removedCount: 1)]);
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
@@ -258,7 +258,7 @@ void main() {
     manager.source.add(5);
     deliverChanges();
 
-    expectChanges(changes, [_lengthChange, _change(4, addedCount: 1)]);
+    expectChanges(changes, [lengthChange, change(4, addedCount: 1)]);
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
@@ -270,7 +270,7 @@ void main() {
 
     expect(manager[4].value, 7);
 
-    expectChanges(changes, [_change(4, addedCount: 1, removedCount: 1)]);
+    expectChanges(changes, [change(4, addedCount: 1, removedCount: 1)]);
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
@@ -302,7 +302,7 @@ void main() {
 
     expect(manager[0].value, 8);
 
-    expectChanges(changes, [_change(0, addedCount: 1, removedCount: 1)]);
+    expectChanges(changes, [change(0, addedCount: 1, removedCount: 1)]);
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
     _expectSelection(manager);
@@ -321,7 +321,7 @@ void main() {
     expect(manager[1].value, 3);
     expect(manager[1].isSelected, isTrue);
 
-    expectChanges(changes, [_lengthChange, _change(0, removedCount: 1),
+    expectChanges(changes, [lengthChange, change(0, removedCount: 1),
                             _selectedIndexChange]);
     expect(manager.selectedValue, 3);
     expect(manager.selectedIndex, 1);
@@ -335,7 +335,7 @@ void main() {
     expect(manager[2].value, 3);
     expect(manager[2].isSelected, isTrue);
 
-    expectChanges(changes, [_lengthChange, _change(0, addedCount: 1),
+    expectChanges(changes, [lengthChange, change(0, addedCount: 1),
                             _selectedIndexChange]);
     expect(manager.selectedIndex, 2);
     expect(manager.selectedValue, 3);
@@ -349,21 +349,21 @@ void main() {
     manager.source.add(6);
     deliverChanges();
 
-    expectChanges(changes, [_lengthChange, _change(5, addedCount: 1)]);
+    expectChanges(changes, [lengthChange, change(5, addedCount: 1)]);
     _expectNoSelectionChanges(changes);
     _expectNoSelection(manager);
 
     manager.source.remove(6);
     deliverChanges();
 
-    expectChanges(changes, [_lengthChange, _change(5, removedCount: 1)]);
+    expectChanges(changes, [lengthChange, change(5, removedCount: 1)]);
     _expectNoSelectionChanges(changes);
     _expectNoSelection(manager);
 
     manager.source.insert(0, 0);
     deliverChanges();
 
-    expectChanges(changes, [_lengthChange, _change(0, addedCount: 1)]);
+    expectChanges(changes, [lengthChange, change(0, addedCount: 1)]);
     _expectNoSelectionChanges(changes);
     _expectNoSelection(manager);
 
@@ -373,14 +373,14 @@ void main() {
     // silly double check
     expect(manager[0].value, 10);
 
-    expectChanges(changes, [_change(0, addedCount: 1, removedCount: 1)]);
+    expectChanges(changes, [change(0, addedCount: 1, removedCount: 1)]);
     _expectNoSelectionChanges(changes);
     _expectNoSelection(manager);
 
     manager.source.removeAt(0);
     deliverChanges();
 
-    expectChanges(changes, [_lengthChange, _change(0, removedCount: 1)]);
+    expectChanges(changes, [lengthChange, change(0, removedCount: 1)]);
     _expectNoSelectionChanges(changes);
     _expectNoSelection(manager);
 
@@ -427,7 +427,7 @@ void main() {
     expect(manager[2].value, 4);
     expect(manager[2].isSelected, isFalse);
 
-    expectChanges(changes, [_lengthChange, _change(2, removedCount: 1),
+    expectChanges(changes, [lengthChange, change(2, removedCount: 1),
                             _selectedIndexChange, _selectedValueChange,
                             _hasSelectionChange]);
     _expectNoSelection(manager);
@@ -448,8 +448,8 @@ void main() {
     deliverChanges();
 
     expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
-                            _hasSelectionChange, _lengthChange,
-                            _change(5, addedCount: 1)]);
+                            _hasSelectionChange, lengthChange,
+                            change(5, addedCount: 1)]);
     expect(manager.selectedIndex, 5);
     expect(manager.selectedValue, 10);
     _expectSelection(manager);
@@ -474,8 +474,8 @@ void main() {
     expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
                             _hasSelectionChange, _selectedIndexChange,
                             _selectedValueChange,
-                            _change(2, removedCount: 1),
-                            _change(4, addedCount: 1)]);
+                            change(2, removedCount: 1),
+                            change(4, addedCount: 1)]);
     expect(manager.selectedIndex, 4);
     expect(manager.selectedValue, 10);
   });
@@ -528,18 +528,12 @@ void _expectAlignment(SelectionManager manager) {
   }
 }
 
-const _LENGTH = const Symbol('length');
 const _SELECTED_INDEX = const Symbol('selectedIndex');
 const _HAS_SELECTION = const Symbol('hasSelection');
 const _SELECTED_VALUE = const Symbol('selectedValue');
 const _IS_SELECTED = const Symbol('isSelected');
 
-final _lengthChange = new PropertyChangeRecord(_LENGTH);
 final _selectedIndexChange = new PropertyChangeRecord(_SELECTED_INDEX);
 final _hasSelectionChange = new PropertyChangeRecord(_HAS_SELECTION);
 final _selectedValueChange = new PropertyChangeRecord(_SELECTED_VALUE);
 final _isSelectedChange = new PropertyChangeRecord(_IS_SELECTED);
-
-ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
-    new ListChangeRecord(index, removedCount: removedCount,
-        addedCount: addedCount);

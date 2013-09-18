@@ -44,7 +44,7 @@ void sharedMain(OLWrapperFactory factory) {
       rol = factory(list);
       changes = null;
       sub = rol.changes.listen((records) {
-        changes = records.where((r) => r.changes(_LENGTH)).toList();
+        changes = records.where((r) => r.changes(LENGTH)).toList();
       });
     });
 
@@ -54,14 +54,14 @@ void sharedMain(OLWrapperFactory factory) {
       list.add(4);
       doChanges();
       expect(rol, [1, 2, 3, 4]);
-      expectChanges(changes, [_lengthChange]);
+      expectChanges(changes, [lengthChange]);
     });
 
     test('removeObject', () {
       list.remove(2);
       doChanges();
       expect(rol, orderedEquals([1, 3]));
-      expectChanges(changes, [_lengthChange]);
+      expectChanges(changes, [lengthChange]);
     });
 
     test('removeRange changes length', () {
@@ -69,14 +69,14 @@ void sharedMain(OLWrapperFactory factory) {
       list.removeRange(1, 3);
       doChanges();
       expect(rol, [1, 4]);
-      expectChanges(changes, [_lengthChange]);
+      expectChanges(changes, [lengthChange]);
     });
 
     test('length= changes length', () {
       list.length = 5;
       doChanges();
       expect(rol, [1, 2, 3, null, null]);
-      expectChanges(changes, [_lengthChange]);
+      expectChanges(changes, [lengthChange]);
     });
 
     test('[]= does not change length', () {
@@ -90,7 +90,7 @@ void sharedMain(OLWrapperFactory factory) {
       list.clear();
       doChanges();
       expect(rol, []);
-      expectChanges(changes, [_lengthChange]);
+      expectChanges(changes, [lengthChange]);
     });
   });
 
@@ -118,7 +118,7 @@ void sharedMain(OLWrapperFactory factory) {
       list[1] = 777;
       doChanges();
       expect(rol, [1, 777, 3]);
-      expectChanges(changes, [_change(1, addedCount: 1, removedCount: 1)]);
+      expectChanges(changes, [change(1, addedCount: 1, removedCount: 1)]);
     });
 
     test('[]= on a different item does not fire change', () {
@@ -134,7 +134,7 @@ void sharedMain(OLWrapperFactory factory) {
       doChanges();
       expect(rol, [1, 42, 3]);
       expectChanges(changes, [
-        _change(1, addedCount: 1, removedCount: 1),
+        change(1, addedCount: 1, removedCount: 1),
       ]);
     });
 
@@ -149,7 +149,7 @@ void sharedMain(OLWrapperFactory factory) {
       list.length = 1;
       doChanges();
       expect(rol, [1]);
-      expectChanges(changes, [_change(1, removedCount: 2)]);
+      expectChanges(changes, [change(1, removedCount: 2)]);
     });
 
     test('truncate and add new item', () {
@@ -158,7 +158,7 @@ void sharedMain(OLWrapperFactory factory) {
       doChanges();
       expect(rol, [1, 42]);
       expectChanges(changes, [
-        _change(1, removedCount: 2, addedCount: 1)
+        change(1, removedCount: 2, addedCount: 1)
       ]);
     });
 
@@ -168,7 +168,7 @@ void sharedMain(OLWrapperFactory factory) {
       doChanges();
       expect(rol, [1, 2]);
       expectChanges(changes, [
-        _change(1, removedCount: 2, addedCount: 1)
+        change(1, removedCount: 2, addedCount: 1)
       ]);
     });
   });
@@ -213,8 +213,8 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([2, 3, 1, 3, 4]));
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(0, removedCount: 1, addedCount: 0)
+        lengthChange,
+        change(0, removedCount: 1, addedCount: 0)
       ]);
 
       list.remove(1);
@@ -222,8 +222,8 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([2, 3, 3, 4]));
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(2, removedCount: 1, addedCount: 0)
+        lengthChange,
+        change(2, removedCount: 1, addedCount: 0)
       ]);
 
       list.removeAt(1);
@@ -231,8 +231,8 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([2, 3, 4]));
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(1, removedCount: 1, addedCount: 0)
+        lengthChange,
+        change(1, removedCount: 1, addedCount: 0)
       ]);
     });
 
@@ -243,8 +243,8 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([1, 2, 3, 1, 3, 4, 5, 6]));
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(6, addedCount: 2)
+        lengthChange,
+        change(6, addedCount: 2)
       ]);
     });
 
@@ -253,7 +253,7 @@ void sharedMain(OLWrapperFactory factory) {
       doChanges();
       expect(rol, orderedEquals([1, 4, 3, 1, 3, 4]));
 
-      expectChanges(changes, [ _change(1, addedCount: 1, removedCount: 1) ]);
+      expectChanges(changes, [ change(1, addedCount: 1, removedCount: 1) ]);
     });
 
     test('removeLast', () {
@@ -262,8 +262,8 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([1, 2, 3, 1, 3]));
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(5, removedCount: 1)
+        lengthChange,
+        change(5, removedCount: 1)
       ]);
     });
 
@@ -273,8 +273,8 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([1, 3, 4]));
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(1, removedCount: 3),
+        lengthChange,
+        change(1, removedCount: 3),
       ]);
     });
 
@@ -284,7 +284,7 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, orderedEquals([1, 1, 2, 3, 3, 4]));
 
       expectChanges(changes, [
-        _change(1, addedCount: 5, removedCount: 5),
+        change(1, addedCount: 5, removedCount: 5),
       ]);
     });
 
@@ -294,17 +294,9 @@ void sharedMain(OLWrapperFactory factory) {
       expect(rol, []);
 
       expectChanges(changes, [
-        _lengthChange,
-        _change(0, removedCount: 6)
+        lengthChange,
+        change(0, removedCount: 6)
       ]);
     });
   });
 }
-
-const _LENGTH = const Symbol('length');
-
-final _lengthChange = new PropertyChangeRecord(_LENGTH);
-
-ListChangeRecord _change(index, {removedCount: 0, addedCount: 0}) =>
-    new ListChangeRecord(index, removedCount: removedCount,
-        addedCount: addedCount);

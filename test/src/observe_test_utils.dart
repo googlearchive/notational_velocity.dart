@@ -1,5 +1,6 @@
 library observe.test.observe_test_utils;
 
+import 'package:observe/observe.dart';
 import 'package:unittest/unittest.dart';
 
 void expectChanges(Iterable actual, Iterable expected, {String reason}) {
@@ -15,3 +16,11 @@ void expectChanges(Iterable actual, Iterable expected, {String reason}) {
 
   expect(actualStrings, orderedEquals(expectedStrings), reason: reason);
 }
+
+const LENGTH = const Symbol('length');
+
+final lengthChange = new PropertyChangeRecord(LENGTH);
+
+ListChangeRecord change(index, {removedCount: 0, addedCount: 0}) =>
+    new ListChangeRecord(index, removedCount: removedCount,
+        addedCount: addedCount);
