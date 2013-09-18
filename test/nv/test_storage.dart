@@ -5,6 +5,7 @@ import 'package:nv/src/storage.dart';
 import 'package:nv/debug.dart';
 
 import 'test_app_controller.dart' as app_controller;
+import 'test_note_list.dart' as note_list;
 import 'test_sync.dart' as sync;
 import '../src/store_sync_test_util.dart';
 
@@ -25,6 +26,7 @@ void testStorage(Map<String, StorageFactory> factories) {
         _testNested(factory);
         sync.main(factory);
         app_controller.main(factory);
+        note_list.main(factory);
       });
     });
   });
