@@ -5,11 +5,10 @@ part of nv.shared;
  *
  * ...and exposes an observable list.
  */
-class ObservableSet<E extends Comparable<E>> extends IterableBase<E>
-  implements Set<E> {
+class ObservableSet<E extends Comparable<E>> extends ListBase<E>
+  implements Observable, Set<E> {
 
   final ObservableList<E> _sorted;
-  final ObservableListView<E> view;
 
   factory ObservableSet() => new ObservableSet.from([]);
 
@@ -25,18 +24,46 @@ class ObservableSet<E extends Comparable<E>> extends IterableBase<E>
   }
 
   ObservableSet._(ObservableList<E> sorted) :
-    this._sorted = sorted,
-    this.view = new ObservableListView(sorted);
+    this._sorted = sorted;
+
+  //
+  // Observable
+  //
+
+  Stream<List<ChangeRecord>> get changes => _sorted.changes;
+
+  void notifyChange(ChangeRecord record) => _sorted.notifyChange(record);
+
+  bool get hasObservers => _sorted.hasObservers;
+
+  bool deliverChanges() => _sorted.deliverChanges();
+
+  //
+  // Set
+  //
+  Set<E> difference(Set<E> other) {
+    throw new UnimplementedError();
+  }
+
+  Set<E> intersection(Set<E> other) {
+    throw new UnimplementedError();
+  }
+
+  Set<E> union(Set<E> other) {
+    throw new UnimplementedError();
+  }
+
+  //
+  // List
+  //
+
+  int get length => _sorted.length;
 
   Iterator<E> get iterator => _sorted.iterator;
 
-  void clear() => _sorted.clear();
+  E operator[](int index) => _sorted[index];
 
-  void removeAll(Iterable<Object> elements) {
-    for(var e in elements) {
-      _sorted.remove(e);
-    }
-  }
+  void clear() => _sorted.clear();
 
   void addAll(Iterable<E> elements) {
     for(var e in elements) {
