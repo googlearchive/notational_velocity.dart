@@ -63,8 +63,7 @@ class ObservableSet<E extends Comparable<E>> extends ListBase<E>
 
   E operator[](int index) => _sorted[index];
 
-  void clear() => _sorted.clear();
-
+  @override
   void addAll(Iterable<E> elements) {
     for(var e in elements) {
       this.add(e);
@@ -72,6 +71,7 @@ class ObservableSet<E extends Comparable<E>> extends ListBase<E>
   }
 
   // TODO: binary insert? O(ln) is better than O(n)
+  @override
   void add(E element) {
     for(int i = 0; i < _sorted.length; i++) {
       var compare = element.compareTo(_sorted[i]);
@@ -87,6 +87,6 @@ class ObservableSet<E extends Comparable<E>> extends ListBase<E>
     _sorted.add(element);
   }
 
-
+  @override
   bool remove(Object element) => _sorted.remove(element);
 }
