@@ -6,6 +6,10 @@ const _IS_UPDATED = const Symbol('isUpdated');
 class BackgroundUpdate<E> extends ChangeNotifierMixin {
   final _UpdateMethod _updateMethod;
 
+  BackgroundUpdate.withNew(this._updateMethod, E newValue) {
+    this.value = newValue;
+  }
+
   BackgroundUpdate(this._updateMethod, [E value]) {
     _storedValue = _pendingValue = _currentValue = value;
   }

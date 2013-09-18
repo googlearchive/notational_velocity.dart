@@ -8,7 +8,6 @@ import '../src/observe_test_utils.dart';
 import 'package:nv/src/shared.dart';
 
 void main() {
-
   TestCase currentTest;
   int storedValue;
   int updateCount;
@@ -17,7 +16,6 @@ void main() {
   StreamSubscription sub;
 
   Future updateFunc(int value) {
-    assert(sub != null);
     assert(updateCount != null);
     assert(currentTest != null);
     assert(currentTestCase == currentTest);
@@ -32,22 +30,6 @@ void main() {
     });
   }
 
-  setUp(() {
-    assert(currentTest == null);
-    assert(storedValue == null);
-    assert(updateCount == null);
-    assert(bu == null);
-
-    currentTest = currentTestCase;
-    storedValue = null;
-    updateCount = 0;
-
-    bu = new BackgroundUpdate<int>(updateFunc, 0);
-    sub = bu.changes.listen((List<ChangeRecord> val) {
-      changes = val;
-    });
-  });
-
   tearDown((){
     sub.cancel();
     sub = null;
@@ -57,113 +39,174 @@ void main() {
     bu = null;
   });
 
-  test('simple', () {
-    expect(bu.isUpdated, isTrue);
-    expect(bu.value, 0);
-    expect(updateCount, 0);
-    expectChanges(changes, null);
+  group('new value ctor', () {
 
-    return bu.updatedValue
-        .then((int updatedValue) {
-          expect(bu.isUpdated, isTrue);
-          expect(bu.value, 0);
-          expect(updatedValue, 0);
-          expect(updateCount, 0);
-          expectChanges(changes, null);
-        });
+    setUp(() {
+      assert(currentTest == null);
+      assert(storedValue == null);
+      assert(updateCount == null);
+      assert(bu == null);
+
+      currentTest = currentTestCase;
+      storedValue = null;
+      updateCount = 0;
+
+      bu = new BackgroundUpdate<int>.withNew(updateFunc, 42);
+      sub = bu.changes.listen((List<ChangeRecord> val) {
+        changes = val;
+      });
+    });
+
+    test('simple update', () {
+      expect(bu.deliverChanges(), isFalse);
+
+      expect(bu.isUpdated, isFalse);
+      expect(bu.value, 42);
+      expect(updateCount, 1);
+
+      expectChanges(changes, null);
+      changes = null;
+
+      return bu.updatedValue
+          .then((int updatedValue) {
+            expect(bu.isUpdated, isTrue);
+            expect(bu.value, 42);
+            expect(updatedValue, 42);
+            expect(updateCount, 1);
+
+            expect(bu.deliverChanges(), isTrue);
+            expectChanges(changes, [_isUpdatedChanged]);
+            changes = null;
+          });
+    });
   });
 
-  test('no-op update', () {
-    bu.value = 0;
+  group('default ctor', () {
 
-    expect(bu.isUpdated, isTrue);
-    expect(bu.value, 0);
-    expect(updateCount, 0);
-    expectChanges(changes, null);
+    setUp(() {
+      assert(currentTest == null);
+      assert(storedValue == null);
+      assert(updateCount == null);
+      assert(bu == null);
 
-    return bu.updatedValue
-        .then((int updatedValue) {
-          expect(bu.isUpdated, isTrue);
-          expect(bu.value, 0);
-          expect(updatedValue, 0);
-          expect(updateCount, 0);
-          expectChanges(changes, null);
-        });
-  });
+      currentTest = currentTestCase;
+      storedValue = null;
+      updateCount = 0;
 
-  test('simple update', () {
-    bu.value = 1;
+      bu = new BackgroundUpdate<int>(updateFunc, 0);
+      sub = bu.changes.listen((List<ChangeRecord> val) {
+        changes = val;
+      });
+    });
 
-    expect(bu.deliverChanges(), isTrue);
+    test('simple', () {
+      expect(bu.isUpdated, isTrue);
+      expect(bu.value, 0);
+      expect(updateCount, 0);
+      expectChanges(changes, null);
 
-    expect(bu.isUpdated, isFalse);
-    expect(bu.value, 1);
-    expect(updateCount, 1);
+      return bu.updatedValue
+          .then((int updatedValue) {
+            expect(bu.isUpdated, isTrue);
+            expect(bu.value, 0);
+            expect(updatedValue, 0);
+            expect(updateCount, 0);
+            expectChanges(changes, null);
+          });
+    });
 
-    expectChanges(changes, [_valueChanged, _isUpdatedChanged]);
-    changes = null;
+    test('no-op update', () {
+      bu.value = 0;
 
-    return bu.updatedValue
-        .then((int updatedValue) {
-          expect(bu.isUpdated, isTrue);
-          expect(bu.value, 1);
-          expect(updatedValue, 1);
-          expect(updateCount, 1);
+      expect(bu.isUpdated, isTrue);
+      expect(bu.value, 0);
+      expect(updateCount, 0);
+      expectChanges(changes, null);
 
-          expect(bu.deliverChanges(), isTrue);
-          expectChanges(changes, [_isUpdatedChanged]);
-          changes = null;
-        });
-  });
+      return bu.updatedValue
+          .then((int updatedValue) {
+            expect(bu.isUpdated, isTrue);
+            expect(bu.value, 0);
+            expect(updatedValue, 0);
+            expect(updateCount, 0);
+            expectChanges(changes, null);
+          });
+    });
 
-  test('many changes, few updates', () {
+    test('simple update', () {
+      bu.value = 1;
 
-    bu.value = 1;
+      expect(bu.deliverChanges(), isTrue);
 
-    expect(bu.deliverChanges(), isTrue);
+      expect(bu.isUpdated, isFalse);
+      expect(bu.value, 1);
+      expect(updateCount, 1);
 
-    expect(bu.isUpdated, isFalse);
-    expect(bu.value, 1);
-    expect(updateCount, 1);
+      expectChanges(changes, [_valueChanged, _isUpdatedChanged]);
+      changes = null;
 
-    expectChanges(changes, [_valueChanged, _isUpdatedChanged]);
-    changes = null;
+      return bu.updatedValue
+          .then((int updatedValue) {
+            expect(bu.isUpdated, isTrue);
+            expect(bu.value, 1);
+            expect(updatedValue, 1);
+            expect(updateCount, 1);
 
-    // update again, sync
-    bu.value = 2;
+            expect(bu.deliverChanges(), isTrue);
+            expectChanges(changes, [_isUpdatedChanged]);
+            changes = null;
+          });
+    });
 
-    expect(bu.deliverChanges(), isTrue);
+    test('many changes, few updates', () {
 
-    expect(bu.isUpdated, isFalse);
-    expect(bu.value, 2);
-    expect(updateCount, 1);
+      bu.value = 1;
 
-    expectChanges(changes, [_valueChanged]);
-    changes = null;
+      expect(bu.deliverChanges(), isTrue);
 
-    // and again again, sync
-    bu.value = 3;
+      expect(bu.isUpdated, isFalse);
+      expect(bu.value, 1);
+      expect(updateCount, 1);
 
-    expect(bu.deliverChanges(), isTrue);
+      expectChanges(changes, [_valueChanged, _isUpdatedChanged]);
+      changes = null;
 
-    expect(bu.isUpdated, isFalse);
-    expect(bu.value, 3);
-    expect(updateCount, 1);
+      // update again, sync
+      bu.value = 2;
 
-    expectChanges(changes, [_valueChanged]);
-    changes = null;
+      expect(bu.deliverChanges(), isTrue);
 
-    return bu.updatedValue
-        .then((int updatedValue) {
-          expect(bu.isUpdated, isTrue);
-          expect(bu.value, 3);
-          expect(updatedValue, 3);
-          expect(updateCount, 2);
+      expect(bu.isUpdated, isFalse);
+      expect(bu.value, 2);
+      expect(updateCount, 1);
 
-          expect(bu.deliverChanges(), isTrue);
-          expectChanges(changes, [_isUpdatedChanged]);
-          changes = null;
-        });
+      expectChanges(changes, [_valueChanged]);
+      changes = null;
+
+      // and again again, sync
+      bu.value = 3;
+
+      expect(bu.deliverChanges(), isTrue);
+
+      expect(bu.isUpdated, isFalse);
+      expect(bu.value, 3);
+      expect(updateCount, 1);
+
+      expectChanges(changes, [_valueChanged]);
+      changes = null;
+
+      return bu.updatedValue
+          .then((int updatedValue) {
+            expect(bu.isUpdated, isTrue);
+            expect(bu.value, 3);
+            expect(updatedValue, 3);
+            expect(updateCount, 2);
+
+            expect(bu.deliverChanges(), isTrue);
+            expectChanges(changes, [_isUpdatedChanged]);
+            changes = null;
+          });
+    });
   });
 }
 
