@@ -3,11 +3,29 @@ part of nv.controllers;
 class NoteViewModel extends ChangeNotifierBase
   with ComparableMixin<NoteViewModel> implements Note {
 
-  final KUID _id;
+  final KUID id;
 
   final BackgroundUpdate<Note> _update;
 
+  NoteViewModel._(this.id, this._update);
 
+  Future get whenUpdated => _update.updatedValue.then((_) => null);
+
+  //
+  // Note
+  //
+
+  String get title => _update.value.title;
+
+  DateTime get lastModified => _update.value.lastModified;
+
+  String get key => _update.value.key;
+
+  String get content => _update.value.content;
+
+  //
+  // Note - end
+  //
 
 }
 
@@ -27,6 +45,20 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
       .then((Set<NoteViewModel> set) {
         return new NoteList._(store, new ObservableSet.from(set));
       });
+
+  NoteViewModel create(String title) {
+
+    var note = new Note.now(title, '');
+    var id = new KUID.next();
+
+    var update = new BackgroundUpdate.withNew((val) => _update(id, val), note);
+
+    var nvm = new NoteViewModel._(id, update);
+
+    _items.add(nvm);
+
+    return nvm;
+  }
 
   //
   // Observable
@@ -53,6 +85,12 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
   //
   // List - End
   //
+
+  Future _update(KUID id, Note value) {
+    var idString = id.toString();
+    var noteJson = NOTE_CODEC.encode(value);
+    return _storage.set(idString, noteJson);
+  }
 
   static Future<Set<NoteViewModel>> _load(Storage storage) {
     return storage.getKeys()

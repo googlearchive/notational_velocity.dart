@@ -5,6 +5,7 @@ import 'dart:collection';
 import 'package:bot/bot.dart';
 import 'package:logging/logging.dart';
 import 'package:observe/observe.dart';
+import 'package:nv/src/serialization.dart';
 
 import 'config.dart';
 import 'models.dart';
