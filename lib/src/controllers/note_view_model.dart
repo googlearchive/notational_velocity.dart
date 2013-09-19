@@ -27,10 +27,11 @@ class NoteViewModel extends ChangeNotifierBase
   // Note - end
   //
 
+  int compareTo(NoteViewModel other) => this.id.compareTo(other.id);
+
+  int get hashCode => id.hashCode;
 }
 
-
-// all keys are GUIDs
 
 class NoteList extends ListBase<NoteViewModel> implements Observable {
   final Storage _storage;
@@ -51,7 +52,8 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
     var note = new Note.now(title, '');
     var id = new KUID.next();
 
-    var update = new BackgroundUpdate.withNew((val) => _update(id, val), note);
+    var update = new BackgroundUpdate
+        .withNew((val) => _update(_storage, id, val), note);
 
     var nvm = new NoteViewModel._(id, update);
 
@@ -86,10 +88,10 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
   // List - End
   //
 
-  Future _update(KUID id, Note value) {
+  static Future _update(Storage store, KUID id, Note value) {
     var idString = id.toString();
     var noteJson = NOTE_CODEC.encode(value);
-    return _storage.set(idString, noteJson);
+    return store.set(idString, noteJson);
   }
 
   static Future<Set<NoteViewModel>> _load(Storage storage) {
@@ -100,7 +102,8 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
 
           var set = new Set<NoteViewModel>();
           return Future.forEach(uuids, (KUID id) {
-
+            return _loadNote(storage, id)
+                .then(set.add);
           })
           .then((_) {
             assert(set.length == uuids.length);
@@ -108,5 +111,17 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
           });
         });
 
+  }
+
+  static Future<NoteViewModel> _loadNote(Storage store, KUID id) {
+    return store.get(id.toString())
+        .then((dynamic json) {
+          var note = NOTE_CODEC.decode(json);
+
+          var update =
+              new BackgroundUpdate((val) => _update(store, id, val), note);
+
+          return new NoteViewModel._(id, update);
+        });
   }
 }

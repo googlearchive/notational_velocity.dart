@@ -4,7 +4,10 @@ import 'dart:async';
 import 'package:unittest/unittest.dart';
 
 import 'package:nv/src/controllers.dart';
+import 'package:nv/src/models.dart';
+import 'package:nv/src/serialization.dart';
 import 'package:nv/src/storage.dart';
+import 'package:nv/src/shared.dart';
 
 void main(Storage storageFactory()) {
   group('NoteList', () {
@@ -26,16 +29,45 @@ void main(Storage storageFactory()) {
             expect(keys.first, nvm.id.toString());
           });
     });
+
+    _testNoteList('existing', storageFactory, (store, list) {
+
+    }, existingCount: 5);
   });
 }
 
 void _testNoteList(String name, Storage storageFactory(),
-                   Future testFunc(Storage store, NoteList list)) {
+                   Future testFunc(Storage store, NoteList list),
+                   {int existingCount: 0}) {
   test(name, () {
     var store = storageFactory();
-    return NoteList.init(store)
-        .then((NoteList list) {
-          return testFunc(store, list);
-        });
+    return _populateNotes(store, existingCount)
+        .then((_) => NoteList.init(store))
+        .then((NoteList list) => testFunc(store, list));
   });
+}
+
+Future _populateNotes(Storage store, int count) {
+  var items = new List.generate(count, (i) => i, growable: false);
+
+  return Future.forEach(items, (i) => _populateNote(store, i))
+      .then((_) => store.getKeys())
+      .then((List<String> keys) {
+        expect(keys, hasLength(count));
+      });
+}
+
+Future _populateNote(Storage store, int id) {
+  assert(id >= 0);
+
+  // don't support more yet...
+  assert(id < 256);
+  var idBytes = new List.filled(16, 0);
+  idBytes[15] = id;
+
+  var uuid = new KUID(idBytes);
+
+  var note = new Note('Title $id', new DateTime.now(), 'Content $id');
+
+  return store.set(uuid.toString(), NOTE_CODEC.encode(note));
 }
