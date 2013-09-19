@@ -12,8 +12,9 @@ Future _asyncRunner(task()) =>
 typedef Future FutureRunner(task());
 
 class StringStorage implements Storage {
+  bool _isDisposed = false;
 
-  final FutureRunner _runner;
+  final FutureRunner _runnerImpl;
 
   final Map<String, String> _store;
 
@@ -30,11 +31,12 @@ class StringStorage implements Storage {
       new StringStorage(new Map<String, String>(), runner);
 
   StringStorage(this._store, [FutureRunner runner = null]) :
-    this._runner = (runner == null) ? _asyncRunner : runner {
+    this._runnerImpl = (runner == null) ? _asyncRunner : runner {
     assert(this._store != null);
   }
 
-  @override
+  bool get isDisposed => _isDisposed;
+
   Future set(String key, value) {
     if(value == null) return remove(key);
 
@@ -43,7 +45,6 @@ class StringStorage implements Storage {
     });
   }
 
-  @override
   Future<dynamic> get (String key) {
     dynamic val = _store[key];
 
@@ -56,21 +57,19 @@ class StringStorage implements Storage {
     }
   }
 
-  @override
   Future remove(String key) {
     return _runner(() {
       _store.remove(key);
     });
   }
 
-  @override
   Future clear() {
     return _runner(() {
       _store.clear();
     });
   }
 
-  Future<bool> exists(String key) => new Future.value(_store.containsKey(key));
+  Future<bool> exists(String key) => _runner(() => _store.containsKey(key));
 
   Future<List<String>> getKeys() =>
       _runner(() => _store.keys.toList(growable: false));
@@ -85,5 +84,25 @@ class StringStorage implements Storage {
         }
       });
     });
+  }
+
+  Future _runner(dynamic action()){
+    _requireNotDisposed();
+    return _runnerImpl(action)
+        .then((result) {
+          _requireNotDisposed();
+          return result;
+        });
+  }
+
+  void dispose() {
+    _requireNotDisposed();
+    _isDisposed = true;
+  }
+
+  void _requireNotDisposed() {
+    if(_isDisposed) {
+      throw new DisposedError();
+    }
   }
 }

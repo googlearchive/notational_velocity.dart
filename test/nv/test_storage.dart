@@ -1,5 +1,6 @@
 library test.nv.storage;
 
+import 'dart:async';
 import 'package:unittest/unittest.dart';
 import 'package:nv/src/storage.dart';
 import 'package:nv/debug.dart';
@@ -8,15 +9,20 @@ import 'test_app_controller.dart' as app_controller;
 import 'test_note_list.dart' as note_list;
 import 'test_sync.dart' as sync;
 import '../src/store_sync_test_util.dart';
+import '../src/observe_test_utils.dart';
 
 typedef Storage StorageFactory();
+
+void main() {
+  var factories = new Map();
+  _populateDefaults(factories);
+  testStorage(factories);
+}
 
 void testStorage(Map<String, StorageFactory> factories) {
   var allStores = new Map.from(factories);
 
-  allStores['memory - sync'] = () => new StringStorage.memorySync();
-  allStores['memory - async'] = () => new StringStorage.memoryAsync();
-  allStores['memory - delayed - 10'] = () => new StringStorage.memoryDelayed(10);
+  _populateDefaults(allStores);
 
   group('Storage', () {
     allStores.forEach((String storeName, StorageFactory factory) {
@@ -31,6 +37,12 @@ void testStorage(Map<String, StorageFactory> factories) {
     });
   });
 
+}
+
+void _populateDefaults(Map<String, StorageFactory> factories) {
+  factories['memory:sync'] = () => new StringStorage.memorySync();
+  factories['memory:async'] = () => new StringStorage.memoryAsync();
+  factories['memory:delayed - 10'] = () => new StringStorage.memoryDelayed(10);
 }
 
 void _testNested(StorageFactory factory) {
@@ -71,97 +83,136 @@ void _testNested(StorageFactory factory) {
 }
 
 void _testCore(StorageFactory factory) {
-  test('store pnp', () {
-    var storage = factory();
-    return storage.addAll(PNP)
-      .then((_) {
-        return matchesMapValues(storage, PNP);
-      });
-  });
+  group('Core Storage', () {
 
-  test('add many and clear', () {
-    // the added null is a no-op
-    final validValuesAndNull = new Map.from(VALID_VALUES);
-    validValuesAndNull['null'] = null;
+    test('store pnp', () {
+      var storage = factory();
+      return storage.addAll(PNP)
+        .then((_) {
+          return matchesMapValues(storage, PNP);
+        });
+    });
 
-    var storage = factory();
-    return storage.addAll(validValuesAndNull)
-      .then((_) {
-        return matchesValidValues(storage);
-      })
-      .then((_) {
-        return storage.clear();
-      })
-      .then((_) => expectStorageEmpty(storage));
-  });
+    test('add many and clear', () {
+      // the added null is a no-op
+      final validValuesAndNull = new Map.from(VALID_VALUES);
+      validValuesAndNull['null'] = null;
 
-  test('addAll, getKeys', () {
-    var storage = factory();
-    return storage.getKeys()
-        .then((List<String> keys) {
-          expect(keys, isEmpty);
-
-          return storage.addAll(VALID_VALUES);
-        })
-        .then((_) => matchesValidValues(storage));
-  });
-
-  test('setting null == removing', () {
-    var storage = factory();
-    return storage.exists('a')
-        .then((bool exists) {
-          expect(exists, isFalse);
-
-          return storage.get('a');
-        })
-        .then((val) {
-          expect(val, isNull);
-
-          return storage.set('a', null);
+      var storage = factory();
+      return storage.addAll(validValuesAndNull)
+        .then((_) {
+          return matchesValidValues(storage);
         })
         .then((_) {
-          return storage.exists('a');
+          return storage.clear();
         })
-        .then((bool exists) {
-          expect(exists, isFalse);
+        .then((_) => expectStorageEmpty(storage));
+    });
 
-          return storage.get('a');
-        })
-        .then((val) {
-          expect(val, isNull);
+    test('addAll, getKeys', () {
+      var storage = factory();
+      return storage.getKeys()
+          .then((List<String> keys) {
+            expect(keys, isEmpty);
+
+            return storage.addAll(VALID_VALUES);
+          })
+          .then((_) => matchesValidValues(storage));
+    });
+
+    test('setting null == removing', () {
+      var storage = factory();
+      return storage.exists('a')
+          .then((bool exists) {
+            expect(exists, isFalse);
+
+            return storage.get('a');
+          })
+          .then((val) {
+            expect(val, isNull);
+
+            return storage.set('a', null);
+          })
+          .then((_) {
+            return storage.exists('a');
+          })
+          .then((bool exists) {
+            expect(exists, isFalse);
+
+            return storage.get('a');
+          })
+          .then((val) {
+            expect(val, isNull);
+          });
+    });
+
+    group('store values', () {
+      const key = 'test_key';
+
+      for(var description in VALID_VALUES.keys) {
+        var testValue = VALID_VALUES[description];
+
+        test(description, () {
+
+          var storage = factory();
+          return storage.get(key)
+              .then((value) {
+                expect(value, isNull);
+
+                return storage.set(key, testValue);
+              })
+              .then((_) {
+                return storage.get(key);
+              })
+              .then((dynamic value) {
+                expect(value, testValue);
+
+                return storage.remove(key);
+              })
+              .then((dynamic value) {
+                return storage.exists(key);
+              })
+              .then((bool value) {
+                expect(value, isFalse);
+              });
         });
+      }
+    });
+
+    group('dispose', () {
+
+      test('only dispose once', () {
+        var storage = factory();
+
+        expect(storage.isDisposed, isFalse);
+        storage.dispose();
+        expect(storage.isDisposed, isTrue);
+
+        expect(() => storage.dispose(), throwsADisposedError);
+
+      });
+
+      _testDispose('set', factory, (s) => s.set('a', 1));
+      _testDispose('get', factory, (s) => s.get('a'));
+      _testDispose('exists', factory, (s) => s.exists('a'));
+      _testDispose('remove', factory, (s) => s.remove('a'));
+      _testDispose('clear', factory, (s) => s.clear());
+      _testDispose('addAll', factory, (s) => s.addAll({}));
+    });
+  });
+}
+
+void _testDispose(String name, StorageFactory factory, Future action(Storage store)) {
+  test(name, () {
+    var store = factory();
+    store.dispose();
+    expect(() => action(store), throwsADisposedError);
   });
 
-  group('store values', () {
-    const key = 'test_key';
-
-    for(var description in VALID_VALUES.keys) {
-      var testValue = VALID_VALUES[description];
-
-      test(description, () {
-
-        var storage = factory();
-        return storage.get(key)
-            .then((value) {
-              expect(value, isNull);
-
-              return storage.set(key, testValue);
-            })
-            .then((_) {
-              return storage.get(key);
-            })
-            .then((dynamic value) {
-              expect(value, testValue);
-
-              return storage.remove(key);
-            })
-            .then((dynamic value) {
-              return storage.exists(key);
-            })
-            .then((bool value) {
-              expect(value, isFalse);
-            });
-      });
-    }
+  test('$name:after call, before complete', () {
+    var store = factory();
+    var future = action(store);
+    store.dispose();
+    expect(future, throwsADisposedError);
   });
 }

@@ -2,14 +2,19 @@ library nv.chrome;
 
 import 'dart:async';
 
+import 'package:bot/bot.dart';
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as wrapping;
 import 'dart:json' as JSON;
 import 'storage.dart';
 
 class PackagedStorage implements Storage {
+  bool _isDisposed = false;
+
+  bool get isDisposed => _isDisposed;
 
   Future clear() {
+    _requireNotDisposed();
     final completer = new Completer();
 
     js.scoped(() {
@@ -22,6 +27,7 @@ class PackagedStorage implements Storage {
   }
 
   Future set(String key, dynamic value) {
+    _requireNotDisposed();
     if(value == null) return remove(key);
 
     var map = new Map<String, dynamic>()
@@ -53,6 +59,7 @@ class PackagedStorage implements Storage {
   Future remove(String key) => _remove([key]);
 
   Future<List<String>> getKeys() {
+    _requireNotDisposed();
     final completer = new Completer<List<String>>();
 
     js.scoped(() {
@@ -70,6 +77,7 @@ class PackagedStorage implements Storage {
   }
 
   Future addAll(Map<String, dynamic> values) {
+    _requireNotDisposed();
     var map = new Map<String, dynamic>();
     var removes = [];
     values.forEach((k, v) {
@@ -94,7 +102,23 @@ class PackagedStorage implements Storage {
         });
   }
 
+  void dispose() {
+    _requireNotDisposed();
+    _isDisposed = true;
+  }
+
+  //
+  // Implementation
+  //
+
+  void _requireNotDisposed() {
+    if(_isDisposed) {
+      throw new DisposedError();
+    }
+  }
+
   Future<String> _get(String key) {
+    _requireNotDisposed();
     final completer = new Completer();
 
     js.scoped(() {
@@ -110,6 +134,7 @@ class PackagedStorage implements Storage {
   }
 
   Future _remove(List<String> keys) {
+    _requireNotDisposed();
     if(keys.isEmpty) return new Future.value(null);
 
     final completer = new Completer();

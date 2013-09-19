@@ -1,5 +1,6 @@
 library observe.test.observe_test_utils;
 
+import 'package:bot/bot.dart';
 import 'package:observe/observe.dart';
 import 'package:unittest/unittest.dart';
 
@@ -24,3 +25,20 @@ final lengthChange = new PropertyChangeRecord(LENGTH);
 ListChangeRecord change(index, {removedCount: 0, addedCount: 0}) =>
     new ListChangeRecord(index, removedCount: removedCount,
         addedCount: addedCount);
+
+const isDisposedError =
+    const _DisposedError();
+
+const Matcher throwsADisposedError =
+    const Throws(isDisposedError);
+
+class _DisposedError extends TypeMatcher {
+  const _DisposedError() : super("DisposedError");
+
+  bool matches(item, Map matchState) {
+    print('Wondering if this is a DisposedError');
+    var isExpectedError = item is DisposedError;
+    print([item, item.runtimeType, isExpectedError]);
+    return isExpectedError;
+  }
+}

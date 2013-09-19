@@ -8,12 +8,12 @@ import 'package:bot/bot.dart';
 part 'storage/nested_storage.dart';
 part 'storage/string_storage.dart';
 
-// TODO: consider moving this to bot_web -> share w/ PPW
-
 /**
  * By convention, the only supported value types should be JSON-serializable
  */
 abstract class Storage {
+
+  bool get isDisposed;
 
   Future set(String key, value);
 
@@ -28,4 +28,6 @@ abstract class Storage {
   Future<List<String>> getKeys();
 
   Future addAll(Map<String, dynamic> values);
+
+  void dispose();
 }
