@@ -46,6 +46,14 @@ void _populateDefaults(Map<String, StorageFactory> factories) {
 }
 
 void _testNested(StorageFactory factory) {
+  void _test(String name, dynamic testFunc(Storage storage)) {
+    test(name, () {
+      var store = factory();
+      return new Future.value(testFunc(store))
+      .whenComplete(store.dispose);
+    });
+  }
+
   group('nested', () {
     Storage nestedFactory() {
       var storage = factory();
@@ -54,8 +62,7 @@ void _testNested(StorageFactory factory) {
 
     _testCore(nestedFactory);
 
-    test('independant', () {
-      var storage = factory();
+    _test('independant', (storage) {
       var n1 = new NestedStorage(storage, 't1');
       var n11 = new NestedStorage(n1, 't11');
       var n2 = new NestedStorage(storage, 't2');
@@ -85,20 +92,26 @@ void _testNested(StorageFactory factory) {
 void _testCore(StorageFactory factory) {
   group('Core Storage', () {
 
-    test('store pnp', () {
-      var storage = factory();
+    void _test(String name, dynamic testFunc(Storage storage)) {
+      test(name, () {
+        var store = factory();
+        return new Future.value(testFunc(store))
+          .whenComplete(store.dispose);
+      });
+    }
+
+    _test('store pnp', (storage) {
       return storage.addAll(PNP)
         .then((_) {
           return matchesMapValues(storage, PNP);
         });
     });
 
-    test('add many and clear', () {
+    _test('add many and clear', (storage) {
       // the added null is a no-op
       final validValuesAndNull = new Map.from(VALID_VALUES);
       validValuesAndNull['null'] = null;
 
-      var storage = factory();
       return storage.addAll(validValuesAndNull)
         .then((_) {
           return matchesValidValues(storage);
@@ -109,8 +122,7 @@ void _testCore(StorageFactory factory) {
         .then((_) => expectStorageEmpty(storage));
     });
 
-    test('addAll, getKeys', () {
-      var storage = factory();
+    _test('addAll, getKeys', (storage) {
       return storage.getKeys()
           .then((List<String> keys) {
             expect(keys, isEmpty);
@@ -120,8 +132,7 @@ void _testCore(StorageFactory factory) {
           .then((_) => matchesValidValues(storage));
     });
 
-    test('setting null == removing', () {
-      var storage = factory();
+    _test('setting null == removing', (storage) {
       return storage.exists('a')
           .then((bool exists) {
             expect(exists, isFalse);

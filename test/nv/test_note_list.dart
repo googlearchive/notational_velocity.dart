@@ -43,7 +43,8 @@ void _testNoteList(String name, Storage storageFactory(),
     var store = storageFactory();
     return _populateNotes(store, existingCount)
         .then((_) => NoteList.init(store))
-        .then((NoteList list) => testFunc(store, list));
+        .then((NoteList list) => testFunc(store, list))
+        .whenComplete(store.dispose);
   });
 }
 
