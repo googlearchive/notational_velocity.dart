@@ -35,10 +35,5 @@ const Matcher throwsADisposedError =
 class _DisposedError extends TypeMatcher {
   const _DisposedError() : super("DisposedError");
 
-  bool matches(item, Map matchState) {
-    print('Wondering if this is a DisposedError');
-    var isExpectedError = item is DisposedError;
-    print([item, item.runtimeType, isExpectedError]);
-    return isExpectedError;
-  }
+  bool matches(item, Map matchState) => item is DisposedError;
 }
