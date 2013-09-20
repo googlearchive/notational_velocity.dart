@@ -2,7 +2,7 @@ part of nv.shared;
 
 class CollectionView<E> extends ChangeNotifierList<E> {
 
-  final ObservableList<E> _list;
+  final List<E> _list;
   List<E> _view;
 
   Predicate<E> _filter = null;
@@ -15,7 +15,9 @@ class CollectionView<E> extends ChangeNotifierList<E> {
 
   CollectionView(this._list) {
     assert(_list != null);
-    _list.changes.listen(_list_changes);
+    if(_list is Observable) {
+      (_list as Observable).changes.listen(_list_changes);
+    }
   }
 
   int get length => _items.length;
