@@ -9,6 +9,11 @@ import 'package:nv/src/shared.dart';
 
 final _libLogger = new Logger('nv.AppElement');
 
+void _log(String msg) {
+  // NOOP
+  // _libLogger.info(msg);
+}
+
 @CustomTag('app-element')
 class AppElement extends PolymerElement with ChangeNotifierMixin {
   bool get applyAuthorStyles => true;
@@ -64,7 +69,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   }
 
   void _selectedNoteChanged(PropertyChangeRecord record) {
-    _libLogger.info('_selectedNoteChanged');
+    _log('_selectedNoteChanged');
 
     var notes = _controller.notes;
 

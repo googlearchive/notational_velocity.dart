@@ -17,4 +17,7 @@ part 'controllers/note_view_model.dart';
 
 final _libLogger = new Logger('nv.controllers');
 
-void _log(String message) => _libLogger.info(message);
+void _log(String message) {
+  // NOOP for now...
+  //_libLogger.info(message);
+}

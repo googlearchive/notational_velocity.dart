@@ -19,7 +19,7 @@ void _initmain() {
     print([record.time, record.loggerName, record.message]);
   });
 
-  Logger.root.info('\t**\tStarting\t**\t');
+  //Logger.root.info('\t**\tStarting\t**\t');
 
 
   _getDebugController().then((AppController ac) {
