@@ -7,17 +7,17 @@ import 'package:unittest/unittest.dart';
 import 'test_observable_list_view.dart' as test_rool;
 
 void main() {
-  test_rool.sharedMain(_simpleFactory);
+  test_rool.sharedMain(_simpleFactory, skipChangeRecords: true);
   sharedMain((cv) => cv);
 }
 
-typedef ObservableList<E> CVtoOLFactory<E>(ObservableList<E> source);
+typedef List<E> CVtoOLFactory<E>(List<E> source);
 
 void sharedMain(CVtoOLFactory<int> factory) {
 
   ObservableList<int> ol;
   CollectionView<int> collView;
-  ObservableList<int> finalView;
+  List<int> finalView;
 
   StreamSubscription sub;
   List<ChangeRecord> changes;
@@ -25,7 +25,7 @@ void sharedMain(CVtoOLFactory<int> factory) {
   void doChanges() {
     ol.deliverChanges();
     collView.deliverChanges();
-    finalView.deliverChanges();
+    (finalView as Observable).deliverChanges();
   }
 
   void validate() {
@@ -37,7 +37,7 @@ void sharedMain(CVtoOLFactory<int> factory) {
     collView = new CollectionView(ol);
     finalView = factory(collView);
     changes = null;
-    sub = finalView.changes.listen((records) {
+    sub = (finalView as Observable).changes.listen((records) {
       changes = records;
     });
   });
@@ -192,7 +192,7 @@ Predicate<int> _getFilter(Predicate<int> filter) {
   return (filter == null) ? (int foo) => true : filter;
 }
 
-ChangeNotifierList<int> _simpleFactory(ObservableList<int> source) {
+List<int> _simpleFactory(ObservableList<int> source) {
   return new CollectionView(source);
 }
 

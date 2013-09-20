@@ -12,14 +12,15 @@ typedef T Mapper<S, T>(S source);
 
 abstract class _MappedListViewBase<S, T> extends ChangeNotifierList<T> {
 
-  final ObservableList<S> _source;
+  final List<S> _source;
 
   final Map<S, T> _cache = new Map<S, T>();
   bool _isDirty = true;
 
   _MappedListViewBase(this._source) {
     assert(_source != null);
-    _source.changes.listen(_list_changes);
+    assert(_source is Observable);
+    (_source as Observable).changes.listen(_list_changes);
   }
 
   int get length => _source.length;
@@ -64,7 +65,7 @@ class MappedListView<S, T> extends _MappedListViewBase<S, T> {
 
   final Mapper<S, T> _mapper;
 
-  MappedListView(ObservableList<S> source, this._mapper) : super(source);
+  MappedListView(List<S> source, this._mapper) : super(source);
 
   //
   // Implementation

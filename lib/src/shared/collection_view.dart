@@ -1,103 +1,105 @@
 part of nv.shared;
 
-class CollectionView<E> extends ChangeNotifierList<E> {
+class CollectionView<E> extends ListBase<E> implements Observable {
 
-  final List<E> _list;
-  List<E> _view;
+  final List<E> _source;
+  final ObservableList<E> _view;
 
   Predicate<E> _filter = null;
   Sorter<E> _sorter = null;
 
-  bool _pendingLengthRest = false;
-  bool _pendingItemReset = false;
+  CollectionView(this._source) :
+    _view = new ObservableList() {
+    assert(_source != null);
+    assert(_source is Observable);
+     (_source as Observable).changes.listen(_list_changes);
 
-  bool get _pendingReset => _pendingLengthRest || _pendingItemReset;
-
-  CollectionView(this._list) {
-    assert(_list != null);
-    if(_list is Observable) {
-      (_list as Observable).changes.listen(_list_changes);
-    }
+     _update();
   }
-
-  int get length => _items.length;
-
-  E operator [](int index) => _items[index];
 
   Predicate<E> get filter => _filter;
 
   void set filter(Predicate<E> value) {
     _filter = value;
-    _dirty(true);
+    _update();
   }
 
   Sorter<E> get sorter => _sorter;
 
   void set sorter(Sorter<E> value) {
     _sorter = value;
-    _dirty(false);
+    _update();
   }
 
-  @override
-  bool deliverChanges() {
-    if(_pendingLengthRest) {
-      notifyChange(new PropertyChangeRecord(const Symbol('length')));
-      _pendingLengthRest = false;
-    }
-    if(_pendingItemReset) {
-      notifyChange(new ListChangeRecord(0, removedCount: _list.length,
-          addedCount: _list.length));
-      _pendingItemReset = false;
-    }
-    return super.deliverChanges();
-  }
+  //
+  // Observable
+  //
+
+  Stream<List<ChangeRecord>> get changes => _view.changes;
+
+  void notifyChange(ChangeRecord record) => _view.notifyChange(record);
+
+  bool get hasObservers => _view.hasObservers;
+
+  bool deliverChanges() => _view.deliverChanges();
+
+  //
+  // List
+  //
+
+  int get length => _view.length;
+
+  E operator [](int index) => _view[index];
 
   //
   // Implementation
   //
 
-  Predicate<E> get _effectivefilter {
-    return (_filter == null) ? (E foo) => true : _filter;
-  }
-
-  List<E> get _items {
-    if(_isDirty) {
-      assert(_view == null);
-      _view = _list.where(_effectivefilter).toList();
-      if(_sorter != null) {
-        _view.sort(_sorter);
-      }
-    }
-
-    assert(!_isDirty);
-    if(_view == null) {
-      return _list;
-    } else {
-      return _view;
-    }
-  }
-
-  bool get _hasSortOrFilter => _filter != null || _sorter != null;
-
-  bool get _isDirty => _hasSortOrFilter && _view == null;
-
-  void _dirty(changesLength) {
-    _pendingItemReset = true;
-    _pendingLengthRest = changesLength;
-    if(_view != null) {
-      _view = null;
-      runAsync(deliverChanges);
-    }
+  bool _effectivefilter(E item) {
+    return (_filter == null) ? true : _filter(item);
   }
 
   void _list_changes(List<ChangeRecord> changes) {
-    // if there is a sort or filter
-    // or we're already pending a rest of items or length
-    // just double down on the existing 'pending'
-    if(_hasSortOrFilter || _pendingItemReset || _pendingLengthRest) {
-      _dirty(true);
-    } else {
-      changes.forEach(notifyChange);
+    _update();
+  }
+
+  void _update() {
+    var theSet = _source.where(_effectivefilter).toList(growable: false);
+
+    if(_sorter != null) {
+      theSet.sort(_sorter);
+    }
+
+    for(var i = 0; i < theSet.length; i++) {
+      var target = theSet[i];
+      while(_view.length > i) {
+        // see if target exists after [i] in _view
+        var targetIndex = _view.indexOf(target, i);
+
+        if(targetIndex == i) {
+          // NOOP!
+          break;
+        } else if(targetIndex > i) {
+          // remove it and add it back
+          var item = _view.removeAt(targetIndex);
+          assert(item == target);
+          _view.insert(i, item);
+          break;
+        } else {
+          assert(targetIndex == -1);
+          _view.removeAt(i);
+        }
+      }
+      if(_view.length <= i) {
+        _view.add(target);
+      }
+
+      assert(_view[i] == target);
+    }
+
+    // now remove everything after
+    if(_view.length > theSet.length) {
+      _view.removeRange(theSet.length, _view.length);
     }
   }
 }

@@ -4,12 +4,12 @@ part of nv.shared;
 // wrappers?
 
 class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
-  ObservableList<E> get source => super._source;
+  List<E> get source => super._source;
 
   int _selectedIndex = -1;
   Selectable<E> _cachedSelectedItem;
 
-  SelectionManager(ObservableList<E> source) :
+  SelectionManager(List<E> source) :
     super(source);
 
   E get selectedValue => hasSelection ? this[_selectedIndex].value : null;

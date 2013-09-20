@@ -57,7 +57,7 @@ int _mapper(int source) {
   return source * 42;
 }
 
-ObservableList<int> _simpleFactory(ObservableList<int> source) {
+ObservableList<int> _simpleFactory(List<int> source) {
   return new MappedListView<int, int>(source, _idMapper);
 }
 
