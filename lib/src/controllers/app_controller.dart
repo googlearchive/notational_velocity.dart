@@ -53,7 +53,7 @@ class AppController extends ChangeNotifierBase {
     value = (value == null) ? '' : value;
     if(value != _searchTerm) {
       _searchTerm = value;
-      // TOOD: update _cv filter
+      _cv.filter = _filterNote;
       _notifyPropChange(const Symbol('searchTerm'));
     }
   }
