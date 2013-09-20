@@ -67,7 +67,7 @@ void main() {
       expectChanges(changes, null);
       changes = null;
 
-      return bu.updatedValue
+      return bu.whenUpdated
           .then((int updatedValue) {
             expect(bu.isUpdated, isTrue);
             expect(bu.value, 42);
@@ -105,7 +105,7 @@ void main() {
       expect(updateCount, 0);
       expectChanges(changes, null);
 
-      return bu.updatedValue
+      return bu.whenUpdated
           .then((int updatedValue) {
             expect(bu.isUpdated, isTrue);
             expect(bu.value, 0);
@@ -123,7 +123,7 @@ void main() {
       expect(updateCount, 0);
       expectChanges(changes, null);
 
-      return bu.updatedValue
+      return bu.whenUpdated
           .then((int updatedValue) {
             expect(bu.isUpdated, isTrue);
             expect(bu.value, 0);
@@ -145,7 +145,7 @@ void main() {
       expectChanges(changes, [_valueChanged, _isUpdatedChanged]);
       changes = null;
 
-      return bu.updatedValue
+      return bu.whenUpdated
           .then((int updatedValue) {
             expect(bu.isUpdated, isTrue);
             expect(bu.value, 1);
@@ -195,7 +195,7 @@ void main() {
       expectChanges(changes, [_valueChanged]);
       changes = null;
 
-      return bu.updatedValue
+      return bu.whenUpdated
           .then((int updatedValue) {
             expect(bu.isUpdated, isTrue);
             expect(bu.value, 3);

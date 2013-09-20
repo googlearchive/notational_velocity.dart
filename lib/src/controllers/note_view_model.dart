@@ -9,7 +9,7 @@ class NoteViewModel extends ChangeNotifierBase
 
   NoteViewModel._(this.id, this._update);
 
-  Future get whenUpdated => _update.updatedValue.then((_) => null);
+  Future get whenUpdated => _update.whenUpdated.then((_) => null);
 
   //
   // Note
@@ -22,6 +22,16 @@ class NoteViewModel extends ChangeNotifierBase
   String get key => _update.value.key;
 
   String get content => _update.value.content;
+
+  void set content(String val) {
+    if(val != content) {
+      var newNote = new Note.now(title, val);
+      _update.value = newNote;
+
+      notifyChange(new PropertyChangeRecord(const Symbol('content')));
+      notifyChange(new PropertyChangeRecord(const Symbol('lastModified')));
+    }
+  }
 
   //
   // Note - end
@@ -83,6 +93,8 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
   //
 
   int get length => _items.length;
+
+  NoteViewModel operator[](int index) => _items[index];
 
   //
   // List - End

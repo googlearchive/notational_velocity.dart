@@ -7,11 +7,10 @@ import 'package:logging/logging.dart';
 import 'package:observe/observe.dart';
 import 'package:nv/src/serialization.dart';
 
-import 'config.dart';
+import 'config.dart' as config;
 import 'models.dart';
 import 'shared.dart';
 import 'storage.dart';
-import 'sync.dart';
 
 part 'controllers/app_controller.dart';
 part 'controllers/note_view_model.dart';

@@ -33,7 +33,7 @@ class BackgroundUpdate<E> extends ChangeNotifierMixin {
 
   bool get isUpdated => _completer == null;
 
-  Future<E> get updatedValue {
+  Future<E> get whenUpdated {
     _assertInvariants();
     if(isUpdated) {
       return new Future<E>.sync(() {

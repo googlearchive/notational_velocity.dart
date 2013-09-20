@@ -7,10 +7,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:nv/init.dart' as init;
 import 'package:nv/src/controllers.dart';
-import 'package:nv/src/models.dart';
-import 'package:nv/src/serialization.dart';
 import 'package:nv/src/storage.dart';
-import 'package:nv/src/sync.dart';
 
 
 @initMethod
@@ -33,23 +30,20 @@ void _initmain() {
 Future<AppController> _getDebugController() {
   var rootStorage = new StringStorage(window.localStorage);
 
-  var nestedStorage = new NestedStorage(rootStorage, 'nv_v0.0.1');
+  var nestedStorage = new NestedStorage(rootStorage, 'nv_v0.0.2');
 
-  return MapSync.createAndLoad(nestedStorage, NOTE_CODEC)
-    .then(_initAppController);
+  return AppController.init(nestedStorage)
+      .then(_initAppController);
 }
 
-AppController _initAppController(MapSync<Note> noteMap) {
-
-  var controller = new AppController(noteMap);
-
+AppController _initAppController(AppController ac) {
   window.onKeyDown
     .where((KeyboardEvent e) => e.keyCode == KeyCode.ESC)
     .listen((KeyboardEvent e) {
-      controller.resetSearch();
+      ac.resetSearch();
     });
 
-  return controller;
+  return ac;
 }
 
 

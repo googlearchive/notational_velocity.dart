@@ -6,10 +6,8 @@ import 'package:unittest/unittest.dart';
 import 'package:nv/src/config.dart';
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/models.dart';
-import 'package:nv/src/serialization.dart';
 import 'package:nv/src/shared.dart';
 import 'package:nv/src/storage.dart';
-import 'package:nv/src/sync.dart';
 
 const _testTitle1 = 'Test Title 1';
 
@@ -42,12 +40,13 @@ void main(Storage storageFactory()) {
 
       var newValue = content + 'v2';
 
-      return ac.updateSelectedNoteContent(newValue)
-          .then((bool updated) {
-            expect(updated, isTrue);
+      var updated = ac.updateSelectedNoteContent(newValue);
+      expect(updated, isTrue);
 
-            expect(ac.notes.selectedValue.content , newValue);
-          });
+      expect(ac.notes.selectedValue.content , newValue);
+      expect(ac.notes.selectedIndex, 0);
+
+      return _whenUpdated(ac);
     });
 
   });
@@ -113,11 +112,10 @@ List<String> _permutateTitle(String title) {
 }
 
 Future<AppController> _whenUpdated(AppController controller) {
-  if(controller.isUpdated) {
-    return new Future.value(controller);
-  }
-
-  return new Future(() => _whenUpdated(controller));
+  assert(controller != null);
+  return Future.wait(controller.notes
+      .map((Selectable<NoteViewModel> s) => s.value.whenUpdated))
+      .then((_) => controller);
 }
 
 Future _expectFirstRun(AppController controller) {
@@ -132,15 +130,16 @@ Future _expectFirstRun(AppController controller) {
 }
 
 Future<AppController> _getDebugController(Storage storage) {
-  return MapSync.createAndLoad(storage, NOTE_CODEC)
-    .then((MapSync<Note> ms) => new AppController(ms))
+  return AppController.init(storage)
     .then(_whenUpdated);
 }
 
 void _testAppController(String name, Storage storageFactory(), testFunc(AppController ac)) {
   test(name, () {
     var storage = storageFactory();
-    return _getDebugController(storage).then(testFunc);
+    return _getDebugController(storage)
+        .then(testFunc)
+        .whenComplete(storage.dispose);
   });
 }
 

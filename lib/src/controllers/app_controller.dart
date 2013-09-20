@@ -5,40 +5,42 @@ part of nv.controllers;
 // TODO: prevent whitespace-only titles?
 
 class AppController extends ChangeNotifierBase {
+  static const String _RUN_COUNT_KEY = 'runCount';
+  static const String _NOTE_NAMESPACE = 'notes';
 
-  final MapSync<Note> _noteSync;
-  final ObservableList<Note> _notes;
-  final CollectionView<Note> _cv;
-  final SelectionManager<Note> notes;
+  final NoteList _notes;
+  final CollectionView<NoteViewModel> _cv;
+  final SelectionManager<NoteViewModel> notes;
   final EventHandle _searchResetHandle = new EventHandle();
 
   String _searchTerm = '';
 
-  factory AppController(MapSync<Note> noteSync) {
+  factory AppController(NoteList notes) {
 
-    var notes = new ObservableList<Note>();
-    var cv = new CollectionView<Note>(notes);
-    var sm = new SelectionManager<Note>(cv);
+    var cv = new CollectionView<NoteViewModel>(notes);
+    var sm = new SelectionManager<NoteViewModel>(cv);
 
-    return new AppController._core(noteSync, notes, cv, sm);
+    return new AppController._core(notes, cv, sm);
   }
 
-  AppController._core(this._noteSync, this._notes, this._cv, this.notes) {
-    assert(_noteSync.isLoaded);
-
+  AppController._core(this._notes, this._cv, this.notes) {
     _cv.sorter = _currentNoteSort;
+  }
 
-    if(_noteStorage.isEmpty) {
-      INITIAL_NOTES.forEach((String title, String content) {
-        _noteStorage[title.toLowerCase()] = new Note.now(title, content);
-      });
-    }
+  static Future<AppController> init(Storage storage) {
+    int runCount = null;
+    return _initRunCount(storage)
+        .then((int value) {
+          runCount = value;
+          assert(runCount >= 0);
 
-    // TODO: hold onto the subscription. Support dispose?
-    filterPropertyChangeRecords(_noteSync, const Symbol('isUpdated'))
-      .listen(_onNoteSyncIsUpdated);
+          var nested = new NestedStorage(storage, _NOTE_NAMESPACE);
 
-    _dirtyNoteList();
+          return _initNoteList(nested, runCount == 0);
+        })
+        .then((NoteList list) {
+          return new AppController(list);
+        });
   }
 
   //
@@ -51,14 +53,12 @@ class AppController extends ChangeNotifierBase {
     value = (value == null) ? '' : value;
     if(value != _searchTerm) {
       _searchTerm = value;
-      _dirtyNoteList();
+      // TOOD: update _cv filter
       _notifyPropChange(const Symbol('searchTerm'));
     }
   }
 
   Stream get onSearchReset => _searchResetHandle.stream;
-
-  bool get isUpdated => _noteSync.isUpdated;
 
   //
   // Methods
@@ -72,75 +72,36 @@ class AppController extends ChangeNotifierBase {
   }
 
   Future<Note> openOrCreate() {
-
-    var key = searchTerm.toLowerCase();
-
-    var value = _noteStorage[key];
-
-    if(value == null) {
-      value = new Note.now(searchTerm, '');
-      _noteStorage[value.key] = value;
-
-      _dirtyNoteList();
+    if(notes.hasSelection) {
+      return new Future<Note>.value(notes.selectedValue);
     }
 
-    // Returning a future so that any changes by _dirtyNoteList
-    // Can propogate to notes
-    return new Future<Note>(() {
+    var newTitle = (_searchTerm.isEmpty) ? 'Untitled Note' : _searchTerm;
 
-      assert(notes.source.contains(value));
-      notes.selectedValue = value;
-      assert(notes.selectedValue == value);
+    var newNote = _notes.create(newTitle);
 
-      return value;
+    return new Future(() {
+      notes.selectedValue = newNote;
+      assert(notes.hasSelection);
+      return newNote;
     });
   }
 
-  Future<bool> updateSelectedNoteContent(String newContent) {
-    _log('updateSelectedNoteContent');
+  bool updateSelectedNoteContent(String newContent) {
+    _log('updateSelectedNoteContent with: $newContent');
 
     assert(notes.hasSelection);
 
     var currentContent = notes.selectedValue.content;
-    if(currentContent == newContent) {
-      return new Future<bool>.value(false);
-    }
+    if(currentContent == newContent) return false;
 
-    var note = new Note.now(notes.selectedValue.title, newContent);
-
-    if(!_noteStorage.containsKey(note.key)) {
-      throw new NVError('Provided title does not match existing note: ${note.title}');
-    }
-
-    _noteStorage[note.key] = note;
-
-    _dirtyNoteList();
-
-    return new Future<bool>(() {
-      // async to allow view to update
-      notes.selectedValue = note;
-      assert(notes.hasSelection);
-      return true;
-    });
+    notes.selectedValue.content = newContent;
+    return true;
   }
 
   //
   // Implementation
   //
-
-  void _dirtyNoteList() {
-    var expectedNotes = _noteStorage.values.toList(growable: true);
-    _notes.removeWhere((note) => !expectedNotes.contains(note));
-    expectedNotes.removeWhere((note) => _notes.contains(note));
-
-    _notes.addAll(expectedNotes);
-  }
-
-  Map<String, Note> get _noteStorage => _noteSync.map;
-
-  void _onNoteSyncIsUpdated(PropertyChangeRecord record) {
-    _notifyPropChange(const Symbol('isUpdated'));
-  }
 
   bool _filterNote(Note instance) {
     assert(searchTerm != null);
@@ -162,5 +123,42 @@ class AppController extends ChangeNotifierBase {
 
   void _notifyPropChange(Symbol prop) {
     notifyChange(new PropertyChangeRecord(prop));
+  }
+
+  static Future<int> _initRunCount(Storage storage) {
+    return storage.get(_RUN_COUNT_KEY)
+        .then((int runCount) {
+          if(runCount == null) {
+            runCount = 0;
+          } else {
+            assert(runCount >= 0);
+            runCount++;
+          }
+          return storage.set(_RUN_COUNT_KEY, runCount)
+              .then((_) => runCount);
+        });
+  }
+
+  static Future<NoteList> _initNoteList(Storage storage, bool firstRun) {
+    return NoteList.init(storage)
+        .then((NoteList nl) {
+          if(firstRun) {
+            assert(nl.isEmpty);
+            return _initialPopulateNoteList(nl);
+          } else {
+            return nl;
+          }
+        });
+  }
+
+  static Future<NoteList> _initialPopulateNoteList(NoteList list) {
+    assert(list.isEmpty);
+    return Future
+        .forEach(config.INITIAL_NOTES.keys, (String key) {
+          var nvm = list.create(key);
+          nvm.content = config.INITIAL_NOTES[key];
+          return nvm.whenUpdated;
+        })
+        .then((_) => list);
   }
 }
