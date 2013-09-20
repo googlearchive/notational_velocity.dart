@@ -40,6 +40,8 @@ class NoteViewModel extends ChangeNotifierBase
   int compareTo(NoteViewModel other) => this.id.compareTo(other.id);
 
   int get hashCode => id.hashCode;
+
+  String toString() => '$runtimeType - "$title"';
 }
 
 
@@ -98,6 +100,10 @@ class NoteList extends ListBase<NoteViewModel> implements Observable {
 
   //
   // List - End
+  //
+
+  //
+  // Implementation
   //
 
   static Future _update(Storage store, KUID id, Note value) {

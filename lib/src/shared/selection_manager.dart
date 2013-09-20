@@ -182,6 +182,8 @@ class Selectable<E> extends ChangeNotifierBase {
     _requestSelect(this, value);
   }
 
+  String toString() => "$runtimeType :: $value";
+
   //
   // Implementation
   //
