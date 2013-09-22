@@ -30,7 +30,7 @@ void main() {
   bool deliverChanges() {
     changes = null;
 
-    var sourceChanged = manager.source.deliverChanges();
+    var sourceChanged = (manager.source as Observable).deliverChanges();
     var managerChanged = manager.deliverChanges();
     expect(managerChanged == true || sourceChanged == false, isTrue);
     return managerChanged;
