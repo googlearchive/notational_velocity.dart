@@ -110,9 +110,14 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     if(hasSelection) {
       assert(_cachedSelectedItem != null);
       assert(_cachedSelectedItem.isSelected);
+      assert(_selectedIndex != null);
+      if(_selectedIndex >= source.length) {
+        _selectedIndex = null;
+      }
 
       // NOTE: the core cache has likely been cleared
-      if(_cachedSelectedItem.value == source[_selectedIndex]) {
+      if(_selectedIndex != null &&
+          _cachedSelectedItem.value == source[_selectedIndex]) {
         // the selection hasn't changed locations...this is easy
 
         var currentWrapper = this[_selectedIndex];
