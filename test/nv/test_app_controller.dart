@@ -59,6 +59,22 @@ Future _initialSearch(AppController ac) {
   expect(INITIAL_NOTES.keys.where((k) => k.toLowerCase().startsWith('a')),
       hasLength(1), reason: 'should have only one item that begins w/ "A"');
 
+  var aboutItem = ac.notes.singleWhere((Selectable<NoteViewModel> se) =>
+      se.value.title == 'About');
+
+  ac.searchTerm = 'About';
+
+  return _whenUpdated(ac)
+      .then((_) {
+        expect(ac.notes, hasLength(1));
+        expect(ac.notes[0], same(aboutItem), reason: 'Filtering out items'
+          ' should not regenerate items that remain');
+
+        // TODO: eventually
+        // expect(ac.notes.hasSelection, isTrue);
+
+      });
+
   // TODO: start hacking on partial completion of item, etc
 }
 

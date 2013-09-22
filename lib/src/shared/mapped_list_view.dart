@@ -52,8 +52,13 @@ abstract class _MappedListViewBase<S, T> extends ChangeNotifierList<T> {
         .isNotEmpty;
 
     if(anyRemoves) {
-      // TODO: in theory, we could be more careful here, but for now
-      _cache.clear();
+      // TODO: could be a bit more efficient here, but at least it's correct
+      var toRemove = new Set();
+      for(var k in _cache.keys) {
+        if(!_source.contains(k)) toRemove.add(k);
+      }
+
+      for(var k in toRemove) _cache.remove(k);
     }
 
     changes.forEach(notifyChange);
