@@ -53,6 +53,18 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   }
 
   //
+  // Event Handlers
+  //
+
+  void _searchKeyUp(KeyboardEvent e, dynamic detail, Node target) {
+    if(e.keyCode == KeyCode.ENTER) {
+      // TODO: ponder a locking model to prevent weirdness while waiting for
+      // async methods called no controller?
+      controller.openOrCreate();
+    }
+  }
+
+  //
   // Implementation
   //
 

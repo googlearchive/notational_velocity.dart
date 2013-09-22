@@ -22,7 +22,9 @@
     </style>
     <div class="input-group nv-search">
       <span class="input-group-addon"><i class="icon-search"></i></span>
-      <input id='search_input' type="text" class="form-control" placeholder="Search or Create" value="{{ controller.searchTerm }}">
+      <input id='search_input' type="text" class="form-control"
+        on-key-up="_searchKeyUp" placeholder="Search or Create"
+        value="{{ controller.searchTerm }}">
     </div>
 
     <div class='nv-notes list-group'>
