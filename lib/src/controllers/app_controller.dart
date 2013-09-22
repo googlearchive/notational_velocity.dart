@@ -81,8 +81,10 @@ class AppController extends ChangeNotifierBase {
     var newNote = _notes.create(newTitle);
 
     return new Future(() {
+      assert(notes.source.contains(newNote));
       notes.selectedValue = newNote;
       assert(notes.hasSelection);
+      assert(identical(notes.selectedValue, newNote));
       return newNote;
     });
   }
