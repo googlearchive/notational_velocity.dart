@@ -75,7 +75,12 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
     // async methods called no controller?
     controller.openOrCreate()
       .then((Note item) {
-        _searchFieldOpenItem = item;
+        if(_editor.text == item.content) {
+          _editor.focusText();
+          _searchFieldOpenItem = null;
+        } else {
+          _searchFieldOpenItem = item;
+        }
       });
   }
 
