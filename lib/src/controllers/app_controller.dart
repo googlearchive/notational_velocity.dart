@@ -8,6 +8,7 @@ class AppController extends ChangeNotifierBase {
   static const String _RUN_COUNT_KEY = 'runCount';
   static const String _NOTE_NAMESPACE = 'notes';
 
+  final int runCount;
   final NoteList _notes;
   final CollectionView<NoteViewModel> _cv;
   final SelectionManager<NoteViewModel> notes;
@@ -15,15 +16,16 @@ class AppController extends ChangeNotifierBase {
 
   String _searchTerm = '';
 
-  factory AppController(NoteList notes) {
+  factory AppController(int runCount, NoteList notes) {
 
     var cv = new CollectionView<NoteViewModel>(notes);
     var sm = new SelectionManager<NoteViewModel>(cv);
 
-    return new AppController._core(notes, cv, sm);
+    return new AppController._core(runCount, notes, cv, sm);
   }
 
-  AppController._core(this._notes, this._cv, this.notes) {
+  AppController._core(this.runCount, this._notes, this._cv, this.notes) {
+    assert(runCount >= 0);
     _cv.sorter = _currentNoteSort;
   }
 
@@ -39,7 +41,7 @@ class AppController extends ChangeNotifierBase {
           return _initNoteList(nested, runCount == 0);
         })
         .then((NoteList list) {
-          return new AppController(list);
+          return new AppController(runCount, list);
         });
   }
 
