@@ -2,16 +2,17 @@ import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:polymer/polymer.dart';
+
 import 'package:nv/init.dart' as init;
 import 'package:nv/elements/interfaces.dart';
 import 'package:nv/src/controllers.dart';
+import 'package:nv/src/models.dart';
 import 'package:nv/src/shared.dart';
 
 final _libLogger = new Logger('nv.AppElement');
 
 void _log(String msg) {
-  // NOOP
-  // _libLogger.info(msg);
+  _libLogger.info(msg);
 }
 
 @CustomTag('app-element')
@@ -20,6 +21,8 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
   bool _childEventsWired = false;
   AppController _controller;
+
+  Note _searchFieldOpenItem;
 
   AppController get controller => _controller;
 
@@ -58,15 +61,23 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
   void _searchKeyUp(KeyboardEvent e, dynamic detail, Node target) {
     if(e.keyCode == KeyCode.ENTER) {
-      // TODO: ponder a locking model to prevent weirdness while waiting for
-      // async methods called no controller?
-      controller.openOrCreate();
+      _openSearchText();
     }
   }
 
   //
   // Implementation
   //
+
+  void _openSearchText() {
+    _log('_openSearchText');
+    // TODO: ponder a locking model to prevent weirdness while waiting for
+    // async methods called no controller?
+    controller.openOrCreate()
+      .then((Note item) {
+        _searchFieldOpenItem = item;
+      });
+  }
 
   void _controller_onSearchReset(_) {
     var searchInput = shadowRoot.query('#search_input');
@@ -91,6 +102,11 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
       _editor.enabled = true;
       _editor.text = value;
+
+      if(notes.selectedValue == _searchFieldOpenItem) {
+        _editor.focusText();
+      }
+      _searchFieldOpenItem = null;
     } else {
       _editor.enabled = false;
       // disabling editor should clear the next value

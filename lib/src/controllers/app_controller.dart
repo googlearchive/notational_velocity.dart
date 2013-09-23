@@ -65,8 +65,7 @@ class AppController extends ChangeNotifierBase {
   //
 
   void resetSearch() {
-    // TODO: update selected note!
-
+    notes.selectedIndex = -1;
     searchTerm = '';
     _searchResetHandle.add(EventArgs.empty);
   }

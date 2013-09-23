@@ -11,4 +11,6 @@ abstract class EditorInterface implements Observable {
 
   bool get enabled;
   void set enabled(bool val);
+
+  void focusText();
 }

@@ -21,8 +21,14 @@ class EditorElement extends PolymerElement
       }
 
       _enabled = value;
-      _notifyPropChange(const Symbol('enabled'));
 
+      if(_enabled) {
+        _root.contentEditable = 'true';
+      } else {
+        _root.attributes.remove('contentEditable');
+      }
+
+      _notifyPropChange(const Symbol('enabled'));
     }
   }
 
@@ -32,6 +38,16 @@ class EditorElement extends PolymerElement
     assert(enabled);
     _root.text = val;
     _notifyPropChange(const Symbol('text'));
+  }
+
+  void focusText() {
+    assert(enabled);
+    print(_root.contentEditable);
+    var range = document.createRange();
+    range.selectNodeContents(_root);
+    var windowSelection = window.getSelection();
+    windowSelection.removeAllRanges();
+    windowSelection.addRange(range);
   }
 
   //
@@ -44,7 +60,7 @@ class EditorElement extends PolymerElement
   }
 
   //
-  // Implementatino
+  // Implementation
   //
 
   Element get _root => shadowRoot.query('#root');
