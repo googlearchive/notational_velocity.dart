@@ -42,12 +42,7 @@ class EditorElement extends PolymerElement
 
   void focusText() {
     assert(enabled);
-    print(_root.contentEditable);
-    var range = document.createRange();
-    range.selectNodeContents(_root);
-    var windowSelection = window.getSelection();
-    windowSelection.removeAllRanges();
-    windowSelection.addRange(range);
+    _root.focus();
   }
 
   //
