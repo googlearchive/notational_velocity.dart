@@ -29,7 +29,7 @@ __Expected Result__
 * New note with title 'Test' is selected in list
 * Editor box is empty and has focus
 
-### 001 - open existing note with search - *failing, issue #26*
+### 001 - open existing note with search - *passing, regression test for #26*
 
 __Actions__
 
