@@ -1,6 +1,5 @@
 library nv.debug;
 
-import 'dart:async';
 import 'src/controllers.dart';
 
 part 'src/debug/pride_and_prejudice.dart';
