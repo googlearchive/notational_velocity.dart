@@ -54,6 +54,11 @@ class AppController extends ChangeNotifierBase {
     if(value != _searchTerm) {
       _searchTerm = value;
       _cv.filter = _filterNote;
+
+      var filterMatch = _cv.firstWhere(_filterMatchNote, orElse: () => null);
+      notes.selectedValue = filterMatch;
+      assert(notes.hasSelection == (filterMatch != null));
+
       _notifyPropChange(const Symbol('searchTerm'));
     }
   }
@@ -104,6 +109,24 @@ class AppController extends ChangeNotifierBase {
   // Implementation
   //
 
+  /**
+   * returns true if the Note should be SELECTED given the current _searchTerm
+   */
+  bool _filterMatchNote(Note instance) {
+    if(_searchTerm.isEmpty) return false;
+
+    var selected =  instance.title.toLowerCase()
+        .startsWith(_searchTerm.toLowerCase());
+
+    // if the item is selected, it should match the filter, too
+    assert(!selected || _filterNote(instance));
+
+    return selected;
+  }
+
+  /**
+   * returns true if the Note should be FILTERED given the current _searchTerm
+   */
   bool _filterNote(Note instance) {
     assert(searchTerm != null);
 

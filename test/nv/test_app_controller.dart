@@ -70,8 +70,7 @@ Future _initialSearch(AppController ac) {
         expect(ac.notes[0], same(aboutItem), reason: 'Filtering out items'
           ' should not regenerate items that remain');
 
-        // TODO: eventually
-        // expect(ac.notes.hasSelection, isTrue);
+        expect(ac.notes.hasSelection, isTrue);
 
       });
 
