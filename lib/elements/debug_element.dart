@@ -21,15 +21,6 @@ class DebugElement extends PolymerElement with ChangeNotifierMixin {
 
   AppController get controller => (_vm == null) ? null : _vm.controller;
 
-  void populate(Event e, var detail, ButtonElement target) {
-    assert(!target.disabled);
-    target.disabled = true;
-    _vm.populate()
-      .whenComplete(() {
-        target.disabled = false;
-      });
-  }
-
   void clear(Event e, var detail, ButtonElement target) {
     window.localStorage.clear();
     window.location.reload();

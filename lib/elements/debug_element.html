@@ -9,27 +9,11 @@
           .root > .section {
             margin-bottom: 10px;
           }
-
-          .updating-flag {
-            position: absolute;
-            right: 0;
-            width: 10px;
-            height: 10px;
-            background: green;
-          }
-
-          .updating-flag.updating {
-            background: red;
-          }
-
         </style>
-
-        <div class='{{ {"updating-flag" : true, "updating" : !controller.isUpdated } }}'></div>
 
         <div class='root panel panel-info'>
           <div class='panel-heading'><strong>Debug Controls</strong></div>
           <div class='section'>Search term: <strong>{{ controller.searchTerm }}</strong></div>
-          <div class='section'><button on-click='populate' class='btn btn-default'>Populate!</button></div>
           <div class='section'><button on-click='clear' class='btn btn-danger'>Clear!</button></div>
         </div>
       </template>
