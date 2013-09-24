@@ -3,7 +3,7 @@ author: Kevin Moore <kevin@thinkpixellab.com>
 description: Notational Velocity - Dart
 homepage: https://github.com/GoogleChrome/notational_velocity.dart
 environment:
-  sdk: '>=0.7.5'
+  sdk: '>=0.7.5+3'
 dependencies:
   bot: '>=0.23.0'
   crypto: '>=0.7.5'
