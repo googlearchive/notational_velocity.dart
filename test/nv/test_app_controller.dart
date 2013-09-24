@@ -25,7 +25,7 @@ void main(Storage storageFactory()) {
       expect(ac.notes, hasLength(INITIAL_NOTES.length));
 
       var expectedSortedTitles = INITIAL_NOTES.keys.toList()
-          ..sort();
+          ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
 
       var controllerTitles = ac.notes
           .map((Selectable<Note> s) => s.value.title)
