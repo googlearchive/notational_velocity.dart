@@ -36,6 +36,9 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
       filterPropertyChangeRecords(_controller.notes, const Symbol('selectedValue'))
         .listen(_selectedNoteChanged);
 
+      filterPropertyChangeRecords(_editor, const Symbol('enabled'))
+        .listen(_editor_enabledChanged);
+
       notifyChange(new PropertyChangeRecord(const Symbol('controller')));
     });
   }
@@ -65,17 +68,26 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
     }
   }
 
+  void _editor_enabledChanged(PropertyChangeRecord pcr) {
+    if(_editor.enabled &&
+        _controller.notes.selectedValue == _searchFieldOpenItem) {
+      assert(_searchFieldOpenItem != null);
+      _editor.focusText();
+    }
+    _searchFieldOpenItem = null;
+  }
+
   //
   // Implementation
   //
 
   void _openSearchText() {
-    _log('_openSearchText');
+    _log('_openSearchText - ${controller.searchTerm}');
     // TODO: ponder a locking model to prevent weirdness while waiting for
     // async methods called no controller?
     controller.openOrCreate()
       .then((Note item) {
-        if(_editor.text == item.content) {
+        if(_controller.notes.selectedValue == item && _editor.enabled) {
           _editor.focusText();
           _searchFieldOpenItem = null;
         } else {
@@ -97,7 +109,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   }
 
   void _selectedNoteChanged(PropertyChangeRecord record) {
-    _log('_selectedNoteChanged');
+    _log('_selectedNoteChanged - ${_controller.notes.selectedValue}');
 
     var notes = _controller.notes;
 
@@ -107,11 +119,6 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
       _editor.enabled = true;
       _editor.text = value;
-
-      if(notes.selectedValue == _searchFieldOpenItem) {
-        _editor.focusText();
-      }
-      _searchFieldOpenItem = null;
     } else {
       _editor.enabled = false;
       // disabling editor should clear the next value
