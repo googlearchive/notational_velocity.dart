@@ -28,7 +28,7 @@ void main() {
       browserInterop: true,
       jsDartInterop: true));
 
-  addTask('build', new Task.async((ctx) => build.build([], ['web/index.html'])));
+  addTask('build', new Task.async((ctx) => build.build('web/index.html', 'build')));
 
   addChainedTask('package_test_compile_and_run', ['app_dart2js', 'chrome']);
 

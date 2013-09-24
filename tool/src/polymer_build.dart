@@ -1,9 +1,11 @@
 library nv.tool.polymer_build;
 
 import 'dart:async';
-import 'package:polymer/component_build.dart' as cb;
+import 'package:polymer/builder.dart' as cb;
 
-Future<bool> build(List<String> args, List<String> inputs) {
-  return cb.build(args, inputs)
-      .then((results) => results.every((r) => r.success));
+Future<bool> build(String entryPoint, String outputDir) {
+  var args = ['--out', outputDir, '--deploy'];
+  var options = cb.parseOptions(args);
+  return cb.build(entryPoints: [entryPoint], options: options)
+      .then((_) => true);
 }
