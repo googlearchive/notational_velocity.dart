@@ -1,3 +1,5 @@
+library nv.elements.editor;
+
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'interfaces.dart';

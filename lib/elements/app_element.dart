@@ -1,3 +1,5 @@
+library nv.elements.app;
+
 import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';

@@ -1,3 +1,5 @@
+library nv.elements.note_row;
+
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 

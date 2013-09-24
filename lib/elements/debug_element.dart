@@ -1,3 +1,5 @@
+library nv.elements.debug;
+
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:nv/src/controllers.dart';
