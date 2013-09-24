@@ -34,6 +34,12 @@ void main() {
       minify: true,
       liveTypeAnalysis: true));
 
+  //
+  // gh_pages
+  //
+  addAsyncTask('pages', (ctx) =>
+      branchForDir(ctx, 'master', 'build/web', 'gh-pages'));
+
   addChainedTask('package_test_compile_and_run', ['app_dart2js', 'chrome']);
 
   runHop();
