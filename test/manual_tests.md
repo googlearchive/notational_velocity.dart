@@ -42,7 +42,7 @@ __Expected Result__
 * 'About app' note is the only note in the list, and it's selected
 * Edit box has focus, with content of 'About app' note
 
-### 002 - open existing note by searching partial title - *failing, issue #27*
+### 002 - open existing note by searching partial title - *passing, regression test for #27*
 
 __Actions__
 

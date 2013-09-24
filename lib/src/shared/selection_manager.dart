@@ -26,7 +26,24 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     assert(value >= -1);
     assert(value < source.length);
 
-    if(value == _selectedIndex) return;
+    if(value == _selectedIndex) {
+      if(value == -1) {
+        assert(_cachedSelectedItem == null);
+      } else {
+        var targetSelectedItem = this[_selectedIndex];
+        if(targetSelectedItem != _cachedSelectedItem) {
+          if(_cachedSelectedItem != null) {
+            _cachedSelectedItem._updateIsSelectedValue(null);
+            _cachedSelectedItem = null;
+          }
+          _cachedSelectedItem = this[_selectedIndex];
+          assert(!_cachedSelectedItem.isSelected);
+          _cachedSelectedItem._updateIsSelectedValue(true);
+        }
+        assert(_cachedSelectedItem.isSelected);
+      }
+      return;
+    }
 
     var oldSelection = hasSelection;
     if(oldSelection) {

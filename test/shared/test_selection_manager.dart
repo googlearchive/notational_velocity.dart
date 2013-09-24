@@ -479,6 +479,22 @@ void main() {
     expect(manager.selectedIndex, 4);
     expect(manager.selectedValue, 10);
   });
+
+  test('select, remove item, select new item with old index - regression #27', () {
+    _expectNoSelection(manager);
+
+    // select the item at index 0
+    manager.selectedValue = 1;
+
+    // remove item at index 0
+    manager.source.remove(1);
+
+    // select the item *now* at index 0, before change events propogate
+    manager.selectedValue = 2;
+
+    expect(manager.selectedIndex, 0);
+    expect(manager.selectedValue, 2);
+  });
 }
 
 void _expectNoSelection(SelectionManager manager) {

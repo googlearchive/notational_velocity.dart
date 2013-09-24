@@ -61,8 +61,10 @@ Future _initialSearch(AppController ac) {
 
   var aboutItem = ac.notes.singleWhere((Selectable<NoteViewModel> se) =>
       se.value.title == 'About app');
+  var aboutNVItem = ac.notes.singleWhere((Selectable<NoteViewModel> se) =>
+      se.value.title == 'About Notational Velocity');
 
-  ac.searchTerm = 'About a';
+  ac.searchTerm = 'about a';
 
   return _whenUpdated(ac)
       .then((_) {
@@ -72,9 +74,24 @@ Future _initialSearch(AppController ac) {
 
         expect(ac.notes.hasSelection, isTrue);
 
-      });
+        ac.searchTerm = 'about ';
 
-  // TODO: start hacking on partial completion of item, etc
+        return _whenUpdated(ac);
+      })
+      .then((_) {
+        expect(ac.notes, hasLength(2));
+        expect(ac.notes.map((s) => s.value),
+            orderedEquals([aboutItem, aboutNVItem].map((s) => s.value)));
+
+        ac.searchTerm = 'about n';
+
+        return _whenUpdated(ac);
+      })
+      .then((_) {
+        expect(ac.notes.selectedValue, aboutNVItem.value);
+        expect(ac.notes, hasLength(1));
+        expect(ac.notes[0].value, aboutNVItem.value);
+      });
 }
 
 Future _testSimple(AppController controller) {
