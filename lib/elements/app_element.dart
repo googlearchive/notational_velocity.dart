@@ -64,7 +64,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
   // Event Handlers
   //
 
-  void _searchKeyUp(KeyboardEvent e, dynamic detail, Node target) {
+  void searchKeyUp(KeyboardEvent e, dynamic detail, Node target) {
     if(e.keyCode == KeyCode.ENTER) {
       _openSearchText();
     }
