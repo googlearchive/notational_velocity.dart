@@ -30,7 +30,7 @@ __Expected Result__
 * New note with title 'Test' is selected in list
 * Editor box is empty and has focus
 
-### 001 - open existing note with search - *passing, regression test for #26*
+### 001 - open existing note by search full title - *passing, regression test for #26*
 
 __Actions__
 
@@ -41,3 +41,12 @@ __Expected Result__
 
 * 'About app' note is the only note in the list, and it's selected
 * Edit box has focus, with content of 'About app' note
+
+### 002 - open existing note by searching partial title - *failing, issue #27*
+
+__Actions__
+
+* In search box, type first part of existing note title 'about n'
+    * Should see only 'About Notational Velocity' in list, selected
+* Hit 'return'
+    * 'About Notational Velocity' item is open in editor
