@@ -20,8 +20,7 @@ void main() {
   final paths = ['test/app/harness_packaged.dart'];
 
   addTask('app_dart2js', createDartCompilerTask(paths,
-      liveTypeAnalysis: true,
-      allowUnsafeEval: false));
+      liveTypeAnalysis: true));
 
   addTask('update_js', createCopyJSTask('test/app',
       unittestTestController: true,
