@@ -55,14 +55,14 @@ void main(Storage storageFactory()) {
 Future _initialSearch(AppController ac) {
   expect(ac.notes.hasSelection, isFalse);
 
-  expect(INITIAL_NOTES.keys, contains('About'));
-  expect(INITIAL_NOTES.keys.where((k) => k.toLowerCase().startsWith('a')),
-      hasLength(1), reason: 'should have only one item that begins w/ "A"');
+  expect(INITIAL_NOTES.keys, contains('About app'));
+  expect(INITIAL_NOTES.keys.where((k) => k.toLowerCase().startsWith('about')),
+      hasLength(2), reason: 'should have two item that begins w/ "about"');
 
   var aboutItem = ac.notes.singleWhere((Selectable<NoteViewModel> se) =>
-      se.value.title == 'About');
+      se.value.title == 'About app');
 
-  ac.searchTerm = 'About';
+  ac.searchTerm = 'About a';
 
   return _whenUpdated(ac)
       .then((_) {

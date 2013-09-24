@@ -10,7 +10,8 @@
 
 * All of these tests assume the default setup.
 * App opens with default three items.
-    * About
+    * About app
+    * About Notational Velocity
     * Credits
     * How does this thing work?
 
@@ -33,10 +34,10 @@ __Expected Result__
 
 __Actions__
 
-* In search box, type existing note title 'About'
+* In search box, type existing note title 'About app'
 * Hit 'return'
 
 __Expected Result__
 
-* 'About' note is the only note in the list, and it's selected
-* Edit box has focus, with content of About note
+* 'About app' note is the only note in the list, and it's selected
+* Edit box has focus, with content of 'About app' note

@@ -2,7 +2,8 @@ library nv.config;
 
 const Map<String, String> INITIAL_NOTES = const {
   'Credits' : 'Kevin Moore - kevin@thinkpixellab.com',
-  'About' : 'https://github.com/GoogleChrome/notational_velocity.dart/issues',
+  'About Notational Velocity' : 'https://en.wikipedia.org/wiki/Notational_Velocity',
+  'About app' : 'File issues here: https://github.com/GoogleChrome/notational_velocity.dart/issues',
   'How does this thing work?' : '''Always begin typing in the upper search area. Press return to add a new note with that title. While you type, NV searches for notes whose body or title contain your words. Observe that naming a note and searching always occur simultaneously.
 
 When you select one of the found notes (e.g., using the up/down keys) NV displays its body in the lower text area (what you're reading now).
