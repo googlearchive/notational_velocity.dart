@@ -2,10 +2,10 @@ library nv.chrome;
 
 import 'dart:async';
 
+import 'dart:json' as JSON;
 import 'package:bot/bot.dart';
 import 'package:js/js.dart' as js;
 import 'package:js/js_wrapping.dart' as wrapping;
-import 'dart:json' as JSON;
 import 'storage.dart';
 
 class PackagedStorage implements Storage {
