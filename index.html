@@ -1,0 +1,94 @@
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <title>Notational Velocity</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0-rc1/css/bootstrap.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
+    <link rel="stylesheet" href="styles.css">
+
+    
+    
+    
+
+    
+  </head>
+  <body><script src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script src="packages/browser/interop.js"></script>
+<polymer-element name="init-element">
+    
+  </polymer-element><polymer-element name="editor-element">
+<template>
+  <style>
+      #root {
+        height: 300px;
+        margin: 5px;
+        padding: 5px;
+        background: white;
+        white-space: pre-wrap;
+      }
+  </style>
+  <div id="root" on-input="handleContentEdit"></div>
+</template>
+
+      
+    </polymer-element><polymer-element name="note-row-element" attributes="note selectedNote">
+<template>
+  <style>
+  </style>
+    <a href="#" on-click="handleClick" class="{{ {&quot;active&quot;: note.isSelected, &quot;nv-note&quot;: true, &quot;list-group-item&quot;: true } }}">{{ note.value.title }}</a>
+</template>
+
+      
+    </polymer-element><polymer-element name="app-element">
+  <template>
+    <style>
+      .nv-search {
+        margin: 5px;
+      }
+
+      .nv-notes {
+        margin: 5px;
+        height: 300px;
+        overflow: scroll;
+      }
+    </style>
+    <div class="input-group nv-search">
+      <span class="input-group-addon"><i class="icon-search"></i></span>
+      <input id="search_input" type="text" class="form-control" on-key-up="searchKeyUp" placeholder="Search or Create" value="{{ controller.searchTerm }}">
+    </div>
+
+    <div class="nv-notes list-group">
+       <template repeat="{{ controller.notes }}">
+          <note-row-element note="{{ }}"></note-row-element>
+      </template>
+    </div>
+
+    <editor-element></editor-element>
+
+  </template>
+
+  
+</polymer-element><polymer-element name="debug-element">
+      <template>
+        <style>
+          .root > .section {
+            margin-bottom: 10px;
+          }
+        </style>
+
+        <div class="root panel panel-info">
+          <div class="panel-heading"><strong>Debug Controls</strong></div>
+          <div class="section">Run Count: <strong>{{ controller.runCount }}</strong></div>
+          <div class="section"><button on-click="_reset" class="btn btn-danger">Reset!</button></div>
+        </div>
+      </template>
+
+      
+    </polymer-element>
+
+    <app-element></app-element>
+    <debug-element></debug-element>
+
+    
+  
+
+<script type="application/dart" src="index.html_bootstrap.dart"></script><script src="packages/browser/dart.js"></script></body></html>
