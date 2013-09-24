@@ -17,9 +17,9 @@ void main() {
   //
   // app_dart2js
   //
-  final paths = ['test/app/harness_packaged.dart'];
+  final chromeTestHarnessPaths = ['test/app/harness_packaged.dart'];
 
-  addTask('app_dart2js', createDartCompilerTask(paths,
+  addTask('app_dart2js', createDartCompilerTask(chromeTestHarnessPaths,
       liveTypeAnalysis: true));
 
   addTask('update_js', createCopyJSTask('test/app',
@@ -29,6 +29,10 @@ void main() {
       jsDartInterop: true));
 
   addTask('build', new Task.async((ctx) => build.build('web/index.html', 'build')));
+
+  addTask('dart2js', createDartCompilerTask(['build/web/index.html_bootstrap.dart'],
+      minify: true,
+      liveTypeAnalysis: true));
 
   addChainedTask('package_test_compile_and_run', ['app_dart2js', 'chrome']);
 
