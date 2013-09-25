@@ -57,3 +57,16 @@ __Actions__
 
 * Start the app
     * Should see that the search box has focus
+
+#### 004 - incremental search does not update edit box if there is a previous best match *failing, issue #36*
+
+* Type 'about ' (notice the space) in the search box
+    * Two items in list: 'About app' and 'About Notational Velocity'
+    * 'About app' is selected
+    * Contents of 'About app' are in edit box
+* Type the letter 'n'
+    * One item in list 'About Notational Velocity', selected
+
+__Expected Result__
+
+*  Content of 'About Notational Velocity' should be in edit box
