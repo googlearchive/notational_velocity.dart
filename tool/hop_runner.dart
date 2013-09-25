@@ -7,6 +7,7 @@ import 'package:hop/hop_tasks.dart';
 import '../test/harness_console.dart' as test_console;
 import 'src/chrome.dart' as chrome;
 import 'src/polymer_build.dart' as build;
+import 'src/make_page.dart' as page;
 
 void main() {
 
@@ -37,8 +38,7 @@ void main() {
   //
   // gh_pages
   //
-  addAsyncTask('pages', (ctx) =>
-      branchForDir(ctx, 'master', 'build/web', 'gh-pages'));
+  addTask('pages', page.makePageCrazy());
 
   addChainedTask('package_test_compile_and_run', ['app_dart2js', 'chrome']);
 
