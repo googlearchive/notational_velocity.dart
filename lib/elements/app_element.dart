@@ -58,6 +58,9 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
       .listen(_editorTextChanged);
 
     _childEventsWired = true;
+
+    InputElement searchInput = shadowRoot.query('#search_input');
+    searchInput.focus();
   }
 
   //

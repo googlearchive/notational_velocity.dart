@@ -50,3 +50,10 @@ __Actions__
     * Should see only 'About Notational Velocity' in list, selected
 * Hit 'return'
     * 'About Notational Velocity' item is open in editor
+
+#### 003 - search box should have focus on app load - *passing, regression for #34*
+
+__Actions__
+
+* Start the app
+    * Should see that the search box has focus
