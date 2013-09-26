@@ -419,6 +419,12 @@ void main() {
     expect(targetItem.isSelected, isTrue);
     manager.source.removeAt(2);
 
+    // Added 'early' tests here to validate that changes are reflected
+    // immediately
+    expect(manager[2].value, 4);
+    expect(manager[2].isSelected, isFalse);
+    _expectNoSelection(manager);
+
     deliverChanges();
     targetItem.deliverChanges();
 
@@ -493,6 +499,24 @@ void main() {
 
     expect(manager.selectedIndex, 0);
     expect(manager.selectedValue, 2);
+  });
+
+  test('select an item, add 5 more before selection, regression #36', () {
+    _expectNoSelection(manager);
+
+    // select the item at index 0
+    print("selected a value");
+    manager.selectedValue = 5;
+
+    expect(manager.selectedValue, 5);
+    expect(manager.selectedIndex, 4);
+
+    print('inserting items');
+    manager.source.insertAll(0, [6,7,8,9,10]);
+
+    expect(manager.selectedIndex, 9, reason: 'selectedIndex should change');
+    expect(manager.selectedValue, 5, reason: 'selectedValue should not change');
+    _expectSelection(manager);
   });
 }
 

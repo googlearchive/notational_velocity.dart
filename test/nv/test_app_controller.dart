@@ -18,6 +18,14 @@ void main(Storage storageFactory()) {
 
     _testAppController('initial search', storageFactory, _initialSearch);
 
+    _testAppController('weird behavior', storageFactory, (AppController ac) {
+      ac.resetSearch();
+
+      ac.searchTerm = 'c';
+
+      ac.searchTerm = 'cr';
+    });
+
     _testAppController('select item, edit: sort = stable', storageFactory,
         (AppController ac) {
       _expectFirstRun(ac);

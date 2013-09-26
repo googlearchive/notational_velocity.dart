@@ -12,34 +12,42 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
   SelectionManager(List<E> source) :
     super(source);
 
-  E get selectedValue => hasSelection ? this[_selectedIndex].value : null;
+  int get length {
+    _ensureConsistent();
+    return super.length;
+  }
+
+  Selectable<E> operator[](int index) {
+    _ensureConsistent();
+    return super[index];
+  }
+
+  E get selectedValue {
+    _ensureConsistent();
+    return hasSelection ? _cachedSelectedItem.value : null;
+  }
 
   void set selectedValue(E value) {
     var index = _source.indexOf(value);
     selectedIndex = index;
   }
 
-  int get selectedIndex => _selectedIndex;
+  int get selectedIndex {
+    _ensureConsistent();
+    return _selectedIndex;
+  }
 
   void set selectedIndex(int value) {
     assert(value != null);
     assert(value >= -1);
     assert(value < source.length);
+    _ensureConsistent();
 
     if(value == _selectedIndex) {
       if(value == -1) {
         assert(_cachedSelectedItem == null);
       } else {
-        var targetSelectedItem = this[_selectedIndex];
-        if(targetSelectedItem != _cachedSelectedItem) {
-          if(_cachedSelectedItem != null) {
-            _cachedSelectedItem._updateIsSelectedValue(null);
-            _cachedSelectedItem = null;
-          }
-          _cachedSelectedItem = this[_selectedIndex];
-          assert(!_cachedSelectedItem.isSelected);
-          _cachedSelectedItem._updateIsSelectedValue(true);
-        }
+        assert(super[_selectedIndex] == _cachedSelectedItem);
         assert(_cachedSelectedItem.isSelected);
       }
       return;
@@ -66,7 +74,9 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     _selectedIndex = value;
     if(value > -1) {
       assert(_cachedSelectedItem == null);
-      _cachedSelectedItem = this[_selectedIndex];
+
+      // using super call to avoid validation
+      _cachedSelectedItem = super[_selectedIndex];
 
       // It's possible the item has never been accessed, which means the
       // previous call to this[_selectedIndex] created a new item...which is
@@ -83,19 +93,56 @@ class SelectionManager<E> extends _MappedListViewBase<E, Selectable<E>> {
     }
   }
 
-  bool get hasSelection => _selectedIndex >= 0;
+  bool get hasSelection {
+    _ensureConsistent();
+    return _cachedSelectedItem != null;
+  }
 
   //
   // Impl
   //
 
+  void _ensureConsistent() {
+    assert((_selectedIndex == -1) == (_cachedSelectedItem == null));
+
+    if(_cachedSelectedItem != null &&
+        (_selectedIndex >= source.length ||
+        _cachedSelectedItem.value != source[_selectedIndex])) {
+
+      var sourceSelectedValueIndex = _source.indexOf(_cachedSelectedItem.value);
+      if(sourceSelectedValueIndex >= 0) {
+        assert(sourceSelectedValueIndex != _selectedIndex);
+
+        // Fix up the selected index value
+        _selectedIndex = sourceSelectedValueIndex;
+        _notifyPropChange(const Symbol('selectedIndex'));
+      } else {
+        // the selected value has been removed! Need to clean up!
+        _cachedSelectedItem._updateIsSelectedValue(null);
+        _cachedSelectedItem = null;
+        _selectedIndex = -1;
+
+        _notifyPropChange(const Symbol('selectedIndex'));
+        _notifyPropChange(const Symbol('selectedValue'));
+        _notifyPropChange(const Symbol('hasSelection'));
+      }
+    }
+
+    assert(_cachedSelectedItem == null || identical(_cachedSelectedItem, super[_selectedIndex]));
+  }
+
   @override
   Selectable<E> _wrap(int index, E item) {
+    // should never try to re-wrap the _cachedSelectedItem, if it exists
+    assert(_cachedSelectedItem == null || _cachedSelectedItem.value != item);
+
     var entry = new Selectable<E>._(item, this._requestSelect);
 
     if(index == _selectedIndex) {
-      entry._isSelected = (index == _selectedIndex);
+      // should be creating the _cachedSelectedItem here
+      assert(_cachedSelectedItem == null);
       _cachedSelectedItem = entry;
+      entry._isSelected = true;
     }
 
     return entry;
