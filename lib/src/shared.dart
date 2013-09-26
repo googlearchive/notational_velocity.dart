@@ -88,8 +88,22 @@ abstract class DebugPrint {
 abstract class ChangeNotifierList<E> extends ListBase<E>
   with ChangeNotifierMixin implements ObservableList<E> {
 
+  Set<Symbol> _pendingChangedFields;
+
   void _notifyPropChange(Symbol field) {
-    notifyChange(new PropertyChangeRecord(field));
+    if(_pendingChangedFields == null) {
+      _pendingChangedFields = new Set<Symbol>();
+    }
+
+    if(!_pendingChangedFields.contains(field)) {
+      _pendingChangedFields.add(field);
+      notifyChange(new PropertyChangeRecord(field));
+    }
+  }
+
+  bool deliverChanges() {
+    _pendingChangedFields = null;
+    return super.deliverChanges();
   }
 
   void operator []=(int index, E value) {

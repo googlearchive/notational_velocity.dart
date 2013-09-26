@@ -15,7 +15,7 @@ void expectChanges(Iterable actual, Iterable expected, {String reason}) {
   var actualStrings = actual.map((e) => e.toString()).toList();
   var expectedStrings = expected.map((e) => e.toString()).toList();
 
-  expect(actualStrings, orderedEquals(expectedStrings), reason: reason);
+  expect(actualStrings, unorderedEquals(expectedStrings), reason: reason);
 }
 
 const LENGTH = const Symbol('length');

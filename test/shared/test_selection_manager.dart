@@ -471,8 +471,7 @@ void main() {
 
     deliverChanges();
 
-    expectChanges(changes, [_selectedIndexChange, _selectedValueChange,
-                            _hasSelectionChange, _selectedIndexChange,
+    expectChanges(changes, [_hasSelectionChange, _selectedIndexChange,
                             _selectedValueChange,
                             change(2, removedCount: 1),
                             change(4, addedCount: 1)]);
