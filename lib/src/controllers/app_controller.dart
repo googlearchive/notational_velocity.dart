@@ -74,6 +74,12 @@ class AppController extends ChangeNotifierBase {
   void resetSearch() {
     notes.selectedIndex = -1;
     searchTerm = '';
+
+    // paranoid
+    assert(notes.length == _notes.length);
+    assert(!notes.hasSelection);
+    assert(notes.every((Selectable s) => !s.isSelected));
+
     _searchResetHandle.add(EventArgs.empty);
   }
 

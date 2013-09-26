@@ -91,6 +91,19 @@ Future _initialSearch(AppController ac) {
         expect(ac.notes.selectedValue, aboutNVItem.value);
         expect(ac.notes, hasLength(1));
         expect(ac.notes[0].value, aboutNVItem.value);
+
+        ac.searchTerm = 'about ';
+
+        return _whenUpdated(ac);
+      })
+      .then((_) {
+
+        // Regression test for #36
+        expect(ac.notes.hasSelection, isTrue);
+        expect(ac.notes.selectedValue, aboutItem.value);
+        expect(ac.notes, hasLength(2));
+        expect(ac.notes[0].isSelected, isTrue);
+        expect(ac.notes[1].isSelected, isFalse);
       });
 }
 
