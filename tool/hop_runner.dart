@@ -35,6 +35,8 @@ void main() {
       minify: true,
       liveTypeAnalysis: true));
 
+  addChainedTask('build_and_compile', ['build', 'dart2js']);
+
   //
   // gh_pages
   //
