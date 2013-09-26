@@ -32,18 +32,7 @@ Future<AppController> _getDebugController() {
 
   var nestedStorage = new NestedStorage(rootStorage, 'nv_v0.0.2');
 
-  return AppController.init(nestedStorage)
-      .then(_initAppController);
-}
-
-AppController _initAppController(AppController ac) {
-  window.onKeyDown
-    .where((KeyboardEvent e) => e.keyCode == KeyCode.ESC)
-    .listen((KeyboardEvent e) {
-      ac.resetSearch();
-    });
-
-  return ac;
+  return AppController.init(nestedStorage);
 }
 
 
