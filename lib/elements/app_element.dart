@@ -41,6 +41,8 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
       filterPropertyChangeRecords(_editor, const Symbol('enabled'))
         .listen(_editor_enabledChanged);
 
+      _configureWindowEventHandlers();
+
       notifyChange(new PropertyChangeRecord(const Symbol('controller')));
     });
   }
@@ -131,6 +133,34 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
     }
   }
 
-  EditorInterface get _editor => shadowRoot.query('editor-element').xtag;
+  UnknownElement get _editorCore => shadowRoot.query('editor-element');
+
+  EditorInterface get _editor => _editorCore.xtag;
+
+  void _configureWindowEventHandlers() {
+    window.onKeyDown.listen(_window_keyDown);
+  }
+
+  void _window_keyDown(KeyboardEvent e) {
+    switch(e.keyCode) {
+      case KeyCode.ESC:
+        e.preventDefault();
+        _controller.resetSearch();
+        break;
+      case KeyCode.DOWN:
+      case KeyCode.UP:
+        if(shadowRoot.activeElement != _editorCore) {
+          e.preventDefault();
+
+          if(e.keyCode == KeyCode.DOWN) {
+            _controller.moveSelectionDown();
+          } else {
+            assert(e.keyCode == KeyCode.UP);
+            _controller.moveSelectionUp();
+          }
+        }
+        break;
+    }
+  }
 
 }

@@ -113,9 +113,32 @@ class AppController extends ChangeNotifierBase {
     return true;
   }
 
+  void moveSelectionUp() => _moveSelection(true);
+
+  void moveSelectionDown() => _moveSelection(false);
+
   //
   // Implementation
   //
+
+  void _moveSelection(bool up) {
+    if(notes.isEmpty) return;
+
+    var newIndex = notes.selectedIndex + (up ? -1 : 1);
+
+    if(newIndex == -2) {
+      // up from no selection, should select the last element
+      newIndex = notes.length - 1;
+    } else if(newIndex == -1) {
+      // up from first item, just stay at first item
+      newIndex = 0;
+    } else if(newIndex == notes.length) {
+      // down from last item, stay at last item
+      newIndex = notes.length -1;
+    }
+
+    notes.selectedIndex = newIndex;
+  }
 
   /**
    * returns true if the Note should be SELECTED given the current _searchTerm
