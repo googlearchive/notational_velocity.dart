@@ -40,6 +40,7 @@ AppController _initAppController(AppController ac) {
   window.onKeyDown
     .where((KeyboardEvent e) => e.keyCode == KeyCode.ESC)
     .listen((KeyboardEvent e) {
+      e.preventDefault();
       ac.resetSearch();
     });
 
