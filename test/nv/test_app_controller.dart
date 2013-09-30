@@ -18,6 +18,11 @@ void main(Storage storageFactory()) {
 
     _testAppController('initial search', storageFactory, _initialSearch);
 
+    _testAppController('legacy note value', () => _customStorageFactory(storageFactory, 4, {}), (AppController ac) {
+      expect(ac.runCount, 5);
+      expect(ac.notes, isEmpty);
+    });
+
     _testAppController('weird behavior', storageFactory, (AppController ac) {
       ac.resetSearch();
 
@@ -187,12 +192,27 @@ Future<AppController> _getDebugController(Storage storage) {
     .then(_whenUpdated);
 }
 
-void _testAppController(String name, Storage storageFactory(), testFunc(AppController ac)) {
+Future<Storage> _customStorageFactory(Storage sourceStorageFactory(), int runCount, Map<String, dynamic> initialNoteValues) {
+  Storage store;
+  return new Future(sourceStorageFactory)
+    .then((Storage value) {
+      store = value;
+      return store.set('runCount', runCount);
+    })
+    .then((_) => store);
+}
+
+void _testAppController(String name, dynamic storageFactory(), testFunc(AppController ac)) {
   test(name, () {
-    var storage = storageFactory();
-    return _getDebugController(storage)
-        .then(testFunc)
-        .whenComplete(storage.dispose);
+    Storage storage;
+    return new Future<Storage>.sync(storageFactory)
+      .then((Storage value) {
+        storage = value;
+        return storage;
+      })
+      .then(_getDebugController)
+      .then(testFunc)
+      .whenComplete(() => storage.dispose());
   });
 }
 
