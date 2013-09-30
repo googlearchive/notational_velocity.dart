@@ -52,7 +52,7 @@ class _KUIDFactory {
       new fixed.Int64.fromInt(new DateTime.now().millisecondsSinceEpoch).toBytes();
 }
 
-class KUID extends Object with ComparableMixin<KUID> {
+class KUID extends Object with ComparableMixin {
   final typed.Uint8List _bytes;
   final UnmodifiableListView<int> bytes;
 
@@ -124,16 +124,16 @@ class KUID extends Object with ComparableMixin<KUID> {
  *
  * Don't forget to implement [hashCode] as well.
  */
-abstract class ComparableMixin<E> implements Comparable<E> {
+abstract class ComparableMixin implements Comparable {
 
-  bool operator<(E other) => this.compareTo(other) < 0;
+  bool operator<(other) => this.compareTo(other) < 0;
 
-  bool operator<=(E other) => this.compareTo(other) <= 0;
+  bool operator<=(other) => this.compareTo(other) <= 0;
 
-  bool operator>(E other) => this.compareTo(other) > 0;
+  bool operator>(other) => this.compareTo(other) > 0;
 
-  bool operator>=(E other) => this.compareTo(other) >= 0;
+  bool operator>=(other) => this.compareTo(other) >= 0;
 
   @override
-  bool operator==(Object other) => other is E && this.compareTo(other) == 0;
+  bool operator==(Object other) => this.compareTo(other) == 0;
 }
