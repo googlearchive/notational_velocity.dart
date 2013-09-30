@@ -23,7 +23,7 @@ class DebugElement extends PolymerElement with ChangeNotifierMixin {
 
   AppController get controller => (_vm == null) ? null : _vm.controller;
 
-  void _reset(Event e, var detail, ButtonElement target) {
+  void reset_clicked(Event e, var detail, ButtonElement target) {
     window.localStorage.clear();
     window.location.reload();
   }
