@@ -10,14 +10,26 @@
 <polymer-element name="app-element">
   <template>
     <style>
+      @host {
+        app-element {
+          display: flex;
+          flex-flow: column nowrap;
+        }        
+      }
+      
       .nv-search {
-        margin: 5px;
+        flex: 0 0 auto;        
       }
 
       .nv-notes {
         margin: 5px;
-        height: 300px;
         overflow: scroll;
+        flex: 1 1 50%;
+      }
+      
+      editor-element {
+        margin: 5px;
+        flex: 1 1 50%;
       }
     </style>
     <div class="input-group nv-search">

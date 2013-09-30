@@ -6,13 +6,18 @@
     <polymer-element name="editor-element">
 <template>
   <style>
-      #root {
-        height: 300px;
-        margin: 5px;
-        padding: 5px;
-        background: white;
-        white-space: pre-wrap;
+    @host {
+      editor-element {
+        display: flex;
       }
+    }
+
+    #root {
+      padding: 5px;
+      background: white;
+      white-space: pre-wrap;
+      flex: 1;
+    }
   </style>
   <div id='root' on-input='handleContentEdit'></div>
 </template>
