@@ -15,6 +15,7 @@ dev_dependencies:
   bot_test: '>=0.1.2'
   browser: '>=0.7.5'
   hop: '>=0.25.1'
+  html5lib: '>=0.7.5'
   http_server: '>=0.7.5'
   unittest: '>=0.7.5'
   webdriver: '>=0.7.5'

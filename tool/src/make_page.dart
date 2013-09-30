@@ -4,8 +4,10 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bot_io/bot_git.dart';
 import 'package:bot_io/bot_io.dart';
+import 'package:html5lib/dom.dart';
 import 'package:hop/hop.dart';
 import 'package:hop/src/hop_tasks/copy_js.dart' as copy_js;
+import 'package:hop/src/hop_experimental.dart' as hop_exp;
 import 'package:path/path.dart' as pathos;
 
 const _TARGET_BRANCH = 'gh-pages';
@@ -44,13 +46,48 @@ Future _copyFiles(Directory dir, String targetDirectoryPath) {
   var fileStream = dir.list(recursive: false, followLinks: false)
       .where((FileSystemEntity fse) => fse is File);
 
-  return AsyncStream.forEach(fileStream,
-      (File file) => _copyFile(file, targetDirectoryPath))
+  return AsyncStream.forEach(fileStream, (File file) =>
+        _copyFile(file, targetDirectoryPath)
+      )
+      .then((_) => _addSnippets(targetDirectoryPath))
       .then((_) {
         return copy_js.copyJs(targetDirectoryPath,
             includePackagePath: true,
             browserInterop: true, shadowDomDebug: true, browserDart: true);
       });
+}
+
+Future _addSnippets(String targetDirectoryPath) {
+  var indexPage = pathos.join(targetDirectoryPath, 'index.html');
+  var buildDir = new Directory(targetDirectoryPath);
+
+  List<File> snippetFiles;
+  return buildDir.list(recursive: false, followLinks: false)
+      .where((FileSystemEntity fse) => fse is File)
+      .where((File file) => file.path.endsWith('.snippet'))
+      .toList()
+      .then((List<File> value) {
+        snippetFiles = value;
+
+        return hop_exp.transformHtml(indexPage, (doc) =>
+            _updateIndex(doc, snippetFiles));
+
+      });
+}
+
+Future<Document> _updateIndex(Document source, List<File> snippets) {
+  var body = source.query('body');
+
+  return Future.forEach(snippets, (File snippetFile) {
+    return snippetFile.readAsString()
+        .then((String snippet) {
+          var fragment = new DocumentFragment.html(snippet);
+          body.nodes.add(fragment);
+        });
+  })
+  .then((_) {
+    return source;
+  });
 }
 
 Future _copyFile(File sourceFile, String targetDirectoryPath) {
