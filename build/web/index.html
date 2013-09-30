@@ -18,15 +18,41 @@
   </polymer-element><polymer-element name="editor-element">
 <template>
   <style>
-      #root {
-        height: 300px;
-        margin: 5px;
-        padding: 5px;
-        background: white;
-        white-space: pre-wrap;
+    @host {
+      editor-element {
+        display: flex;
+        position: relative;
       }
+    }
+
+    #root {
+      padding: 5px;
+      background: white;
+      white-space: pre-wrap;
+      flex: 1;
+    }
+
+    #no-note-selected {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: gray;
+      font-size: 140%;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: default;
+    }
   </style>
   <div id="root" on-input="handleContentEdit"></div>
+  <template if="{{!enabled}}">
+    <div id="no-note-selected"><div>No Note Selected</div></div>
+  </template>
 </template>
 
       
@@ -41,14 +67,26 @@
     </polymer-element><polymer-element name="app-element">
   <template>
     <style>
+      @host {
+        app-element {
+          display: flex;
+          flex-flow: column nowrap;
+        }
+      }
+
       .nv-search {
-        margin: 5px;
+        flex: 0 0 auto;
       }
 
       .nv-notes {
         margin: 5px;
-        height: 300px;
         overflow: scroll;
+        flex: 1 1 50%;
+      }
+
+      editor-element {
+        margin: 5px;
+        flex: 1 1 50%;
       }
     </style>
     <div class="input-group nv-search">

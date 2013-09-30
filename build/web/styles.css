@@ -1,6 +1,18 @@
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
 body {
   background-color: #F8F8F8;
   padding: 5px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-element {
+  flex: 1;
 }
 
 debug-element {
