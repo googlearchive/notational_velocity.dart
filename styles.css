@@ -17,7 +17,7 @@ app-element {
 
 debug-element {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 15px;
+  right: 15px;
   opacity: 0.6;
 }
