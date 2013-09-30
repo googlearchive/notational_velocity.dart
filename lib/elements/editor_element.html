@@ -9,6 +9,7 @@
     @host {
       editor-element {
         display: flex;
+        position: relative;
       }
     }
 
@@ -18,8 +19,28 @@
       white-space: pre-wrap;
       flex: 1;
     }
+
+    #no-note-selected {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: gray;
+      font-size: 140%;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: default;
+    }
   </style>
   <div id='root' on-input='handleContentEdit'></div>
+  <template if="{{!enabled}}">
+    <div id='no-note-selected'><div>No Note Selected</div></div>
+  </template>
 </template>
 
       <script type="application/dart" src="editor_element.dart"></script>
