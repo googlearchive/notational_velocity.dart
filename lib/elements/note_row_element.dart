@@ -24,10 +24,16 @@ class NoteRowElement extends PolymerElement with ChangeNotifierMixin {
 
   void created() {
     super.created();
-    Element.clickEvent.forTarget(this).listen(_handleClick);
+    Element.clickEvent.forTarget(this).listen(_self_click);
+    Element.contextMenuEvent.forTarget(this).listen(_self_contextMenu);
   }
 
-  void _handleClick(MouseEvent e) {
+  void _self_click(MouseEvent e) {
+    e.preventDefault();
+    _value.isSelected = true;
+  }
+
+  void _self_contextMenu(MouseEvent e) {
     e.preventDefault();
     _value.isSelected = true;
   }
