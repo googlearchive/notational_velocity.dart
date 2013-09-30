@@ -6,9 +6,18 @@
     <polymer-element name="debug-element">
       <template>
         <style>
+          div {
+            cursor: default;
+          }
+
+          .panel {
+            margin-bottom: 0;
+          }
           .root > .section {
             margin-bottom: 10px;
           }
+
+          .root > .section:last-child { margin-bottom: 0; }
         </style>
 
         <div class='root panel panel-info'>

@@ -6,6 +6,11 @@
     <polymer-element name="note-row-element" attributes='note selectedNote'>
 <template>
   <style>
+    .list-group-item {
+      border-left: none;
+      border-right: none;
+      border-top: none;
+    }
   </style>
     <a href='#' on-click='handleClick'
       class='{{ {"active": note.isSelected, "nv-note": true, "list-group-item": true } }}'
