@@ -11,6 +11,13 @@ import 'package:nv/src/storage.dart';
 
 const _testTitle1 = 'Test Title 1';
 
+const _V0_NOTE_SERIALIZE = const {
+  'version': 0,
+  'title': 'v0 note title',
+  'lastModified': '2013-09-30 16:42:38.434',
+  'content': 'v0 note content'
+};
+
 void main(Storage storageFactory()) {
   group('AppController', () {
 
@@ -18,9 +25,15 @@ void main(Storage storageFactory()) {
 
     _testAppController('initial search', storageFactory, _initialSearch);
 
-    _testAppController('legacy note value', () => _customStorageFactory(storageFactory, 4, {}), (AppController ac) {
+    _testAppController('legacy note value', () =>
+        _customStorageFactory(storageFactory, 4, [_V0_NOTE_SERIALIZE]),
+        (AppController ac) {
+
       expect(ac.runCount, 5);
-      expect(ac.notes, isEmpty);
+      expect(ac.notes, hasLength(1));
+
+      expect(ac.notes[0].value.title, _V0_NOTE_SERIALIZE['title']);
+      expect(ac.notes[0].value.content, _V0_NOTE_SERIALIZE['content']);
     });
 
     _testAppController('weird behavior', storageFactory, (AppController ac) {
@@ -193,12 +206,22 @@ Future<AppController> _getDebugController(Storage storage) {
     .then(_whenUpdated);
 }
 
-Future<Storage> _customStorageFactory(Storage sourceStorageFactory(), int runCount, Map<String, dynamic> initialNoteValues) {
+Future<Storage> _customStorageFactory(Storage sourceStorageFactory(), int runCount, List<dynamic> initialNoteValues) {
   Storage store;
   return new Future(sourceStorageFactory)
     .then((Storage value) {
       store = value;
       return store.set('runCount', runCount);
+    })
+    .then((_) {
+
+      var noteStore = new NestedStorage(store, 'notes');
+
+      return Future.forEach(initialNoteValues, (jsonValue) {
+        var idString = new KUID.next().toString();
+
+        return noteStore.set(idString, jsonValue);
+      });
     })
     .then((_) => store);
 }
@@ -213,7 +236,11 @@ void _testAppController(String name, dynamic storageFactory(), testFunc(AppContr
       })
       .then(_getDebugController)
       .then(testFunc)
-      .whenComplete(() => storage.dispose());
+      .whenComplete(() {
+        if(storage != null) {
+          storage.dispose();
+        }
+      });
   });
 }
 
