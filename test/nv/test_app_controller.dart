@@ -177,6 +177,7 @@ Future<AppController> _whenUpdated(AppController controller) {
 }
 
 Future _expectFirstRun(AppController controller) {
+  expect(controller.runCount, 0);
   expect(controller.notes, hasLength(INITIAL_NOTES.length));
 
   for(Selectable<Note> note in controller.notes) {
