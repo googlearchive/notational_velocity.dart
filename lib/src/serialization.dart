@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'models.dart';
 
-const _currentSerialVersion = 0;
+const _currentSerialVersion = 1;
 
 const _TITLE = 'title', _LAST_MODIFIED = 'lastModified', _CONTENT = 'content',
-  _VERSION = 'version';
+  _VERSION = 'version', _CREATED = 'created';
 
 const NOTE_CODEC = const NoteCodec();
 
@@ -36,12 +36,19 @@ class _JsonToNoteConverter extends Converter<Object, Note> {
 Note _fromJson(dynamic json) {
   Map<String, dynamic> map = json;
 
-  assert(json[_VERSION] == _currentSerialVersion);
-
   var lastModified = DateTime.parse(json[_LAST_MODIFIED]);
+
+  DateTime created;
+  if(json[_VERSION] == 0) {
+    created = lastModified;
+  } else {
+    assert(json[_VERSION] == _currentSerialVersion);
+    created = DateTime.parse(json[_CREATED]);
+  }
+
   var content = json[_CONTENT];
 
-  return new Note(json[_TITLE], lastModified, content);
+  return new Note(json[_TITLE], lastModified, created, content);
 }
 
 dynamic _toJson(Note note) {
@@ -50,6 +57,7 @@ dynamic _toJson(Note note) {
   map[_VERSION] = _currentSerialVersion;
   map[_TITLE] = note.title;
   map[_LAST_MODIFIED] = note.lastModified.toString();
+  map[_CREATED] = note.created.toString();
   map[_CONTENT] = note.content;
 
   return map;

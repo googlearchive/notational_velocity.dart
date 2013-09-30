@@ -23,6 +23,8 @@ class NoteViewModel extends ChangeNotifierBase
 
   String get content => _update.value.content;
 
+  DateTime get created => _update.value.created;
+
   void set content(String val) {
     if(val != content) {
       var newNote = new Note.now(title, val);

@@ -68,7 +68,7 @@ Future _populateNote(Storage store, int id) {
 
   var uuid = new KUID(idBytes);
 
-  var note = new Note('Title $id', new DateTime.now(), 'Content $id');
+  var note = new Note.now('Title $id', 'Content $id');
 
   return store.set(uuid.toString(), NOTE_CODEC.encode(note));
 }
