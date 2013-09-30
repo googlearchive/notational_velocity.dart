@@ -10,26 +10,26 @@ import 'package:nv/src/shared.dart';
 class NoteRowElement extends PolymerElement with ChangeNotifierMixin {
   bool get applyAuthorStyles => true;
 
-  Selectable<Note> _note;
-  Note _selectedNote;
+  Selectable<Note> _value;
 
-  Selectable<Note> get note => _note;
+  Selectable<Note> get value => _value;
 
-  void set note(Selectable<Note> value) {
-    _note = value;
+  void set value(Selectable<Note> value) {
+    _value = value;
+    _notifyPropChange(const Symbol('value'));
     _notifyPropChange(const Symbol('note'));
   }
 
-  Note get selectedNote => _selectedNote;
+  Note get note => (_value == null) ? null : _value.value;
 
-  void set selectedNote(Note value) {
-    _selectedNote = value;
-    _notifyPropChange(const Symbol('selectedNote'));
+  void created() {
+    super.created();
+    Element.clickEvent.forTarget(this).listen(_handleClick);
   }
 
-  void handleClick(Event e, var detail, Element target) {
+  void _handleClick(MouseEvent e) {
     e.preventDefault();
-    _note.isSelected = true;
+    _value.isSelected = true;
   }
 
   void _notifyPropChange(Symbol field) {

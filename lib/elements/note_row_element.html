@@ -3,18 +3,31 @@
 <html>
   <body>
 
-    <polymer-element name="note-row-element" attributes='note selectedNote'>
+    <polymer-element name="note-row-element" attributes='value note'>
 <template>
   <style>
-    .list-group-item {
+    note-row-element > a {
+      padding: 5px;
       border-left: none;
       border-right: none;
       border-top: none;
+      display: flex;
+    }
+
+    note-row-element > a > div {
+     flex: 0 0 12em;
+    }
+
+    note-row-element > a > div.title {
+      flex: 1;
     }
   </style>
-    <a href='#' on-click='handleClick'
-      class='{{ {"active": note.isSelected, "nv-note": true, "list-group-item": true } }}'
-      >{{ note.value.title }}</a>
+    <a href='#' class='{{ {"active": value.isSelected, "nv-note": true, "list-group-item": true } }}'>
+        <div class='title'>{{ note.title }}</div>
+        <div class='modified'>{{ note.lastModified }}</div>
+
+
+        </a>
 </template>
 
       <script type="application/dart" src="note_row_element.dart"></script>
