@@ -505,13 +505,11 @@ void main() {
     _expectNoSelection(manager);
 
     // select the item at index 0
-    print("selected a value");
     manager.selectedValue = 5;
 
     expect(manager.selectedValue, 5);
     expect(manager.selectedIndex, 4);
 
-    print('inserting items');
     manager.source.insertAll(0, [6,7,8,9,10]);
 
     expect(manager.selectedIndex, 9, reason: 'selectedIndex should change');
