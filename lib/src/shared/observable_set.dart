@@ -41,11 +41,23 @@ class ObservableSet<E extends Comparable<E>> extends ListBase<E>
   //
   // Set
   //
+  bool containsAll(Iterable<Object> other) {
+    throw new UnimplementedError();
+  }
+
   Set<E> difference(Set<E> other) {
     throw new UnimplementedError();
   }
 
   Set<E> intersection(Set<E> other) {
+    throw new UnimplementedError();
+  }
+
+  void retainAll(Iterable<Object> elements) {
+    throw new UnimplementedError();
+  }
+
+  void removeAll(Iterable<Object> elements) {
     throw new UnimplementedError();
   }
 
