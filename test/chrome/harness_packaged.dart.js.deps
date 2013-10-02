@@ -38,6 +38,9 @@ file:///Users/kevin/source/github/nv.dart/packages/bot/src/bot/tuple.dart
 file:///Users/kevin/source/github/nv.dart/packages/bot/src/bot/tuple3.dart
 file:///Users/kevin/source/github/nv.dart/packages/bot/src/bot/typedefs.dart
 file:///Users/kevin/source/github/nv.dart/packages/bot/src/bot/util.dart
+file:///Users/kevin/source/github/nv.dart/packages/chrome_gen/gen/storage.dart
+file:///Users/kevin/source/github/nv.dart/packages/chrome_gen/src/common.dart
+file:///Users/kevin/source/github/nv.dart/packages/chrome_gen/src/common_exp.dart
 file:///Users/kevin/source/github/nv.dart/packages/crypto/crypto.dart
 file:///Users/kevin/source/github/nv.dart/packages/crypto/src/crypto_utils.dart
 file:///Users/kevin/source/github/nv.dart/packages/crypto/src/hash_utils.dart
@@ -49,15 +52,6 @@ file:///Users/kevin/source/github/nv.dart/packages/fixnum/fixnum.dart
 file:///Users/kevin/source/github/nv.dart/packages/fixnum/src/int32.dart
 file:///Users/kevin/source/github/nv.dart/packages/fixnum/src/int64.dart
 file:///Users/kevin/source/github/nv.dart/packages/fixnum/src/intx.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/js.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/js_wrapping.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/js/array_to_list_adapter.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/js/date_to_datetime_adapter.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/js/object_to_map_adapter.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/magic_proxy.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/translator.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/typed_proxy.dart
-file:///Users/kevin/source/github/nv.dart/packages/js/src/wrapping/util.dart
 file:///Users/kevin/source/github/nv.dart/packages/logging/logging.dart
 file:///Users/kevin/source/github/nv.dart/packages/meta/meta.dart
 file:///Users/kevin/source/github/nv.dart/packages/nv/debug.dart
@@ -248,6 +242,7 @@ file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/html/html_common/metadat
 file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/indexed_db/dart2js/indexed_db_dart2js.dart
 file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/isolate/isolate.dart
 file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/isolate/isolate_stream.dart
+file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/js/dart2js/js_dart2js.dart
 file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/json/json.dart
 file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/math/math.dart
 file:///usr/local/Cellar/dart-editor/28108/dart-sdk/lib/math/random.dart
