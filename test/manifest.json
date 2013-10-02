@@ -2,10 +2,10 @@
   "manifest_version": 2,
   "name": "nv.dart",
   "version": "0.0.1",
-  "minimum_chrome_version": "28",
+  "minimum_chrome_version": "30",
   "app": {
     "background": {
-      "scripts": ["app/boot.js"]
+      "scripts": ["chrome/boot.js"]
     }
   },
   "permissions": [ "storage" ]

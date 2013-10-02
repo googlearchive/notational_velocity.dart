@@ -18,12 +18,12 @@ void main() {
   //
   // app_dart2js
   //
-  final chromeTestHarnessPaths = ['test/app/harness_packaged.dart'];
+  final chromeTestHarnessPaths = ['test/chrome/harness_packaged.dart'];
 
   addTask('app_dart2js', createDartCompilerTask(chromeTestHarnessPaths,
       liveTypeAnalysis: true));
 
-  addTask('update_js', createCopyJSTask('test/app',
+  addTask('update_js', createCopyJSTask('test/chrome',
       unittestTestController: true,
       browserDart: true,
       browserInterop: true,
