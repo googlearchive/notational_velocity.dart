@@ -2,28 +2,22 @@ library nv.chrome;
 
 import 'dart:async';
 
+import 'dart:js' as js;
 import 'dart:json' as JSON;
 import 'package:bot/bot.dart';
-import 'package:js/js.dart' as js;
-import 'package:js/js_wrapping.dart' as wrapping;
+import 'package:chrome_gen/gen/storage.dart';
 import 'storage.dart';
 
 class PackagedStorage implements Storage {
+  final StorageArea _area = storage.local;
+
   bool _isDisposed = false;
 
   bool get isDisposed => _isDisposed;
 
   Future clear() {
     _requireNotDisposed();
-    final completer = new Completer();
-
-    js.scoped(() {
-      final onDone = new js.Callback.once(() => completer.complete());
-
-      _localProxy['clear'](onDone);
-    });
-
-    return completer.future;
+    return _area.clear();
   }
 
   Future set(String key, dynamic value) {
@@ -33,16 +27,7 @@ class PackagedStorage implements Storage {
     var map = new Map<String, dynamic>()
         ..[key] = JSON.stringify(value);
 
-    final completer = new Completer();
-
-    js.scoped(() {
-
-      final onDone = new js.Callback.once(completer.complete);
-
-      _localProxy['set'](js.map(map), onDone);
-    });
-
-    return completer.future;
+    return _area.set(map);
   }
 
   Future<dynamic> get(String key) {
@@ -60,20 +45,11 @@ class PackagedStorage implements Storage {
 
   Future<List<String>> getKeys() {
     _requireNotDisposed();
-    final completer = new Completer<List<String>>();
 
-    js.scoped(() {
-      final onDone = new js.Callback.once((js.Proxy values) {
-
-        var map = wrapping.JsObjectToMapAdapter.cast(values);
-        var keys = map.keys.toList();
-        completer.complete(keys);
-      });
-
-      _localProxy['get'](null, onDone);
-    });
-
-    return completer.future;
+    return _area.get(null)
+        .then((Map<String, dynamic> map) {
+          return map.keys.toList();
+        });
   }
 
   Future addAll(Map<String, dynamic> values) {
@@ -90,15 +66,7 @@ class PackagedStorage implements Storage {
 
     return _remove(removes)
         .then((_) {
-
-          final completer = new Completer();
-
-          js.scoped(() {
-            final onDone = new js.Callback.once(completer.complete);
-            _localProxy['set'](js.map(map), onDone);
-          });
-
-          return completer.future;
+          return _area.set(map);
         });
   }
 
@@ -119,34 +87,18 @@ class PackagedStorage implements Storage {
 
   Future<String> _get(String key) {
     _requireNotDisposed();
-    final completer = new Completer();
 
-    js.scoped(() {
-      final onDone = new js.Callback.once((Map values) {
-        String value = values[key];
-        completer.complete(value);
-      });
-
-      _localProxy['get'](key, onDone);
-    });
-
-    return completer.future;
+    return _area.get(key)
+        .then((Map<String, dynamic> values) {
+          return values[key];
+        });
   }
 
   Future _remove(List<String> keys) {
     _requireNotDisposed();
     if(keys.isEmpty) return new Future.value(null);
 
-    final completer = new Completer();
-
-    js.scoped(() {
-      final onDone = new js.Callback.once(completer.complete);
-
-      _localProxy['remove'](js.array(keys), onDone);
-    });
-
-    return completer.future;
+    return _area.remove(js.jsify(keys));
   }
 
-  js.Proxy get _localProxy => js.context['chrome']['storage']['local'];
 }

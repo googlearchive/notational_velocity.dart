@@ -6,6 +6,8 @@ environment:
   sdk: '>=0.7.6+4'
 dependencies:
   bot: '>=0.23.1'
+  chrome_gen:
+    git: https://github.com/dart-gde/chrome_gen.dart.git
   crypto: '>=0.7.6+4'
   fixnum: '>=0.7.6+4'
   js: '>=0.0.24'
