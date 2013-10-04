@@ -29,9 +29,11 @@ Future<int> launchChrome(String manifestDir, {String chromePath,
     throw new Exception('Could not find Chrome at $chromePath');
   }
 
+  // see http://peter.sh/experiments/chromium-command-line-switches/
   var config =
     {
      'debug-packed-apps': null,
+     'disable-background-networking': null, // stop random updates clogging log
      'disable-default-apps': null, // don't need gmail, drive, etc
      'enable-logging': 'stderr',
      'load-and-launch-app': manifestDir,
