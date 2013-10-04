@@ -2,10 +2,11 @@
     <meta charset="utf-8">
     <title>Notational Velocity</title>
     <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
+    <link rel="stylesheet" href="font-awesome.css">
     <link rel="stylesheet" href="styles.css">
-
     
+    <script src="security.js"></script>
+
     
     
 
@@ -127,35 +128,9 @@
   </template>
 
   
-</polymer-element><polymer-element name="debug-element">
-      <template>
-        <style>
-          div {
-            cursor: default;
-          }
-
-          .panel {
-            margin-bottom: 0;
-          }
-          .root > .section {
-            margin-bottom: 10px;
-          }
-
-          .root > .section:last-child { margin-bottom: 0; }
-        </style>
-
-        <div class="root panel panel-info">
-          <div class="panel-heading"><strong>Debug Controls</strong></div>
-          <div class="section">Run Count: <strong>{{ controller.runCount }}</strong></div>
-          <div class="section"><button on-click="reset_clicked" class="btn btn-danger">Reset!</button></div>
-        </div>
-      </template>
-
-      
-    </polymer-element>
+</polymer-element>
 
     <app-element></app-element>
-    <debug-element></debug-element>
 
     
   
