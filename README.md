@@ -9,3 +9,5 @@ Using:
 * [Dart](https://www.dartlang.org/)
 * [Polymer](https://www.dartlang.org/polymer-dart/)
 * [Chrome Packaged Apps](http://developer.chrome.com/apps)
+
+To access the packaged app during development, you must join [this Google Group](https://groups.google.com/d/forum/notational-velocity---dart---packaged-app-testers).
