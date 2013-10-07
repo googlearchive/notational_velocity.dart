@@ -52,6 +52,7 @@ class _PropChangeFilterTransform extends StreamEventTransformer<List<ChangeRecor
         .toList();
 
     if(matches.isNotEmpty) {
+      // TODO: what to do when there are many events for a given property?
       sink.add(matches.first);
     }
   }
