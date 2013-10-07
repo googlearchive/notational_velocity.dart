@@ -36,10 +36,10 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
       _controller.onSearchReset.listen(_controller_onSearchReset);
 
       filterPropertyChangeRecords(_controller.notes, const Symbol('selectedValue'))
-        .listen(_selectedNoteChanged);
+        .listen(_selectedNoteMutated);
 
       filterPropertyChangeRecords(_editor, const Symbol('enabled'))
-        .listen(_editor_enabledChanged);
+        .listen(_editor_enabledMutated);
 
       _configureWindowEventHandlers();
 
@@ -57,7 +57,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
 
     // TODO: hold on to the subscriptions. Tear down at some point?
     filterPropertyChangeRecords(_editor, const Symbol('text'))
-      .listen(_editorTextChanged);
+      .listen(_editorTextMutated);
 
     _childEventsWired = true;
 
@@ -75,7 +75,7 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
     }
   }
 
-  void _editor_enabledChanged(PropertyChangeRecord pcr) {
+  void _editor_enabledMutated(PropertyChangeRecord pcr) {
     if(_editor.enabled &&
         _controller.notes.selectedValue == _searchFieldOpenItem) {
       assert(_searchFieldOpenItem != null);
@@ -108,14 +108,14 @@ class AppElement extends PolymerElement with ChangeNotifierMixin {
     searchInput.focus();
   }
 
-  void _editorTextChanged(PropertyChangeRecord record) {
+  void _editorTextMutated(PropertyChangeRecord record) {
     // only save the current note if the editor is enabled
     if(_editor.enabled) {
       _controller.updateSelectedNoteContent(_editor.text);
     }
   }
 
-  void _selectedNoteChanged(PropertyChangeRecord record) {
+  void _selectedNoteMutated(PropertyChangeRecord record) {
     _log('_selectedNoteChanged - ${_controller.notes.selectedValue}');
 
     var notes = _controller.notes;
