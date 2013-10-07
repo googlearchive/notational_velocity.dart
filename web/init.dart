@@ -2,7 +2,6 @@ library nv.web.init;
 
 import 'dart:async';
 import 'package:logging/logging.dart';
-import 'package:polymer/polymer.dart';
 
 import 'package:nv/src/chrome.dart' as chrome;
 import 'package:nv/init.dart' as init;
@@ -10,8 +9,7 @@ import 'package:nv/src/controllers.dart';
 import 'package:nv/src/storage.dart';
 
 
-@initMethod
-void _initmain() {
+void main() {
   //
   // Wire up logging
   //
@@ -34,7 +32,3 @@ Future<AppController> _getDebugController() {
 
   return AppController.init(nestedStorage);
 }
-
-
-@CustomTag('init-element')
-class InitElement extends PolymerElement { }
