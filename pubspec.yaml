@@ -3,20 +3,19 @@ author: Kevin Moore <kevin@thinkpixellab.com>
 description: Notational Velocity - Dart
 homepage: https://github.com/GoogleChrome/notational_velocity.dart
 environment:
-  sdk: '>=0.7.6+4'
+  sdk: '>=0.8.1'
 dependencies:
   bot: '>=0.23.1'
-  chrome_gen:
-    git: https://github.com/dart-gde/chrome_gen.dart.git
-  crypto: '>=0.7.6+4'
-  fixnum: '>=0.7.6+4'
-  meta: '>=0.7.6+4'
-  polymer: '>=0.7.6+4'
+  chrome_gen: '>=0.0.5'
+  crypto: '>=0.8.1'
+  fixnum: '>=0.8.1'
+  meta: '>=0.8.1'
+  polymer: '>=0.8.1'
 dev_dependencies:
   bot_test: '>=0.1.2'
-  browser: '>=0.7.6+4'
+  browser: '>=0.8.1'
   hop: '>=0.25.1'
-  html5lib: '>=0.7.6+4'
-  http_server: '>=0.7.6+4'
-  unittest: '>=0.7.6+4'
+  http_server: '>=0.8.1'
+  html5lib: '>=0.8.1'
+  unittest: '>=0.8.1'
   webdriver: '>=0.7.5'
