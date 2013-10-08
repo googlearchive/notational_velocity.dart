@@ -30,8 +30,7 @@ void main() {
   addTask('update_js', createCopyJSTask('test/chrome',
       unittestTestController: true,
       browserDart: true,
-      browserInterop: true,
-      jsDartInterop: true));
+      browserInterop: true));
 
   addTask('build', new Task.async(_buildApp));
 
