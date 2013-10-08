@@ -1,9 +1,9 @@
 library nv.web.init;
 
 import 'dart:async';
+import 'dart:html';
 import 'package:logging/logging.dart';
 
-import 'package:nv/src/chrome.dart' as chrome;
 import 'package:nv/init.dart' as init;
 import 'package:nv/src/controllers.dart';
 import 'package:nv/src/storage.dart';
@@ -26,7 +26,7 @@ void main() {
 }
 
 Future<AppController> _getDebugController() {
-  var rootStorage = new chrome.PackagedStorage();
+  var rootStorage = new StringStorage(window.localStorage);
 
   var nestedStorage = new NestedStorage(rootStorage, 'nv_v0.0.2');
 
