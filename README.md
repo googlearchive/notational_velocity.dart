@@ -1,3 +1,5 @@
+# NOT maintained, etc.
+
 # Notational Velocity - Dart
 
 An implementation of [Notational Velocity](https://en.wikipedia.org/wiki/Notational_Velocity) in Dart.
